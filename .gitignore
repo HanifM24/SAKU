@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/static/cssdevextreme
+#/src/main/resources/static/cssdevextreme
