@@ -7,20 +7,27 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GetListTrxDetailKDTMapper implements RowMapper<GetListTRXModel> {
+public class GetListDtlJurnalMapper implements RowMapper<GetListTRXModel> {
     @Override
     public GetListTRXModel mapRow(ResultSet rs, int rowNum) throws SQLException
     {
         try {
+
             GetListTRXModel getListTransaksiModel = new GetListTRXModel();
-            getListTransaksiModel.setNO_TRXKDT(rs.getString("NO_TRXKDT"));
-            getListTransaksiModel.setNO_COA_KDT(rs.getString("NO_COA_KDT"));
+//            getListTransaksiModel.setNO_TRXDBT(rs.getString("NO_TRXDBT"));
+            getListTransaksiModel.setNO_TRX(rs.getString("NO_TRX"));
+            getListTransaksiModel.setTGL_TRX(rs.getString("TGL_TRX"));
+            getListTransaksiModel.setNAMA_COA_DBT(rs.getString("NAMA_COA_DBT"));
             getListTransaksiModel.setNAMA_COA_KDT(rs.getString("NAMA_COA_KDT"));
-            getListTransaksiModel.setINVOICE_KDT(rs.getString("INVOICE_KDT"));
-            getListTransaksiModel.setMATA_UANG_KDT(rs.getString("MATA_UANG_KDT"));
+            getListTransaksiModel.setNO_COA(rs.getString("NO_COA"));
+            getListTransaksiModel.setMATA_UANG(rs.getString("MATA_UANG"));
+            getListTransaksiModel.setNOMINALTRXDBT(rs.getDouble("NOMINALTRXDBT"));
             getListTransaksiModel.setNOMINALTRXKDT(rs.getDouble("NOMINALTRXKDT"));
-            getListTransaksiModel.setKTRG_KDT(rs.getString("KTRG_KDT"));
+            getListTransaksiModel.setEKIVRP_DBT(rs.getDouble("EKIVRP_DBT"));
             getListTransaksiModel.setEKIVRP_KDT(rs.getDouble("EKIVRP_KDT"));
+            getListTransaksiModel.setINVOICE(rs.getString("INVOICE"));
+            getListTransaksiModel.setKTRG(rs.getString("KTRG"));
+
 //        getListTransaksiModel.setKTRG_DBT(rs.getDouble("DBT_NOMINAL_VALAS")); setDBT_NOMINAL_VALAS();
 //        getListTransaksiModel.setKDT_NOMINAL_VALAS(rs.getDouble("KDT_NOMINAL_VALAS"));
 //        getListTransaksiModel.setINVOICE_DBT(rs.getString("INVOICE_DBT"));
@@ -31,5 +38,6 @@ public class GetListTrxDetailKDTMapper implements RowMapper<GetListTRXModel> {
         catch  (EmptyResultDataAccessException e) {
             return null;
         }
+
     }
 }

@@ -22,6 +22,7 @@ public class GetListCOAMapper implements RowMapper<GetListCOAModel> {
         datadetailCOAModel.setKET(rs.getString("KET"));
         datadetailCOAModel.setSTATUS(rs.getInt("STATUS"));
         datadetailCOAModel.setTANGGAL(rs.getString("TANGGAL"));
+        datadetailCOAModel.setDESC(rs.getString("DESC"));
 //        masterModel.TANGGAL(rs.getDate("TANGGAL"));
         return datadetailCOAModel;    }
 

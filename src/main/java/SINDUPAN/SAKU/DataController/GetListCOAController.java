@@ -19,9 +19,9 @@ public class GetListCOAController {
     }
 
     @PostMapping("/postCOA")
-    public void postcoa(String NO_COA, String NAMA_COA, String POSISI)
+    public void postcoa(String NO_COA, String NAMA_COA, String POSISI, String KET)
     {
-        masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI);
+        masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI, KET);
     }
     @GetMapping("/getCOAById/{nocoa}")
     public GetListCOAModel getBynocoa(@PathVariable String nocoa)

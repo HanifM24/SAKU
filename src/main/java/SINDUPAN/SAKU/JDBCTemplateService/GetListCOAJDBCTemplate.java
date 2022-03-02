@@ -22,24 +22,25 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
     {
         String SQL =
                 "select \n" +
-                "dc.NO_COA as 'NO_COA', \n" +
-                "dc.NAMA_COA as 'NAMA_COA',\n" +
-                "dc.TANGGAL as 'TANGGAL', \n" +
-                "rp.KET as 'POSISI',\n" +
-                "rh.KET, \n" +
-                "dc.STATUS \n" +
-                "from daftar_coa dc \n" +
-                "inner join ref_poscoa rp on dc.POSISI = rp.Id \n" +
-                "inner join ref_headerdetail rh on dc.HEADER = rh.Id \n" +
-                "order by NO_COA \n";
+                        "dc.NO_COA as 'NO_COA', \n" +
+                        "dc.NAMA_COA as 'NAMA_COA',\n" +
+                        "dc.TANGGAL as 'TANGGAL', \n" +
+                        "rp.KET as 'POSISI',\n" +
+                        "rh.KET, \n" +
+                        "dc.STATUS, \n" +
+                        "dc.KET as 'DESC' \n" +
+                        "from daftar_coa dc \n" +
+                        "inner join ref_poscoa rp on dc.POSISI = rp.Id \n" +
+                        "inner join ref_headerdetail rh on dc.HEADER = rh.Id \n" +
+                        "order by NO_COA \n";
         List <GetListCOAModel> DatadetailsCOAModels = jdbcTemplateObject.query(SQL, new GetListCOAMapper());
         return DatadetailsCOAModels;
 
     }
-    public void create( String NO_COA, String NAMA_COA, String POSISI)
+    public void create( String NO_COA, String NAMA_COA, String POSISI, String KET)
     {
-        String SQL = "call sp_addcoa(?, ?, ? );";
-        jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI);
+        String SQL = "call sp_addcoa(?, ?, ?, ? );";
+        jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET);
     }
     public GetListCOAModel getByNOCOA(String nocoa)
     {

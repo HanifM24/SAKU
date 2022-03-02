@@ -13,10 +13,14 @@ public interface GetListTRXDAO {
     List<GetListTransaksiModel> listDataTRX();
     List<GetListTRXModel> listdetailtrxdbt(String id_trx);
     List<GetListTRXModel> listdetailtrxkdt(String id_trx);
+//    List<GetListTRXModel> listjurnal(String id_trx); // with parameter
+    List<GetListTRXModel> listjurnal();
+    // List<GetListTRXModel> listledger();
+    List<GetListTRXModel> listledger(String nocoa);
     String gettrxnbr();
-    void insertdbt(String NO_TRX, String NO_COA, String INVOICE, String MATA_UANG, String NOMINAL_DBT, String KTRG_DBT);
-    void insertkdt(String NO_TRX, String NO_COA, String INVOICE, String MATA_UANG, String NOMINAL_DBT, String KTRG_DBT);
+    void insertdbt(String NO_TRX, String NO_COA, String INVOICE, String MATA_UANG, String NOMINAL_DBT, String KTRG_DBT, String EKIVRPDBT);
+    void insertkdt(String NO_TRX, String NO_COA, String INVOICE, String MATA_UANG, String NOMINAL_DBT, String KTRG_DBT, String EKIVRPKDT);
+    List<GetListTRXModel>getcoaforledger();
 
-//    public void create(String NO_COA, String NAMA_COA, String POSISI);
 
 }

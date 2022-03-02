@@ -31,22 +31,60 @@ public class GetListTRXController {
     @GetMapping("/getTRXdbtdtl/{id_trx}")
     public List<GetListTRXModel> listdetailtrxdbtdata(@PathVariable String id_trx)
     {
-        try {
+
             return masterJDBCTemplate.listdetailtrxdbt(id_trx);
-        }
-        catch(ExceptionInInitializerError e)
-        {return null;}
+
     }
     @GetMapping("/getTRXkdtdtl/{id_trx}")
     public List<GetListTRXModel> listdetailtrxkdtdata(@PathVariable String id_trx)
     {
-        try {
+
             return masterJDBCTemplate.listdetailtrxkdt(id_trx);
-        }
-        catch(ExceptionInInitializerError e)
-        {
-            return null;
-        }
+
+
+    }
+//    @GetMapping("/getTRXjrnldtl/{id_trx}") // wiht parameter
+//    public List<GetListTRXModel> listjurnalaldetail(@PathVariable String id_trx)
+//    {
+//
+//        return masterJDBCTemplate.listjurnal(id_trx);
+//
+//
+//    }
+    @GetMapping("/getTRXjrnldtl")
+    public List<GetListTRXModel> listjurnalaldetail()
+    {
+
+        return masterJDBCTemplate.listjurnal();
+
+
+    }
+
+    // no paarmeter
+//    @GetMapping("/getTRXledger")
+//    public List<GetListTRXModel> listledgerdtl()
+//    {
+//
+//        return masterJDBCTemplate.listledger();
+//
+//
+//    }
+
+
+    @GetMapping("/getTRXledger/{nocoa}")
+    public List<GetListTRXModel> listledgerdtl(@PathVariable String nocoa)
+    {
+
+        return masterJDBCTemplate.listledger(nocoa);
+
+
+    }
+    @GetMapping("/getcoaforledger")
+    public List<GetListTRXModel> getcoaledger()
+    {
+
+        return masterJDBCTemplate.getcoaforledger();
+
 
     }
 
@@ -61,6 +99,7 @@ public class GetListTRXController {
         String []  MATA_UANG_DBT = request.getParameterValues("MATA_UANG_DBT");
         String [] NOMINALTRXDBT = request.getParameterValues("NOMINALTRXDBT");
         String [] KTRG_DBT = request.getParameterValues("KTRG_DBT");
+        String [] EKIVRP_DBT = request.getParameterValues("EKVALRPDBT");
 
         String NOCOADBTtostring = Arrays.toString(NO_COA_DBT);
         String replaceNOCOADBT = NOCOADBTtostring.replaceAll("[()\\[\\]]", "");
@@ -83,11 +122,16 @@ public class GetListTRXController {
         String replaceKTRGDBT = KTRGDBTtostring.replaceAll("[()\\[\\]]", "");
         String []KTRGDBTarray = replaceKTRGDBT.split(",");
 
+        String EKIVDBTtostring = Arrays.toString(EKIVRP_DBT);
+        String replaceEKIVDBT = EKIVDBTtostring.replaceAll("[()\\[\\]]", "");
+        String []EKIVDBTarray = replaceEKIVDBT.split(",");
+
         String []  NO_COA_KDT  = request.getParameterValues("NO_COA_KDT");
         String []  INVOICE_KDT  = request.getParameterValues("INVOICE_KDT");
         String []  MATA_UANG_KDT = request.getParameterValues("MATA_UANG_KDT");
         String [] NOMINALTRXKDT = request.getParameterValues("NOMINALTRXKDT");
         String [] KTRG_KDT = request.getParameterValues("KTRG_KDT");
+        String [] EKIVRP_KDT = request.getParameterValues("EKVALRPKDT");
 
         String NOCOAKDTtostring = Arrays.toString(NO_COA_KDT);
         String replaceNOCOAKDT = NOCOAKDTtostring.replaceAll("[()\\[\\]]", "");
@@ -110,6 +154,10 @@ public class GetListTRXController {
         String replaceKTRGKDT = KTRGKDTtostring.replaceAll("[()\\[\\]]", "");
         String []KTRGKDTarray = replaceKTRGKDT.split(",");
 
+        String EKIVKDTtostring = Arrays.toString(EKIVRP_KDT);
+        String replaceEKIVKDT = EKIVKDTtostring.replaceAll("[()\\[\\]]", "");
+        String []EKIVKDTarray = replaceEKIVKDT.split(",");
+
         masterJDBCTemplate.gnrttrxnmbr();
         String getnmrtrx = masterJDBCTemplate.gettrxnbr();
 
@@ -121,7 +169,8 @@ public class GetListTRXController {
                                         MATAUANGDBTarray[i],
                                         INVOICEDBTarray[i],
                                         NMLTRXDBTarray[i],
-                                        KTRGDBTarray[i]);
+                                        KTRGDBTarray[i],
+                                        EKIVDBTarray[i]);
 
         }
         for (int i = 0; i < NOCOAKDTarray.length; i++)
@@ -132,7 +181,8 @@ public class GetListTRXController {
                     MATAUANGKDTarray[i],
                     INVOICEKDTarray[i],
                     NMLTRXKDTarray[i],
-                    KTRGKDTarray[i]);
+                    KTRGKDTarray[i],
+                    EKIVKDTarray[i]);
 
         }
 

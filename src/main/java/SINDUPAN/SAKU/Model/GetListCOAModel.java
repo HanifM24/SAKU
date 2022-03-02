@@ -7,9 +7,18 @@ public class GetListCOAModel {
     public String TANGGAL;
     public String MATA_UANG;
     public String KET;
+    public String DESC;
     public int STATUS;
     public String NOPLUSNAMACOADBT;
     public String NOPLUSNAMACOAKDT;
+
+    public String getDESC() {
+        return DESC;
+    }
+
+    public void setDESC(String DESC) {
+        this.DESC = DESC;
+    }
 
     public void setNO_COA(String NO_COA) {
         this.NO_COA = NO_COA;

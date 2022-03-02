@@ -11,7 +11,7 @@ public interface GetListCOADAO {
     @Autowired
     public List<GetListCOAModel> listDataCOA();
 
-    public void create(String NO_COA, String NAMA_COA, String POSISI);
-    public GetListCOAModel getByNOCOA(String nocoa);
+     void create(String NO_COA, String NAMA_COA, String POSISI, String KET);
+     GetListCOAModel getByNOCOA(String nocoa);
 
 }

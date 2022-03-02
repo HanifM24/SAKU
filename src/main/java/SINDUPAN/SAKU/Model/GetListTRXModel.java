@@ -1,18 +1,54 @@
 package SINDUPAN.SAKU.Model;
 
 public class GetListTRXModel{
+    public String NO_TRX;
+    public String TGL_TRX;
     public String NO_TRXDBT;
     public String NO_TRXKDT;
+    public String NO_COA;
     public String NO_COA_DBT;
     public String NO_COA_KDT;
+    public String NAMA_COA;
+    public String NAMA_COA_DBT;
+    public String NAMA_COA_KDT;
+    public String MATA_UANG;
     public String MATA_UANG_DBT;
     public String MATA_UANG_KDT;
+    public String INVOICE;
     public String INVOICE_DBT;
     public String INVOICE_KDT;
     public Double NOMINALTRXDBT;
     public Double NOMINALTRXKDT;
+    public String KTRG;
     public String KTRG_DBT;
     public String KTRG_KDT;
+    public Double EKIVRP_DBT;
+    public Double EKIVRP_KDT;
+
+
+    public String getNO_TRX() {
+        return NO_TRX;
+    }
+
+    public void setNO_TRX(String NO_TRX) {
+        this.NO_TRX = NO_TRX;
+    }
+
+    public String getTGL_TRX() {
+        return TGL_TRX;
+    }
+
+    public void setTGL_TRX(String TGL_TRX) {
+        this.TGL_TRX = TGL_TRX;
+    }
+
+    public String getNAMA_COA() {
+        return NAMA_COA;
+    }
+
+    public void setNAMA_COA(String NAMA_COA) {
+        this.NAMA_COA = NAMA_COA;
+    }
 
     public String getNO_TRXDBT() {
         return NO_TRXDBT;
@@ -20,6 +56,70 @@ public class GetListTRXModel{
 
     public String getNO_TRXKDT() {
         return NO_TRXKDT;
+    }
+
+    public String getNO_COA() {
+        return NO_COA;
+    }
+
+    public void setNO_COA(String NO_COA) {
+        this.NO_COA = NO_COA;
+    }
+
+    public String getMATA_UANG() {
+        return MATA_UANG;
+    }
+
+    public void setMATA_UANG(String MATA_UANG) {
+        this.MATA_UANG = MATA_UANG;
+    }
+
+    public Double getEKIVRP_DBT() {
+        return EKIVRP_DBT;
+    }
+
+    public String getINVOICE() {
+        return INVOICE;
+    }
+
+    public String getKTRG() {
+        return KTRG;
+    }
+
+    public void setKTRG(String KTRG) {
+        this.KTRG = KTRG;
+    }
+
+    public void setINVOICE(String INVOICE) {
+        this.INVOICE = INVOICE;
+    }
+
+    public Double getEKIVRP_KDT() {
+        return EKIVRP_KDT;
+    }
+
+    public void setEKIVRP_DBT(Double EKIVRP_DBT) {
+        this.EKIVRP_DBT = EKIVRP_DBT;
+    }
+
+    public void setEKIVRP_KDT(Double EKIVRP_KDT) {
+        this.EKIVRP_KDT = EKIVRP_KDT;
+    }
+
+    public String getNAMA_COA_DBT() {
+        return NAMA_COA_DBT;
+    }
+
+    public String getNAMA_COA_KDT() {
+        return NAMA_COA_KDT;
+    }
+
+    public void setNAMA_COA_DBT(String NAMA_COA_DBT) {
+        this.NAMA_COA_DBT = NAMA_COA_DBT;
+    }
+
+    public void setNAMA_COA_KDT(String NAMA_COA_KDT) {
+        this.NAMA_COA_KDT = NAMA_COA_KDT;
     }
 
     public void setNO_TRXKDT(String NO_TRXKDT) {
