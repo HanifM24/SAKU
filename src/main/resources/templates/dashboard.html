@@ -27,7 +27,7 @@
     <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
 
     <title>Sistem Akutansi PAN</title>
-    <script src="jsdevextreme/globalize/date.js"></script>
+<!--    <script src="jsdevextreme/globalize/date.js"></script>-->
 
 
 
@@ -46,11 +46,9 @@
         <div class="right-content">
             <div class="title-container" style="text-align: center">
                 <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>
-<!--                <img class="flag" id="country-flag" src="/" />-->
-<!--                <div>-->
-<!--                    <div class="country-name" id="full-country-name"></div>-->
-<!--                    <div id="country-description"></div>-->
-<!--                </div>-->
+                <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>
+<!--                <div id="currencybutton"></div>-->
+
             </div>
 
 <!--            <div class="stats">-->
@@ -73,150 +71,7 @@
         </div>
     </div>
 
-    <script type="text/html" id="title">
-        <span class="tab-panel-title"><%= text%></span>
-    </script>
-
-    <script type="text/html" id="city-template">
-        <div>
-            <img class="flag" src="<%= flag %>" />
-            <div class="right-content">
-                <div><b><%= (typeof capital != "undefined" && capital) ? "Capital. " : "" %></b><%= description %></div>
-                <div class="stats">
-                    <div>
-                        <div>Population</div>
-                        <div><b><%= population %> people</b></div>
-                    </div>
-                    <div>
-                        <div>Area</div>
-                        <div
-                        ><b><%= area %> km<sup>2</sup></b></div
-                        >
-                    </div>
-                    <div>
-                        <div>Density</div>
-                        <div
-                        ><b><%= density %>/km<sup>2</sup></b></div
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
-    </script>
 </div>
 </body>
-<!--<body>Selamat Datang di Aplikasi Sistem Akutansi PAN</body>-->
-
-<!--<body id="bodylogin">-->
-<!--    <%-->
-<!--        Connection con = null;-->
-<!--        try {-->
-<!--            session.removeAttribute("user");-->
-<!--            session.removeAttribute("password");-->
-<!--            session.removeAttribute("jenis");-->
-<!--            session.removeAttribute("patch");-->
-<!--            Class.forName("com.mysql.jdbc.Driver").newInstance();-->
-<!--            con = DriverManager.getConnection(url, user, password);-->
-<!--            Statement staMain = con.createStatement();-->
-<!--            ResultSet rcsGeneral;-->
-<!--            rcsGeneral = staMain.executeQuery("select IdDocument from NSI.TBDOCUMENT where Defunct = 0 order by " +-->
-<!--              "UrutanDocument");-->
-
-<!--            while (rcsGeneral.next()) {-->
-<!--              session.removeAttribute(rcsGeneral.getString("IdDocument").trim());-->
-<!--            }-->
-
-<!--            rcsGeneral.close();-->
-<!--            staMain.close();-->
-<!--            session.invalidate();-->
-<!--            response.setHeader("Cache-Control","no-cache");-->
-<!--            response.setHeader("Cache-Control","no-store");-->
-<!--            response.setDateHeader("Expires", 0);-->
-<!--            response.setHeader("Pragma","no-cache");-->
-<!--        }catch (Exception e) {-->
-<!--            out.println("Error Message: Exception: " + e.getMessage());-->
-<!--        }catch (Throwable t) {-->
-<!--            out.println("Error Message: Throwable: " + t.getMessage());-->
-<!--        }finally {-->
-<!--            con.close();-->
-<!--        }-->
-<!--    %>-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-md-4 col-md-offset-4">-->
-<!--                <div class="login-panel panel panel-white">-->
-<!--                    <div class="panel-heading">-->
-<!--                        <table>-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    <img src="img/PLANA.png" >-->
-<!--                                </td>-->
-
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                    <div class="panel-body">-->
-<!--                        <form  name="frmLogin" method="post" action="proses/prosesLogin.jsp" >-->
-<!--                            <fieldset>-->
-<!--                                <div class="form-group">-->
-<!--                                    <input class="form-control" placeholder="Username" name="usr"  autofocus>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <input class="form-control" placeholder="Password" name="psw" type="password" value="">-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; <div class="checkbox">-->
-<!--                                    <label>-->
-<!--                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me-->
-<!--                                    </label>-->
-<!--                                </div> &ndash;&gt;-->
-<!--                                &lt;!&ndash; Change this to a button or input when using this as a form &ndash;&gt;-->
-<!--                                <div class="form-center">-->
-<!--                                    <input type="submit" value="Login"/>-->
-<!--                                </div>-->
-<!--                            </fieldset>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                    <div class="panel-footer">-->
-<!--                        <small>-->
-<!--                        </small>-->
-<!--                        <table>-->
-<!--                            <tr>-->
-<!--                                <td width="40">-->
-<!--                                    Server-->
-<!--                                </td>-->
-<!--                                <td width="8"> : </td>-->
-<!--                                <td>-->
-<!--                                    <%=request.getServerName()%>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    Client-->
-<!--                                </td>-->
-<!--                                <td> : </td>-->
-<!--                                <td>-->
-<!--                                    <%=request.getRemoteHost()%>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; jQuery &ndash;&gt;-->
-<!--    <script src="bower_components/jquery/dist/jquery.min.js"></script>-->
-
-<!--    &lt;!&ndash; Bootstrap Core JavaScript &ndash;&gt;-->
-<!--    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
-
-<!--    &lt;!&ndash; Metis Menu Plugin JavaScript &ndash;&gt;-->
-<!--    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>-->
-
-<!--    &lt;!&ndash; Custom Theme JavaScript &ndash;&gt;-->
-<!--    <script src="dist/js/sb-admin-2.js"></script>-->
-
-<!--</body>-->
 
 </html>

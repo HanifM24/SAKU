@@ -21,7 +21,6 @@ $(() => {
         selectedIndex: 0,
         onItemClick(e) {
             const url = e.itemData.url;
-            debugger
             if(url) {
                 window.location.href = url;
                 // window.location.href = e.itemData;
@@ -32,6 +31,22 @@ $(() => {
         //     list.option('dataSource', listData[e.itemIndex].data);
         // },
     });
+//    $('#currencybutton').dxForm({
+//        items: [{
+//                    itemType: "button",
+//                    horizontalAlignment:'right',
+//                    buttonOptions: {
+//                        text: "Do Something",
+//                        type: "default",
+//                        onClick: function () {
+//                        alert('Happy')
+//                            // Implement your logic here
+//                        }
+//                    }
+//                },
+//                // ...
+//                ]
+//    })
 
     // const tabPanel = $('#tabpanel').dxTabPanel({
     //     animationEnabled: true,
@@ -77,7 +92,8 @@ $(() => {
 });
 const navData = [{
     text: 'Sistem Akutansi Home',
-    icon: 'doc'
+    icon: 'doc',
+    url:'/Dashboard'
 
 }, {
     text: 'Sistem Kepegawaian PAN',
@@ -131,40 +147,46 @@ const menubar = [
     },
     {
         id: '3',
+        text: 'Tarik dan list data Currency',
+        url: '/Currency'
+            // expanded: true
+    },
+    {
+        id: '4',
         text: 'Transaksi',
         // expanded: true,
         items: [{
-            id:'3_1',
+            id:'4_1',
             text: 'Input Transaksi',
             url:'/InputTransaksi'
         }, ]
     },
     {
-        id: '4',
+        id: '5',
         text: 'Laporan',
         items:[
         {
-             id:'4_1',
+             id:'5_1',
              text: 'Jurnal Transaksi',
              url:'/SAKU_TRANSAKSI'
         },{
-            id:'4_2',
+            id:'5_2',
             text:'Rekap Jurnal Transaksi'
         },{
-            id:'4_3',
+            id:'5_3',
             text:'Buku Besar (Ledger)',
             url:'/ledger'
 
         },{
-            id:'4_4',
+            id:'5_4',
             text:'Neraca',
             url:'/neraca'
         },{
-            id:'4_5',
+            id:'5_5',
             text:'Neraca (Old)',
             url:'/neraca_old'
         },{
-            id:'4_6',
+            id:'5_6',
             text:'Laba Rugi'
         }]
 

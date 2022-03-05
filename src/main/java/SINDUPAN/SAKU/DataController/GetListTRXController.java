@@ -3,16 +3,11 @@ package SINDUPAN.SAKU.DataController;
 import SINDUPAN.SAKU.JDBCTemplateService.GetListTRXJDBCTemplate;
 import SINDUPAN.SAKU.Model.GetListTRXModel;
 import SINDUPAN.SAKU.Model.GetListTransaksiModel;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.*;
 
 @RestController

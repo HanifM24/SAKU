@@ -1,246 +1,50 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <!--jQuery libraries of EasyUI -->
-    <script type="text/javascript" src="view/bower_components/jquery-easyui-1.10.1/jquery.min.js"></script>
-    <script type="text/javascript" src="view/bower_components/jquery-easyui-1.10.1/jquery.easyui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="view/bower_components/jquery-easyui-1.10.1/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="view/bower_components/jquery-easyui-1.10.1/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="view/bower_components/jquery-easyui-1.10.1/demo/demo.css">
+    <!--    <meta http-equiv="Refresh" content="0; url='https://www.w3docs.com'" />-->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>
+
+    <!-- DevExtreme theme -->
+    <link rel="stylesheet" href="cssdevextreme/dx.light.css">
+
+    <!-- DevExtreme library -->
+    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>
+
+    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
+
     <title>Sistem Akutansi PAN</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="view/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-    <!-- Timeline CSS -->
-    <link href="dist/css/timeline.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
-    <link href="bower_components/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <style>
+    <!--    <script src="jsdevextreme/globalize/date.js"></script>-->
 
 
-            body {
-              font-family: "Lato", sans-serif;
-            }
 
-            .sidenav {
-              height: 100%;
-              width: 0;
-              position: fixed;
-              z-index: 1;
-              top: 0;
-              left: 0;
-              background-color: #f9f9f9;
-              overflow-x: hidden;
-              transition: 0.5s;
-              padding-top: 60px;
-            }
-
-            .sidenav a {
-              padding: 8px 8px 8px 32px;
-              text-decoration: none;
-              font-size: 25px;
-              color: #818181;
-              display: block;
-              transition: 0.3s;
-            }
-
-            .sidenav a:hover {
-              color: #f1f1f1;
-            }
-
-            .sidenav .closebtn {
-              position: absolute;
-              top: 5;
-              right: 25px;
-              font-size: 36px;
-              margin-left: 50px;
-            }
-
-            #main {
-              transition: margin-left .5s;
-              padding: 16px;
-            }
-
-            @media screen and (max-height: 450px) {
-              .sidenav {padding-top: 15px;}
-              .sidenav a {font-size: 18px;}
-            }
-
-            .sidenav li .submenu{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	padding-left: 1rem;
-	padding-right: 1rem;
-        }
-        </style>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="view/bower_components/js/MenuTransaksi.js"></script>
+    <script src="view/bower_components/js/dashboard.js"></script>
+    <script src="view/bower_components/js/currency.js"></script>
 </head>
-<body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header" style="auto">
-                <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon   -bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a> -->
-                 <img src="img/PLANA.png" class="menu-logo"/>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-left">
-                <li><a href="main.html?iframe=dashboard"> Dashboard</a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Karyawan &nbsp;<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-
-
-                        <li><a href="main.jsp?iframe=masterVendor">Karyawan</a></li>
-
-                        <li><a href="main.jsp?iframe=masterArea">Kehadiran</a></li>
-                    </ul>
-                </li>
-                        <li class="dropdown">
-                           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                               Akuntansi &nbsp;
-                               <!-- <i class="fa fa-caret-down"></i> -->
-                           </a>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-top-links navbar-right">
-                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Settings &nbsp;<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="main.jsp?iframe=changePassword"> Change Password</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> Hanif <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="main.jsp?iframe=userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../index.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-        </nav>
-                 <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <li class="nav-item has-submenu">
-                            <a class="nav-link" href="#"> Submenu links  </a>
-                            <ul class="submenu collapse">
-                                    <li><a class="nav-link" href="#">Submenu item 1 </a></li>
-                                    <li><a class="nav-link" href="#">Submenu item 2 </a></li>
-                                    <li><a class="nav-link" href="#">Submenu item 3 </a> </li>
-                            </ul>
-                    </li>
-                    <a href="#">Accounting</a>
-                    <a href="#">Inventori</a>
-                  </div>
-            </div>
+<body class="dx-viewport">
+<div class="demo-container">
     <div class="container">
-        <div id="main">
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <iframe src="view/dashboard.html" width="10px" height="10px" align="center" frameborder="0" name="dashboard"></iframe>
+        <div class="top-content">
+            <div id="navbar"></div>
         </div>
-        <div class="row">
-                <h3>Transaksi Menu</h3>
-<!--                <table id="DataCOA" class="tableCOA" style="width:100%"></table>-->
-
+        <div class="left-content">
+            <div id="treeview"></div>
         </div>
-<!--        <div>-->
-<!--            <button id="AddButton"> ADD COA</button>-->
-<!--        </div>-->
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Click untuk melakukan pembukuan transaksi
-        </button>
+        <div class="right-content">
+            <h2>Menu Rate Currency / Nilai Mata Uang Asing</h2>
+            <div id="buttoncurrency">
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><strong>Tambah COA</strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="Histori Transaksi">
-                            <div class="form-group">
-                                <label for="nocoa">Masukkan No. COA</label>
-                                <input type="text" class="form-control" name="nocoa" id="nocoa" maxlength="6" aria-describedby="labelnocoa">
-<!--                                <div class="input-group-append">-->
-<!--                                    <button class="btn btn-outline-secondary" type="button" id="checkbutton">Cek Nomor COA</button>-->
-<!--                                </div>-->
-                                <small id="labelnocoa" class="form-text text-muted">Masukkan Nomor COA</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="nominaltransaksi">Masukkan  transaksi</label>
-                                <input type="text" class="form-control" id="nominaltransaksi" name="labelnominaltransaksi" aria-describedby="labelnominaltransaksi" placeholder="Characters dont include special characters like !@#, etc.">
-                                <small id="labelnominaltransaksi" class="form-text text-muted">Masukkan Nominal Transaksi</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="posisi">Masukkan Posisi</label>
-                                <input type="text" class="form-control" id="posisi" name="posisi" aria-describedby="labelposisi" placeholder="Characters dont include special characters like !@#, etc.">
-                                <small id="labelposisi" class="form-text text-muted">Masukkan Posisi</small>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="Submit_Button" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>
 
-    <script>
-
-    function openNav() {
-
-       document.getElementById("mySidenav").style.width = "250px";
-       document.getElementById("main").style.marginLeft = "250px";
-
-    }
-
-    function closeNav(){
-       document.getElementById("mySidenav").style.width = "0px";
-       document.getElementById("main").style.marginLeft = "0px";
-    }
-
-
-    </script>
+</div>
+</body>
 
 </body>
 

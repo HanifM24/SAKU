@@ -79,7 +79,7 @@ $(function(){
         },
         onShown: function ()
         {
-            $("#formInsert").dxForm({
+            var forminsert = $("#formInsert").dxForm({
                 colCount: 1,
                 // width: '1000px',
                 position:'center',
@@ -115,6 +115,26 @@ $(function(){
                                 type: "required",
                             },
                         ]
+                    },
+                    {
+                         itemType: "simple",
+                         editorType: "dxCheckBox",
+                         dataField: "isheader",
+                         label: { text: "Apakah menjadi Header Kelompok? ", location: "top" },
+                         onValueChanged(data) {
+                                forminsert.option('value', data.value);
+
+//                               forminsert.option("visible", false)
+                             },
+//                         editorOptions: {placeholder:"Masukkan Keterangan COA.."}
+                        },
+                    {
+                         itemType: "simple",
+                         editorType: "dxTextBox",
+                         dataField: "pilihnamacoaheader",
+                         visible: false,
+                         label: { text: "Bila menjadi detail, pilih nomor dan coa untuk menjadi headernya", location: "top" },
+                         editorOptions: {placeholder:"Masukkan Keterangan COA.."}
                     },
                     {
                         itemType: "simple",

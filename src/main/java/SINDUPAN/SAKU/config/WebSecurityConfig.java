@@ -50,7 +50,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 "/ledger",
                 "/recapledger",
                 "/neraca",
-                "/neraca_old"
+                "/neraca_old,",
+                "/Currency"
         ).access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 
         // For ADMIN only.
