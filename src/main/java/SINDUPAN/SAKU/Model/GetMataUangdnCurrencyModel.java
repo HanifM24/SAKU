@@ -1,6 +1,7 @@
 package SINDUPAN.SAKU.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor;
 
 
 public class GetMataUangdnCurrencyModel {
@@ -831,7 +832,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getETH() {
-                return 1/ETH;
+                if(ETH != 0)
+                {
+                        return 1/ETH;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getEUR() {

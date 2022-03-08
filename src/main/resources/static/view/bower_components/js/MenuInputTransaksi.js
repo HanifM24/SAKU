@@ -23,6 +23,8 @@ var eqrupiahkdt
 
 const urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=40db38a0-7b16-11ec-8482-1352ed8d2fa2&base_currency=IDR' //ini yang register dipake seperlunya
 // var urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=YOUR-APIKEY&base_currency=IDR' // kalo udh abis jatahnya ganti ke register
+// const urlapi = '/api/getdetailcur/' //ini yang register dipake seperlunya
+
 $(function(){
 
     function getcurrency(datacur, matauang, namacoa, invoice, keterangan, kodeplusnamauang, jsntrxs){
@@ -46,15 +48,15 @@ $(function(){
                 sumeqdbt += parseFloat(eqrupiahdbt)
             } else {
                 $.ajax({
-
                     method: 'GET',
                     url: urlapi,
                     // url: 'https://freecurrencyapi.net/api/v2/latest?apikey=YOUR-APIKEY&base_currency=IDR', // kalo udh abis jatahnya ganti ke register
                     processData: false,
                     contentType: false,  // "application/json",
                     success: function (data) {
+                        debugger;
                         JSON.stringify(data);
-                        eqrupiahdbt = parseFloat(datacur) / parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar)
+                        eqrupiahdbt = parseFloat(datacur) * parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar)
                         datadr.push({
                             NO_COA_DBT: namacoa,
                             MATA_UANG_DBT: kodeplusnamauang,

@@ -1,22 +1,22 @@
 package SINDUPAN.SAKU.JDBCTemplateService;
 
-import SINDUPAN.SAKU.DAO.GetListTRXDAO;
+import SINDUPAN.SAKU.DAO.GetValasDAO;
 import SINDUPAN.SAKU.DAO.PostValasDAO;
 import SINDUPAN.SAKU.Mapper.*;
+import SINDUPAN.SAKU.Model.GetDetailCurrencyModel;
 import SINDUPAN.SAKU.Model.GetListTRXModel;
 import SINDUPAN.SAKU.Model.GetListTransaksiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @Component
-public class PostValasJDBCTemplate implements PostValasDAO {
+public class GetValasJDBCTemplate implements GetValasDAO {
     @Autowired
     public JdbcTemplate jdbcTemplateObject;
     @Autowired
@@ -60,6 +60,7 @@ public class PostValasJDBCTemplate implements PostValasDAO {
         List <GetListTRXModel> DatadetailsTRXModels = jdbcTemplateObject.query(SQL, new GetListCOALedgerMapper());
         return DatadetailsTRXModels;
     }
+
 
 
     public List<GetListTRXModel> listdetailtrxdbt(String id_trx)
@@ -107,6 +108,20 @@ public class PostValasJDBCTemplate implements PostValasDAO {
             return null;
         }
     }
+    public List<GetDetailCurrencyModel> getdetailcurrency()
+    {
+        String SQL = "select \n" +
+                "c.KD_MATA_UANG,\n" +
+                "rmu.KET as 'NAMA_MATA_UANG',\n" +
+                "c.RATE,\n" +
+                "date(c.UPDATE_DATE) as 'UPDATE_DATE',\n" +
+                "time(c.UPDATE_DATE) as 'UPDATE_TIME',\n" +
+                "c.UPDATE_BY \n" +
+                "from currencyvalue c\n" +
+                "left join ref_mata_uang rmu on c.KD_MATA_UANG = rmu.KODE_ALFABET \n" +
+                "WHERE date(UPDATE_DATE) = curdate()";
+        return jdbcTemplateObject.query(SQL, new GetDetailCurrencyMapper());
+    }
     public int checkingdata()
     {
         String SQL = "  \n" +
@@ -136,33 +151,6 @@ public class PostValasJDBCTemplate implements PostValasDAO {
         return jdbcTemplateObject.queryForObject(SQL, String.class );
     }
 
-
-    public void insertdbt(String NO_TRX, String NO_COA, String MATA_UANG,  String INVOICE, String NOMINAL_DBT, String KTRG_DBT, String EKIVRPDBT)
-    {
-        String SQL = "call sp_addtrxdbt(?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplateObject.update(SQL,
-                NO_TRX,
-                NO_COA,
-                MATA_UANG,
-                INVOICE,
-                NOMINAL_DBT,
-                KTRG_DBT,
-                EKIVRPDBT
-                );
-    }
-    public void insertkdt(String NO_TRX, String NO_COA, String MATA_UANG,  String INVOICE, String NOMINAL_DBT, String KTRG_DBT, String EKIVRPKDT)
-    {
-        String SQL = "call sp_addtrxkdt(?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplateObject.update(SQL,
-                NO_TRX,
-                NO_COA,
-                MATA_UANG,
-                INVOICE,
-                NOMINAL_DBT,
-                KTRG_DBT,
-                EKIVRPKDT
-        );
-    }
 
 //    @Autowired
 //    public DataSource dataSource;

@@ -9,7 +9,8 @@ import java.util.List;
 
 
 public interface PostValasDAO {
-//    @Autowired
+    @Autowired
+    public void insertvaluetodatabase(String KODE, Double Rate);
 
 
 
