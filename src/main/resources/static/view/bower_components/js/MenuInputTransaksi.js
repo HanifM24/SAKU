@@ -165,7 +165,7 @@ $(function(){
                 dataField: "NOPLUSNAMACOADBT",
                 label: { text: "Pilih COA Debet", location: "top" },
                 editorOptions: {
-                    dataSource: "/api/getnocoaplusname",
+                    dataSource: "/api/getnocoaplusname/1",
                     placeholder: "Pilih Nomor COA disini...",
                     showSelectionControls: true,
                     applyValueMode: "useButtons",
@@ -191,7 +191,7 @@ $(function(){
                 dataField: "NOPLUSNAMACOAKDT",
                 label: { text: "Pilih COA Kredit", location: "top" },
                 editorOptions: {
-                    dataSource: "/api/getnocoaplusname",
+                    dataSource: "/api/getnocoaplusname/1",
                     placeholder: "Pilih Nomor COA disini...",
                     showSelectionControls: true,
                     applyValueMode: "useButtons",

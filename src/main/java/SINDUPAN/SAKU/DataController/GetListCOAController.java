@@ -19,19 +19,19 @@ public class GetListCOAController {
     }
 
     @PostMapping("/postCOA")
-    public void postcoa(String NO_COA, String NAMA_COA, String POSISI, String KET)
+    public void postcoa(String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
     {
-        masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI, KET);
+        masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI, KET, GROUP_COA,  Identifier);
     }
     @GetMapping("/getCOAById/{nocoa}")
     public GetListCOAModel getBynocoa(@PathVariable String nocoa)
     {
         return masterJDBCTemplate.getByNOCOA(nocoa);
     }
-    @GetMapping("/getnocoaplusname")
-    public Iterable <GetListCOAModel> findcoanumberplusname()
+    @GetMapping("/getnocoaplusname/{Id}")
+    public Iterable <GetListCOAModel> findcoanumberplusname(@PathVariable String Id)
     {
-        return masterJDBCTemplate.datanomorcoaplusname();
+        return masterJDBCTemplate.datanomorcoaplusname(Id);
     }
     @GetMapping("/employees/{id}")
     @ResponseBody

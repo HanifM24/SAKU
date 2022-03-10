@@ -32,6 +32,7 @@ public class GetListMataUangController {
 
     @Autowired
     public PostValasJDBCTemplate masterJDBCTemplate;
+    @Autowired
     public GetListMataUangJDBCTemplate masterJDBCTemplateList;
 
     @GetMapping("/getmatauang")
@@ -52,6 +53,25 @@ public class GetListMataUangController {
             JsonNode data = jsonNode.at("/data");
             GetMataUangdnCurrencyModel getMataUangdnCurrencyModel = mapper.treeToValue(data, GetMataUangdnCurrencyModel.class);
             masterJDBCTemplate.insertvaluetodatabase("AED", getMataUangdnCurrencyModel.getAED());
+            masterJDBCTemplate.insertvaluetodatabase("ANG", getMataUangdnCurrencyModel.getANG());
+            masterJDBCTemplate.insertvaluetodatabase("BAM", getMataUangdnCurrencyModel.getBAM());
+            masterJDBCTemplate.insertvaluetodatabase("BBD", getMataUangdnCurrencyModel.getBBD());
+            masterJDBCTemplate.insertvaluetodatabase("BMD", getMataUangdnCurrencyModel.getBMD());
+            masterJDBCTemplate.insertvaluetodatabase("BYN", getMataUangdnCurrencyModel.getBYN());
+            masterJDBCTemplate.insertvaluetodatabase("BZD", getMataUangdnCurrencyModel.getBZD());
+            masterJDBCTemplate.insertvaluetodatabase("CLF", getMataUangdnCurrencyModel.getCLF());
+            masterJDBCTemplate.insertvaluetodatabase("CUP", getMataUangdnCurrencyModel.getCUP());
+            masterJDBCTemplate.insertvaluetodatabase("KWD", getMataUangdnCurrencyModel.getKWD());
+            masterJDBCTemplate.insertvaluetodatabase("LTL", getMataUangdnCurrencyModel.getLTL());
+            masterJDBCTemplate.insertvaluetodatabase("LVL", getMataUangdnCurrencyModel.getLVL());
+            masterJDBCTemplate.insertvaluetodatabase("SBD", getMataUangdnCurrencyModel.getSBD());
+            masterJDBCTemplate.insertvaluetodatabase("SHP", getMataUangdnCurrencyModel.getSHP());
+            masterJDBCTemplate.insertvaluetodatabase("TOP", getMataUangdnCurrencyModel.getTOP());
+            masterJDBCTemplate.insertvaluetodatabase("UYU", getMataUangdnCurrencyModel.getUYU());
+            masterJDBCTemplate.insertvaluetodatabase("XCD", getMataUangdnCurrencyModel.getXCD());
+            masterJDBCTemplate.insertvaluetodatabase("XDR", getMataUangdnCurrencyModel.getXDR());
+            masterJDBCTemplate.insertvaluetodatabase("ZMK", getMataUangdnCurrencyModel.getZMK());
+            masterJDBCTemplate.insertvaluetodatabase("ZMW", getMataUangdnCurrencyModel.getZMW());
             masterJDBCTemplate.insertvaluetodatabase("USD", getMataUangdnCurrencyModel.getUSD());
             masterJDBCTemplate.insertvaluetodatabase("AFN", getMataUangdnCurrencyModel.getAFN());
             masterJDBCTemplate.insertvaluetodatabase("JPY", getMataUangdnCurrencyModel.getJPY());

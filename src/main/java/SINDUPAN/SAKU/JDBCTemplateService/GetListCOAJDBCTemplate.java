@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -37,26 +38,42 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
         return DatadetailsCOAModels;
 
     }
-    public void create( String NO_COA, String NAMA_COA, String POSISI, String KET)
+    public void create( String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
     {
-        String SQL = "call sp_addcoa(?, ?, ?, ? );";
-        jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET);
+            String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ? );";
+            jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier);
+
     }
     public GetListCOAModel getByNOCOA(String nocoa)
     {
         String SQL = "select NO_COA from daftar_coa where NO_COA= ?";
         return jdbcTemplateObject.queryForObject(SQL, new GetDataCOAMapper(), new Object[]{nocoa});
     }
-    public List<GetListCOAModel> datanomorcoaplusname()
+    public List<GetListCOAModel> datanomorcoaplusname(String Id)
     {
-        String SQL = "select \n" +
-                "NO_COA,\n" +
-                "NAMA_COA, \n" +
-                "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOADBT,\n" +
-                "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOAKDT\n" +
-                "from daftar_coa dc;";
-        List <GetListCOAModel> datacoaplusname = jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
-        return datacoaplusname;
+        if (Objects.equals(Id, "0")) {
+            String SQL = " select \n" +
+                    "NO_COA,\n" +
+                    "NAMA_COA, \n" +
+                    "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOADBT,\n" +
+                    "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOAKDT\n" +
+                    "from daftar_coa dc\n" +
+                    "where dc.DETAIL != 1;";
+            List<GetListCOAModel> datacoaplusname = jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
+            return datacoaplusname;
+        }
+        else
+        {
+            String SQL = " select \n" +
+                    "NO_COA,\n" +
+                    "NAMA_COA, \n" +
+                    "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOADBT,\n" +
+                    "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOAKDT\n" +
+                    "from daftar_coa dc\n" +
+                    "where dc.DETAIL = 1;";
+            List<GetListCOAModel> datacoaplusname = jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
+            return datacoaplusname;
+        }
 
     }
 

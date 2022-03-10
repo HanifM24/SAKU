@@ -7,8 +7,12 @@ import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecu
 public class GetMataUangdnCurrencyModel {
         @JsonProperty("USD")
         private double USD;
+        @JsonProperty("BBD")
+        private double BBD;
         @JsonProperty("JPY")
         private double JPY;
+        @JsonProperty("BAM")
+        private double BAM;
         @JsonProperty("CNY")
         private double CNY;
         @JsonProperty("CHF")
@@ -35,6 +39,10 @@ public class GetMataUangdnCurrencyModel {
         private double SEK;
         @JsonProperty("NGN")
         private double NGN;
+        @JsonProperty("ANG")
+        private double ANG;
+        @JsonProperty("AWG")
+        private double AWG;
         @JsonProperty("PLN")
         private double PLN;
         @JsonProperty("ARS")
@@ -143,6 +151,8 @@ public class GetMataUangdnCurrencyModel {
         private double LBP;
         @JsonProperty("RSD")
         private double RSD;
+        @JsonProperty("BMD")
+        private double BMD;
         @JsonProperty("LYD")
         private double LYD;
         @JsonProperty("GHS")
@@ -285,7 +295,84 @@ public class GetMataUangdnCurrencyModel {
         private double LTC;
         @JsonProperty("NZD")
         private double NZD;
+        @JsonProperty("BYN")
+        private double BYN;
+        @JsonProperty("BZD")
+        private double BZD;
+        @JsonProperty("CLF")
+        private double CLF;
+        @JsonProperty("CUP")
+        private double CUP;
+        @JsonProperty("KWD")
+        private double KWD;
+        @JsonProperty("LTL")
+        private double LTL;
+        @JsonProperty("LVL")
+        private double LVL;
+        @JsonProperty("SBD")
+        private double SBD;
+        @JsonProperty("SHP")
+        private double SHP;
+        @JsonProperty("TOP")
+        private double TOP;
+        @JsonProperty("UYU")
+        private double UYU;
+        @JsonProperty("XCD")
+        private double XCD;
+        @JsonProperty("XDR")
+        private double XDR;
+        @JsonProperty("ZMK")
+        private double ZMK;
+        @JsonProperty("ZMW")
+        private double ZMW;
+        @JsonProperty("ZWL")
+        private double ZWL;
+        @JsonProperty("BTN")
+        private double BTN;
+        @JsonProperty("HRK")
+        private double HRK;
+        @JsonProperty("MRO")
+        private double MRO;
 
+
+
+        public double getZWL(){ return 1/ZWL;}
+        public double getBTN(){return 1/BTN;}
+        public double getHRK(){return 1/HRK;}
+        public double getMRO(){return 1/MRO;}
+
+        public double getBBD() {
+                return 1/BBD;
+        }
+
+        public double getBMD() {
+                return 1/BMD;
+        }
+
+        public double getANG() {
+                return 1/ANG;
+        }
+        public double getAWG() {
+                return 1/AWG;
+        }
+        public double getBAM() {
+                return 1/BAM;
+        }
+        public double getBYN() { return 1/BYN;}
+        public double getBZD(){return 1/BZD;}
+        public double getCLF(){return 1/CLF;}
+        public double getCUP(){return 1/CUP;}
+        public double getKWD(){return 1/KWD;}
+        public double getLTL(){return 1/LTL;}
+        public double getLVL(){return 1/LVL;}
+        public double getSBD(){return 1/SBD;}
+        public double getSHP(){return 1/SHP;}
+        public double getTOP(){return 1/TOP;}
+        public double getUYU(){return 1/UYU;}
+        public double getXCD(){return 1/XCD;}
+        public double getXDR(){return 1/XDR;}
+        public double getZMK(){return 1/ZMK;}
+        public double getZMW(){return 1/ZMW;}
 
         public double getUSD() {
                 return 1/USD;
@@ -496,7 +583,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getSYP() {
-                return 1/SYP;
+                if(SYP != 0)
+                {
+                        return 1/SYP;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getMMK() {
@@ -520,11 +614,25 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getURY() {
-                return 1/URY;
+                if(URY != 0)
+                {
+                        return 1/URY;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getHRV() {
-                return 1/HRV;
+                if(HRV != 0)
+                {
+                        return 1/HRV;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getMOP() {
@@ -616,7 +724,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getBIH() {
-                return 1/BIH;
+                if(BIH != 0)
+                {
+                        return 1/BIH;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getBND() {
@@ -664,7 +779,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getSSP() {
-                return 1/SSP;
+                if(SSP != 0)
+                {
+                        return 1/SSP;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getMUR() {
@@ -672,7 +794,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getMNT() {
-                return 1/MNT;
+                if(BIH != 0)
+                {
+                        return 1/MNT;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getNIO() {
@@ -748,7 +877,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getERN() {
-                return 1/ERN;
+                if(ERN != 0)
+                {
+                        return 1/ERN;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getSZL() {
@@ -812,7 +948,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getXRP() {
-                return 1/XRP;
+                if(XRP != 0)
+                {
+                        return 1/XRP;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getAUD() {
@@ -847,7 +990,14 @@ public class GetMataUangdnCurrencyModel {
         }
 
         public double getLTC() {
-                return 1/LTC;
+                if(LTC != 0)
+                {
+                        return 1/LTC;
+                }
+                else
+                {
+                        return 0;
+                }
         }
 
         public double getNZD() {
