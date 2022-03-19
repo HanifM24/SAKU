@@ -21,9 +21,10 @@ var arreqrupiahkdt =[];
 var eqrupiahdbt;
 var eqrupiahkdt
 
-const urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=40db38a0-7b16-11ec-8482-1352ed8d2fa2&base_currency=IDR' //ini yang register dipake seperlunya
+// const urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=40db38a0-7b16-11ec-8482-1352ed8d2fa2&base_currency=IDR' //ini yang register dipake seperlunya
 // var urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=YOUR-APIKEY&base_currency=IDR' // kalo udh abis jatahnya ganti ke register
 // const urlapi = '/api/getdetailcur/' //ini yang register dipake seperlunya
+const urlapi = '/api/getdetailcur';
 
 $(function(){
 
@@ -54,9 +55,10 @@ $(function(){
                     processData: false,
                     contentType: false,  // "application/json",
                     success: function (data) {
-                        debugger;
+
                         JSON.stringify(data);
-                        eqrupiahdbt = parseFloat(datacur) * parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar)
+                        eqrupiahdbt = parseFloat(datacur)*parseFloat(data.find(x => x.KD_MATA_UANG === matauang).RATE);
+                        // eqrupiahdbt = parseFloat(datacur) * parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar) old
                         datadr.push({
                             NO_COA_DBT: namacoa,
                             MATA_UANG_DBT: kodeplusnamauang,
@@ -115,7 +117,8 @@ $(function(){
                     contentType: false,  // "application/json",
                     success: function (data) {
                         JSON.stringify(data);
-                        eqrupiahkdt = parseFloat(datacur) / parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar)
+                        eqrupiahkdt = parseFloat(datacur)*parseFloat(data.find(x => x.KD_MATA_UANG === matauang).RATE);
+                        // eqrupiahkdt = parseFloat(datacur) / parseFloat(data.data[matauang]) /// parseFloat(data.data[matauang]); (kalo kurs dollar) // old
                         datacr.push({
                             NO_COA_KDT: namacoa,
                             MATA_UANG_KDT: kodeplusnamauang,
@@ -285,6 +288,7 @@ $(function(){
                 label: { text: "Masukkan Nominal Debet", location: "top" },
                 editorOptions: {placeholder:"Masukkan Nominal Debet..",
                     format: '#,##0.00',
+
                 },
                 validationRules: [
                     {
@@ -299,6 +303,8 @@ $(function(){
                 label: { text: "Masukkan Nominal Kredit", location: "top" },
                 editorOptions: {placeholder:"Masukkan Nominal Kredit..",
                     format: '#,##0.00',
+
+
                 },
                 validationRules: [
                     {
@@ -435,10 +441,6 @@ $(function(){
         visible: false,
         dragEnabled: false,
         closeOnOutsideClick: true,
-        // onContentReady: e => {
-        //     //  console.log('aa');
-        //     $("#batal .dx-button-content .dx-button-text").text("Batal");
-        // },
         contentTemplate: function()  {
             let content = $('<div />');
             content.append('<p>Debit</p> ')
@@ -546,6 +548,7 @@ $(function(){
                     dataraw.append("NOMINALTRXKDT", NOMINALTRXKDT);
                     dataraw.append("KTRG_KDT", KTRG_KDT);
                     dataraw.append("EKVALRPKDT", arreqrupiahkdt);
+                    debugger
                     if (sumeqdbt == sumeqkdt) {
                         // let dataraw = JSON.stringify(datadr);
                         $.ajax({

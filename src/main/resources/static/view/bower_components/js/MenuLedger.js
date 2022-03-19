@@ -120,8 +120,12 @@ $(function(){
     $('#DataLedger').dxDataGrid({
         dataSource: "/api/getcoaforledger",
         method: "GET",
+        export: {
+                            enabled: true
+                        },
+        searchPanel: { visible: true },
 
-        contentType: "application/juon",
+        contentType: "application/json",
         // dataSource: {
         //     url: '/api/getTRX',
         //     method: 'GET',

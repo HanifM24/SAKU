@@ -13,6 +13,7 @@ public interface GetListNeracaDAO {
     @Autowired
     List<GetNeracaModel> listDataNeracaold();
     List<GetNeracaModel> listDataNeraca();
+    List<GetNeracaModel> listlabarugi();
 
 
 }

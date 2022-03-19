@@ -89,7 +89,7 @@ public class GetListTRXController {
         /*Reader cektipe = request.getReader();
         String cekrequest = request.getReader().toString();*/
 //        var values = JsonDeserializer<GetListTRXModel>(request.getParameterValues("NO_COA_DBT"));
-        String []  NO_COA_DBT  = request.getParameterValues("NO_COA_DBT");
+        String []  NO_COA_DBT   = request.getParameterValues("NO_COA_DBT");
         String []  INVOICE_DBT  = request.getParameterValues("INVOICE_DBT");
         String []  MATA_UANG_DBT = request.getParameterValues("MATA_UANG_DBT");
         String [] NOMINALTRXDBT = request.getParameterValues("NOMINALTRXDBT");

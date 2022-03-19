@@ -5,9 +5,28 @@
 //function closeForm() {
 //      dcllocument.getElementById("myForm").style.display = "none";
 //    }
-
+var datagrup;
+var datag = new FormData();
 
 $(function(){
+
+     function sendBatchRequest(url, changes) {
+        const d = $.Deferred();
+        debugger
+
+        $.ajax(url, {
+          method: 'POST',
+          data: JSON.stringify(changes),
+          cache: false,
+          contentType: 'application/json',
+
+        }).done(d.resolve).fail((xhr) => {
+          d.reject(xhr.responseJSON ? xhr.responseJSON.Message : xhr.statusText);
+        });
+
+        return d.promise();
+
+      }
     $('#DataCOA').dxDataGrid({
         dataSource: '/api/getCOA',
         method:'GET',
@@ -15,19 +34,41 @@ $(function(){
         searchEnabled: true,
         columnAutoWidth: true,
         searchPanel: { visible: true },
+        editing: {
+            mode: 'batch',
+            allowUpdating:true
+        },
+            onSaving(e) {
+              e.cancel = true;
+
+
+              if (e.changes.length) {
+                debugger
+
+                datag.append('dataf', e.changes)
+
+                e.promise = sendBatchRequest('/api/updateCOA', e.changes).done(() => {
+                  e.component.refresh(true).done(() => {
+                    e.component.cancelEditData();
+                  });
+                });
+                location.reload();
+
+              }
+            },
         // dataType : 'text',
         // align : 'center',
         // fitColumns:true,
         columns:[
 //            {checkbox: true},
-            {dataField:'NO_COA',caption:'Nomor COA', alignment:'center',},
-            {dataField:'NAMA_COA',caption:'Nama COA', alignment:'center',},
-            {dataField:'POSISI',caption:'Posisi', alignment:'center',},
+            {dataField:'NO_COA',caption:'Nomor COA', alignment:'left', allowEditing: false},
+            {dataField:'NAMA_COA',caption:'Nama COA', alignment:'left',},
+            {dataField:'POSISI',caption:'Posisi', alignment:'left', allowEditing: false,},
             // {dataField:'MATA_UANG',caption:'Mata Uang', alignment:'center',},
-            {dataField:'TANGGAL',caption:'Tanggal Diperbarui', alignment:'center',},
-            {dataField:'KET',caption:'Header', alignment:'center',},
-            {dataField:'STATUS',caption:'STATUS', alignment:'center',},
-            {dataField:'DESC',caption:'Deskripsi COA', alignment:'center',},
+            {dataField:'TANGGAL',caption:'Tanggal Diperbarui', alignment:'left', allowEditing: false,},
+            {dataField:'KET',caption:'Header', alignment:'left', allowEditing: false,},
+//            {dataField:'STATUS',caption:'STATUS', alignment:'center',},
+            {dataField:'DESC',caption:'Deskripsi COA', alignment:'left',},
             // {field:'ACTION', title:'Action',
             //     formatter:function(value, row, index)
             //         {
@@ -167,6 +208,7 @@ $(function(){
                                         applyValueMode: "useButtons",
                                         displayExpr: function (data) {
                                             if (data) {
+                                                datagrup = data.NOPLUSNAMACOADBT.slice(0,6)
                                                 return `${data.NOPLUSNAMACOADBT}`;
                                             }
                                             return null;
@@ -465,9 +507,394 @@ $(function(){
             }
 
         });
+    $("#popup4").dxPopup({
+                    title: "Edit COA Header",
+                    showTitle: true,
+                    width: 650,
+                    // height: 450,
+                    position: {
+                        my: 'center',
+                        at: 'center',
+                        of: window
+                    },
+                    showCloseButton: true,
+                    visible: false,
+                    dragEnabled: false,
+                    closeOnOutsideClick: true,
+                    onContentReady: e => {
+                        //  console.log('aa');
+                        $("#batal .dx-button-content .dx-button-text").text("Batal");
+                    },
+                    contentTemplate: function()  {
+                        let content = $('<div />');
+                        content.append('<div id="formInsert4" />');
+                        // content.append('<div id="matauangdebet"');
+                        // content.append('<div id="invoicedebet"');
+                        // content.append('<div id="nominaltransaksidebet"');
+                        // content.append('<div id="keterangantrxdebet"');
+                        // content.append('<div id="nocoakredit"');
+                        // content.append('<div id="matauangkredit"');
+                        // content.append('<div id="invoicekredit"');
+                        // content.append('<div id="nominaltransaksikredit"');
+                        // content.append('<div id="keterangantrxkredit"');
+                        return content;
+
+
+
+                    },
+                    onShown: function ()
+                    {
+                        var forminsert4 = $("#formInsert4").dxForm({
+                            colCount: 1,
+                            // width: '1000px',
+                            position:'center',
+                            labelLocation: "top",
+                            alignItemLabels: true,
+                            alignItemLabelsInAllGroups: true,
+                            items: [
+
+//                                {
+//                                    itemType: "simple",
+//                                    editorType: "dxTextBox",
+//                                    dataField: "nocoa",
+//                                    label: { text: "Masukkan Nomor COA", location: "top" },
+//                                    editorOptions: {
+//                                        placeholder:"Masukkan Nomor COA.."
+//                                    },
+//                                    validationRules: [
+//                                        {
+//                                            type: "required",
+//                                        },
+//                                    ]
+//                                },
+
+//
+//
+//                                {
+//                                     itemType: "simple",
+//                                     editorType: "dxTextBox",
+//                                     dataField: "pilihnamacoaheader",
+//                                     visible: false,
+//                                     label: { text: "Bila menjadi detail, pilih nomor dan coa untuk menjadi headernya", location: "top" },
+//                                     editorOptions: {placeholder:"Masukkan Keterangan COA.."}
+//                                },
+                                {
+                                                                    itemType: "simple",
+                                                                    editorType: "dxSelectBox",
+                                                                    dataField: "NOPLUSNAMACOADBT",
+                                                                    label: { text: "Pilih group COA", location: "top" },
+                                                                    editorOptions: {
+                                                                        dataSource: "/api/getnocoaplusname/0",
+                                                                        placeholder: "Pilih Nomor COA disini...",
+                                                                        showSelectionControls: true,
+                                                                        applyValueMode: "useButtons",
+                                                                        displayExpr: function (data) {
+                                                                            if (data) {
+                                                                                return `${data.NOPLUSNAMACOADBT}`;
+                                                                            }
+                                                                            return null;
+                                                                        },
+                                                                        keyExpr: "NOPLUSNAMACOADBT",
+                                                                        valueExpr: "NOPLUSNAMACOADBT",
+                                                                        searchEnabled: true,
+                                                                    },
+                                                                    validationRules: [
+                                                                        {
+                                                                            type: "required",
+                                                                        },
+                                                                    ]
+                                                                },
+                                {
+                                       itemType: "simple",
+                                       editorType: "dxTextBox",
+                                       dataField: "namacoa",
+                                       label: { text: "Masukkan Nama COA Yang Baru", location: "top" },
+                                       editorOptions: {
+                                                    placeholder:"Masukkan Nama COA.."
+                                                       },
+                                                    validationRules: [
+                                                    {
+                                                       type: "required",
+                                                    },
+                                                                     ]
+                                  },
+//                                {
+//                                    itemType: "simple",
+//                                    editorType: "dxSelectBox",
+//                                    dataField: "idplusket",
+//                                    label: { text: "Pilih Posisi COA", location: "top" },
+//                                    editorOptions: {
+//                                        dataSource: "/api/getposisi",
+//                                        placeholder: "Pilih Posisi COA...",
+//                                        showSelectionControls: true,
+//                                        applyValueMode: "useButtons",
+//                                        displayExpr: function (data) {
+//                                            if (data) {
+//                                                return `${data.idplusket}`;
+//                                            }
+//                                            return null;
+//                                        },
+//
+//                                        keyExpr: "idplusket",
+//                                        valueExpr: "idplusket",
+//                                        searchEnabled: true,
+//                                    },
+//                                    validationRules: [
+//                                        {
+//                                            type: "required",
+//                                        },
+//                                    ]
+//                                },
+                                {
+                                    itemType: "simple",
+                                    editorType: "dxTextBox",
+                                    dataField: "ket",
+                                    label: { text: "Jika Keterangan Berubah Masukkan Perubahannya", location: "top" },
+                                    editorOptions: {placeholder:"Masukkan Keterangan COA.."}
+                                },
+                                {
+                                    dataField: 'submitBut',
+                                    itemType: 'button',
+                                    horizontalAlignment: 'center',
+                                    buttonOptions: {
+                                        text: 'Submit',
+                                        type: 'success',
+                                        onClick: function() {
+                                            var nocoa = $('#formInsert4').find('input[name="nocoa"]').val();
+                                            var namacoa = $('#formInsert4').find('input[name="namacoa"]').val();
+                                            var posisi = $('#formInsert4').find('input[name="idplusket"]').val();
+                                            var sliceposisi = posisi.slice(0, 1);
+                                            var KET = $('#formInsert4').find('input[name="ket"]').val();
+                                            var group = $('#formInsert4').find('input[name="NOPLUSNAMACOADBT"]').val();
+                                            var slicegroup = group.slice(0, 6);
+                                            $.ajax({
+                                                url: '/api/postCOA?NO_COA='+nocoa+'&NAMA_COA='+namacoa+'&POSISI='+sliceposisi+'&KET='+KET+'&GROUP_COA='+slicegroup+'&Identifier=0',
+                                                method: 'POST',
+
+                                                processData: false,
+
+            //
+                                                success: function () {
+                                                    DevExpress.ui.notify("Data Berhasil di submit", "success", 10000);
+                                                    location.reload();
+                                                },
+                                                error: function () {
+                                                    DevExpress.ui.notify("Data tidak Berhasil di submit", "error", 10000);
+                                                }
+
+                                            });
+
+
+
+
+                                            cek.show();
+                                        }
+                                        // useSubmitBehavior: true,
+                                    },
+
+                                },
+
+
+                            ],
+                        });
+                    }
+
+                });
+    $("#popup5").dxPopup({
+                                    title: "Edit COA Detail",
+                                    showTitle: true,
+                                    width: 650,
+                                    // height: 450,
+                                    position: {
+                                        my: 'center',
+                                        at: 'center',
+                                        of: window
+                                    },
+                                    showCloseButton: true,
+                                    visible: false,
+                                    dragEnabled: false,
+                                    closeOnOutsideClick: true,
+                                    onContentReady: e => {
+                                        //  console.log('aa');
+                                        $("#batal .dx-button-content .dx-button-text").text("Batal");
+                                    },
+                                    contentTemplate: function()  {
+                                        let content = $('<div />');
+                                        content.append('<div id="formInsert5" />');
+                                        // content.append('<div id="matauangdebet"');
+                                        // content.append('<div id="invoicedebet"');
+                                        // content.append('<div id="nominaltransaksidebet"');
+                                        // content.append('<div id="keterangantrxdebet"');
+                                        // content.append('<div id="nocoakredit"');
+                                        // content.append('<div id="matauangkredit"');
+                                        // content.append('<div id="invoicekredit"');
+                                        // content.append('<div id="nominaltransaksikredit"');
+                                        // content.append('<div id="keterangantrxkredit"');
+                                        return content;
+
+
+
+                                    },
+                                    onShown: function ()
+                                    {
+                                        var forminsert5 = $("#formInsert5").dxForm({
+                                            colCount: 1,
+                                            // width: '1000px',
+                                            position:'center',
+                                            labelLocation: "top",
+                                            alignItemLabels: true,
+                                            alignItemLabelsInAllGroups: true,
+                                            items: [
+
+                //                                {
+                //                                    itemType: "simple",
+                //                                    editorType: "dxTextBox",
+                //                                    dataField: "nocoa",
+                //                                    label: { text: "Masukkan Nomor COA", location: "top" },
+                //                                    editorOptions: {
+                //                                        placeholder:"Masukkan Nomor COA.."
+                //                                    },
+                //                                    validationRules: [
+                //                                        {
+                //                                            type: "required",
+                //                                        },
+                //                                    ]
+                //                                },
+                //                                {
+                //                                    itemType: "simple",
+                //                                    editorType: "dxTextBox",
+                //                                    dataField: "namacoa",
+                //                                    label: { text: "Masukkan Nama COA", location: "top" },
+                //                                    editorOptions: {
+                //                                        placeholder:"Masukkan Nama COA.."
+                //                                    },
+                //                                    validationRules: [
+                //                                        {
+                //                                            type: "required",
+                //                                        },
+                //                                    ]
+                //                                },
+                //
+                //
+                //                                {
+                //                                     itemType: "simple",
+                //                                     editorType: "dxTextBox",
+                //                                     dataField: "pilihnamacoaheader",
+                //                                     visible: false,
+                //                                     label: { text: "Bila menjadi detail, pilih nomor dan coa untuk menjadi headernya", location: "top" },
+                //                                     editorOptions: {placeholder:"Masukkan Keterangan COA.."}
+                //                                },
+                                                {
+                                                                                    itemType: "simple",
+                                                                                    editorType: "dxSelectBox",
+                                                                                    dataField: "NOPLUSNAMACOADBT",
+                                                                                    label: { text: "Pilih group COA", location: "top" },
+                                                                                    editorOptions: {
+                                                                                        dataSource: "/api/getnocoaplusname/1",
+                                                                                        placeholder: "Pilih Nomor COA disini...",
+                                                                                        showSelectionControls: true,
+                                                                                        applyValueMode: "useButtons",
+                                                                                        displayExpr: function (data) {
+                                                                                            if (data) {
+                                                                                                return `${data.NOPLUSNAMACOADBT}`;
+                                                                                            }
+                                                                                            return null;
+                                                                                        },
+                                                                                        keyExpr: "NOPLUSNAMACOADBT",
+                                                                                        valueExpr: "NOPLUSNAMACOADBT",
+                                                                                        searchEnabled: true,
+                                                                                    },
+                                                                                    validationRules: [
+                                                                                        {
+                                                                                            type: "required",
+                                                                                        },
+                                                                                    ]
+                                                                                },
+                                                {
+                                                    itemType: "simple",
+                                                    editorType: "dxSelectBox",
+                                                    dataField: "idplusket",
+                                                    label: { text: "Pilih Posisi COA", location: "top" },
+                                                    editorOptions: {
+                                                        dataSource: "/api/getposisi",
+                                                        placeholder: "Pilih Posisi COA...",
+                                                        showSelectionControls: true,
+                                                        applyValueMode: "useButtons",
+                                                        displayExpr: function (data) {
+                                                            if (data) {
+                                                                return `${data.idplusket}`;
+                                                            }
+                                                            return null;
+                                                        },
+
+                                                        keyExpr: "idplusket",
+                                                        valueExpr: "idplusket",
+                                                        searchEnabled: true,
+                                                    },
+                                                    validationRules: [
+                                                        {
+                                                            type: "required",
+                                                        },
+                                                    ]
+                                                },
+                                                {
+                                                    itemType: "simple",
+                                                    editorType: "dxTextBox",
+                                                    dataField: "ket",
+                                                    label: { text: "Masukkan Keterangan COA (Optional)", location: "top" },
+                                                    editorOptions: {placeholder:"Masukkan Keterangan COA.."}
+                                                },
+                                                {
+                                                    dataField: 'submitBut',
+                                                    itemType: 'button',
+                                                    horizontalAlignment: 'center',
+                                                    buttonOptions: {
+                                                        text: 'Submit',
+                                                        type: 'success',
+                                                        onClick: function() {
+                                                            var nocoa = $('#formInsert5').find('input[name="nocoa"]').val();
+                                                            var namacoa = $('#formInsert5').find('input[name="namacoa"]').val();
+                                                            var posisi = $('#formInsert5').find('input[name="idplusket"]').val();
+                                                            var sliceposisi = posisi.slice(0, 1);
+                                                            var KET = $('#formInsert5').find('input[name="ket"]').val();
+                                                            var group = $('#formInsert5').find('input[name="NOPLUSNAMACOADBT"]').val();
+                                                            var slicegroup = group.slice(0, 6);
+                                                            $.ajax({
+                                                                url: '/api/postCOA?NO_COA='+nocoa+'&NAMA_COA='+namacoa+'&POSISI='+sliceposisi+'&KET='+KET+'&GROUP_COA='+slicegroup+'&Identifier=0',
+                                                                method: 'POST',
+
+                                                                processData: false,
+
+                            //
+                                                                success: function () {
+                                                                    DevExpress.ui.notify("Data Berhasil di submit", "success", 10000);
+                                                                    location.reload();
+                                                                },
+                                                                error: function () {
+                                                                    DevExpress.ui.notify("Data tidak Berhasil di submit", "error", 10000);
+                                                                }
+
+                                                            });
+
+
+
+
+                                                            cek.show();
+                                                        }
+                                                        // useSubmitBehavior: true,
+                                                    },
+
+                                                },
+
+
+                                            ],
+                                        });
+                                    }
+
+                                });
     $('#AddButtonHeader').dxButton({
             stylingMode: 'contained',
-            text: 'Klik untuk Tambah COA Header',
+            text: 'Tambah COA Header',
             type: 'success',
 //            width: 120,
             onClick() {
@@ -477,7 +904,7 @@ $(function(){
         });
     $('#AddButtonDetail').dxButton({
         stylingMode: 'contained',
-        text: 'Klik untuk Tambah COA Detail',
+        text: 'Tambah COA Detail',
         type: 'success',
 //        width: 120,
         onClick() {
@@ -485,11 +912,33 @@ $(function(){
             // DevExpress.ui.notify('The Contained button was clicked');
         },
     });
+//    $('#EditButtonHeader').dxButton({
+//                stylingMode: 'contained',
+//                text: 'Edit atau hapus COA Header',
+//                type: 'success',
+//    //            width: 120,
+//                onClick() {
+//                    popup4.show();
+//                    // DevExpress.ui.notify('The Contained button was clicked');
+//                },
+//            });
+//    $('#EditButtonDetail').dxButton({
+//            stylingMode: 'contained',
+//            text: 'Edit atau hapus COA Detail',
+//            type: 'success',
+//    //        width: 120,
+//            onClick() {
+//                popup5.show();
+//                // DevExpress.ui.notify('The Contained button was clicked');
+//            },
+//        });
 
 
 
     const popup2 = $("#popup2").dxPopup("instance");
     const popup3 = $("#popup3").dxPopup("instance");
+    const popup4 = $("#popup4").dxPopup("instance");
+    const popup5 = $("#popup5").dxPopup("instance");
     $('#Update_Button').click(function(){
         var result= $(this).data('NO_COA');
         alert(result);

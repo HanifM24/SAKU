@@ -26,6 +26,11 @@ public class GetListNeracaController {
     {
         return masterJDBCTemplate.listDataNeraca();
     }
+    @GetMapping("/getLabaRugi")
+    public List<GetNeracaModel> listDatalbrg()
+    {
+        return masterJDBCTemplate.listlabarugi();
+    }
 
 
 

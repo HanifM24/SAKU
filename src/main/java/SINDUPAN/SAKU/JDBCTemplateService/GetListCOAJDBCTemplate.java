@@ -32,7 +32,7 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
                         "dc.KET as 'DESC' \n" +
                         "from daftar_coa dc \n" +
                         "inner join ref_poscoa rp on dc.POSISI = rp.Id \n" +
-                        "inner join ref_headerdetail rh on dc.HEADER = rh.Id \n" +
+                        "inner join ref_headerdetail rh on dc.DETAIL = rh.Id \n" +
                         "order by NO_COA \n";
         List <GetListCOAModel> DatadetailsCOAModels = jdbcTemplateObject.query(SQL, new GetListCOAMapper());
         return DatadetailsCOAModels;
@@ -42,6 +42,24 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
     {
             String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ? );";
             jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier);
+
+    }
+    public void updatenama(String NAMA_COA, String NO_COA)
+    {
+        String SQL = "update daftar_coa set NAMA_COA = ?, TANGGAL = curdate() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL, NAMA_COA, NO_COA);
+
+    }
+    public void updatedesc(String DESC, String NO_COA)
+    {
+        String SQL = "update daftar_coa set KET = ?, TANGGAL = curdate() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL, DESC, NO_COA);
+
+    }
+    public void updatenamadesc(String NAMA_COA, String DESC, String NO_COA)
+    {
+        String SQL = "update daftar_coa set NAMA_COA = ?, KET = ?, TANGGAL = curdate() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL,NAMA_COA, DESC, NO_COA);
 
     }
     public GetListCOAModel getByNOCOA(String nocoa)

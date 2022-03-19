@@ -17,8 +17,8 @@ public class GetListDtlJurnalMapper implements RowMapper<GetListTRXModel> {
 //            getListTransaksiModel.setNO_TRXDBT(rs.getString("NO_TRXDBT"));
             getListTransaksiModel.setNO_TRX(rs.getString("NO_TRX"));
             getListTransaksiModel.setTGL_TRX(rs.getString("TGL_TRX"));
-            getListTransaksiModel.setNAMA_COA_DBT(rs.getString("NAMA_COA_DBT"));
-            getListTransaksiModel.setNAMA_COA_KDT(rs.getString("NAMA_COA_KDT"));
+            getListTransaksiModel.setNAMA_COA(rs.getString("NAMA_COA"));
+            getListTransaksiModel.setNAMA_COA(rs.getString("NAMA_COA"));
             getListTransaksiModel.setNO_COA(rs.getString("NO_COA"));
             getListTransaksiModel.setMATA_UANG(rs.getString("MATA_UANG"));
             getListTransaksiModel.setNOMINALTRXDBT(rs.getDouble("NOMINALTRXDBT"));

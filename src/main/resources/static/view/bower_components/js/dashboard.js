@@ -148,7 +148,18 @@ const menubar = [
     {
         id: '3',
         text: 'Tarik dan list data Currency',
-        url: '/Currency'
+        // url: '/Currency'
+        items:[{
+            id:'3_1',
+            text: 'Tarik data currency',
+            url:'/Currency'
+            },{
+            id:'3_2',
+            text: 'Input Manual Currency'
+
+            }
+
+        ]
             // expanded: true
     },
     {
@@ -187,7 +198,8 @@ const menubar = [
             url:'/neraca_old'
         },{
             id:'5_6',
-            text:'Laba Rugi'
+            text:'Laba Rugi',
+            url:'/profitloss'
         }]
 
     }

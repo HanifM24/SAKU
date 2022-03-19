@@ -48,6 +48,8 @@ public class ViewController {
     public String ViewMenuNeracaOld(){return "neraca_old";}
     @GetMapping("/neraca")
     public String ViewMenuNeraca(){return "neraca";}
+    @GetMapping("/profitloss")
+    public String ViewMenuprofloss(){return "profitloss";}
 
 
 
