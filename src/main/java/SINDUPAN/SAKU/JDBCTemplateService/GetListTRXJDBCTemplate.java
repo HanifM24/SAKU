@@ -34,6 +34,11 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
         String SQL = "select * from vw_jurnal";
         return jdbcTemplateObject.query(SQL, new GetListDtlJurnalMapper());
     }
+    public List<GetListTRXModel>listjurnalwithparam(String datefrom, String dateto) // no parameter
+    {
+        String SQL = "select * from vw_jurnal where TGL_TRX  between ? and ?";
+        return jdbcTemplateObject.query(SQL, new GetListDtlJurnalMapper(), new Object[]{datefrom, dateto});
+    }
 //    public List<GetListTRXModel>listledger() //no parameter
 //    {
 //        String SQL = "call sp_getledger()";

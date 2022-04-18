@@ -1,4 +1,25 @@
 $(() => {
+//    var username = JSON.parse('${userName}');
+//    function getusername(){
+//        $.ajax({
+//                                            url: '/api/getuserappnames',
+//                                            method: 'GET',
+//
+//                                            processData: false,
+//
+//        //
+//                                            success: function (data) {
+//                                                return data
+//
+//
+//
+//
+//
+//                                        }
+//
+//
+//    })
+//    }
     DevExpress.setTemplateEngine('underscore');
 
     $('#treeview').dxTreeView({
@@ -137,7 +158,12 @@ const products = [
 const menubar = [
     {
         id: '1',
-        text:'Pengaturan Admin'
+        text:'Pengaturan Admin',
+        items:[{
+            id : '1_1',
+            text : 'Pendaftaran User Baru',
+            url :'/register'
+        }]
     },
     {
         id: '2',
@@ -147,19 +173,15 @@ const menubar = [
     },
     {
         id: '3',
-        text: 'Tarik dan list data Currency',
-        // url: '/Currency'
-        items:[{
-            id:'3_1',
-            text: 'Tarik data currency',
-            url:'/Currency'
-            },{
-            id:'3_2',
-            text: 'Input Manual Currency'
-
-            }
-
-        ]
+        text: 'Menarik atau menginput nilai mata uang asing',
+         url: '/Currency'
+//        items:[{
+//            id:'3_1',
+//            text: 'Tarik data currency',
+//            url:'/Currency'
+//            },
+//
+//        ]
             // expanded: true
     },
     {

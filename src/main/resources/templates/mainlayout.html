@@ -1,0 +1,84 @@
+<!--<%@page contentType="text/html" pageEncoding="UTF-8"%>-->
+<!--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
+<!--<%@ page import="java.sql.*,java.net.*,java.text.*,java.util.*" %>-->
+<!--<%@ page import="java.sql.*" %> -->
+<!--<%@ page import="java.io.*" %> -->
+<!--<%@ include file="proses/conn.jsp" %>-->
+
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:fragment="main-fragment(mainContent)">
+
+<head>
+<!--    <meta http-equiv="Refresh" content="0; url='https://www.w3docs.com'" />-->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--&lt;!&ndash;    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; DevExtreme theme &ndash;&gt;&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; DevExtreme library &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>&ndash;&gt;-->
+
+<!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+
+    <title>Sistem Akutansi PAN</title>
+<!--&lt;!&ndash;    <script src="jsdevextreme/globalize/date.js"></script>&ndash;&gt;-->
+
+
+
+<!--    <script src="view/bower_components/js/dashboard.js"></script>-->
+
+</head>
+<body class="dx-viewport">
+<div class="demo-container">
+    <div class="container">
+        <div th:insert="fragments/navbarhead.html"/>
+        <div th:insert="fragments/navbartree.html"/>
+
+
+        <div th:insert="${mainContent} ?: ~{}"/>
+
+
+<!--        <div class="top-content">-->
+<!--            <div id="navbar"></div>-->
+<!--        </div>-->
+<!--        <div class="left-content">-->
+<!--            <div id="treeview"></div>-->
+<!--        </div>-->
+<!--        <div class="right-content">-->
+<!--            <div class="title-container" style="text-align: center">-->
+<!--                <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>-->
+<!--                <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>-->
+<!--&lt;!&ndash;                <div id="currencybutton"></div>&ndash;&gt;-->
+
+<!--            </div>-->
+
+<!--&lt;!&ndash;            <div class="stats">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="sub-title">Area, km<sup>2</sup></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="stat-value" id="country-area"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="sub-title">Population</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="stat-value" id="country-population"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="sub-title">GDP, billion</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="stat-value" id="country-gdp"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="sub-title">Largest cities</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div id="tabpanel"></div>&ndash;&gt;-->
+<!--        </div>-->
+    </div>
+
+</div>
+</body>
+
+</html>

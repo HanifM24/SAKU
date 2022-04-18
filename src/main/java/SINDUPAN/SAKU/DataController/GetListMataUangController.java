@@ -12,10 +12,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -221,6 +218,30 @@ public class GetListMataUangController {
 //        Double Matauagusd= getMataUangdnCurrencyModel.getUSD();
 //        Double Mataangjpy= getMataUangdnCurrencyModel.getJPY();
 //        Double
+
+
+
+    }
+
+    @PostMapping("/postcurtodbmanual")
+    public void  postdbmanualcurr(String matauang, String rate) throws IOException {
+        masterJDBCTemplateList.postmatauangmanual(matauang, rate);
+
+////    void  testlagi() throws IOException {
+//        if(masterJDBCTemplate.checkingdata() == 0) {
+//            masterJDBCTemplateList.postmatauangmanual(matauang, rate);
+//
+//            return 1;
+//
+//        }
+//        else
+//        {
+//            return 0;
+//        }
+//
+////        Double Matauagusd= getMataUangdnCurrencyModel.getUSD();
+////        Double Mataangjpy= getMataUangdnCurrencyModel.getJPY();
+////        Double
 
 
 

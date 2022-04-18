@@ -6,6 +6,7 @@ import SINDUPAN.SAKU.Mapper.GetDataCOAplusnMapper;
 import SINDUPAN.SAKU.Mapper.GetListCOAMapper;
 import SINDUPAN.SAKU.Model.GetListCOAModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -62,10 +63,16 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
         jdbcTemplateObject.update(SQL,NAMA_COA, DESC, NO_COA);
 
     }
-    public GetListCOAModel getByNOCOA(String nocoa)
+    public  String getByNOCOA(String nocoa)
     {
         String SQL = "select NO_COA from daftar_coa where NO_COA= ?";
-        return jdbcTemplateObject.queryForObject(SQL, new GetDataCOAMapper(), new Object[]{nocoa});
+        try {
+            return jdbcTemplateObject.queryForObject(SQL, String.class, new Object[]{nocoa});
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            return null;
+        }
     }
     public List<GetListCOAModel> datanomorcoaplusname(String Id)
     {

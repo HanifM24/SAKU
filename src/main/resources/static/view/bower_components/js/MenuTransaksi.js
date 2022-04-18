@@ -4,6 +4,7 @@
 
 
 $(function(){
+    var today = new Date();
     var arrobjdbt = [];
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
@@ -91,6 +92,103 @@ $(function(){
 //
 //        }
 //        });
+//    $('#datefrom').dxDateBox({
+//                                type: 'date',
+//                                value: today,
+//                                width: 200,
+//                              });
+//    $('#dateto').dxDateBox({
+//                                   type: 'date',
+//                                   value: today,
+//                                   width: 200,
+//                                 });
+                $("#formsearch").dxForm({
+                         colCount: 2,
+                         width: '500px',
+                         position:'center',
+                         labelLocation: "left",
+                         alignItemLabels: true,
+                         alignItemLabelsInAllGroups: true,
+                         items: [
+                         {
+
+                                                                             editorType: "dxDateBox",
+                                                                             dataField: "datefrom",
+                                                                             label: { text: "Dari", location: "left" },
+                                                                             editorOptions: {
+                                                                                 value: today
+                                                                             },
+                                                                             validationRules: [
+                                                                                 {
+                                                                                     type: "required",
+                                                                                 },
+                                                                             ]
+                                                                         },
+                         {
+
+                                 editorType: "dxDateBox",
+                                 dataField: "dateto",
+                                 label: { text: "Ke", location: "left" },
+                                 editorOptions: {
+                                     value: today
+                                 },
+                                 validationRules: [
+                                     {
+                                         type: "required",
+                                     },
+                                 ]
+                             },
+                         {
+                                 itemType: "button",
+                                 editorType: "dxTextBox",
+                                 itemType: 'button',
+                                 horizontalAlignment: 'center',
+                                 buttonOptions: {
+                                          text: 'Cari',
+                                          type: 'danger',
+                                          onClick: function() {
+                                                 var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                                 var dateto = $('#formsearch').find('input[name="dateto"]').val();
+                                                 debugger
+                                                 $.ajax({
+                                                    url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
+                                                    contentType: 'application/x-www-form-urlencoded',
+                                                    success: function(data){
+                                                            dataGrid.option("dataSource", {store:{type:"array", data: data}})
+                                                    }
+
+                                                 })
+
+
+                                                                                     }
+
+                                                                                 },
+                                                     },
+                         {
+                                                          itemType: "button",
+                                                          editorType: "dxTextBox",
+                                                          itemType: 'button',
+                                                          horizontalAlignment: 'center',
+                                                          buttonOptions: {
+                                                                   text: 'Reset tanggal',
+                                                                   type: 'default',
+                                                                   onClick: function() {
+                                                                            $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
+                                                                            $("#formsearch").dxForm('instance').getEditor("dateto").option("value", today);
+
+                                                                                                              }
+
+                                                                                                          },
+                                                                              },
+
+
+
+
+
+
+
+                         ],
+                     });
     const dataGrid = $('#Datatrx').dxDataGrid({
                 dataSource: "/api/getTRXjrnldtl",
                 method: "GET",
@@ -123,7 +221,7 @@ $(function(){
                              },
                            },
                          },
-                         'searchPanel'
+                         'searchPanel',
                        ],
                      },
                 // dataSource: {
@@ -171,17 +269,4 @@ $(function(){
     //
     //     $(this).find(".modal-body").load(datas.getAll('NO_COA'));
     // });
-
-
-
-    $("#buttonadd").dxButton({
-        stylingMode: 'contained',
-        text:'Click untuk melakukan transaksi',
-        type: 'default',
-        width:'auto',
-        onClick: () => {
-            window.location = "http://localhost:8080/InputTransaksi";
-            // popup.show();
-        }
-    });
 });

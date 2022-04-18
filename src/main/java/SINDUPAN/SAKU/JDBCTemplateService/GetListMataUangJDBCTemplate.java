@@ -30,6 +30,15 @@ public class GetListMataUangJDBCTemplate implements GetListMataUangDAO {
         return getListMataUangModels;
 
     }
+
+    public void postmatauangmanual(String MATAUANG, String RATE)
+    {
+        String SQL = "insert into currencyvalue (KD_MATA_UANG, RATE, UPDATE_DATE) \n" +
+                " values (?, ?, now());";
+        jdbcTemplateObject.update(SQL, MATAUANG, RATE);
+
+
+    }
     }
 
 //    @Autowired

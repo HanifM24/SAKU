@@ -19,7 +19,10 @@ var sumeqkdt = 0;
 var arreqrupiahdbt = [];
 var arreqrupiahkdt =[];
 var eqrupiahdbt;
-var eqrupiahkdt
+var eqrupiahkdt;
+var keydbt = 0;
+var keykdt = 0;
+
 
 // const urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=40db38a0-7b16-11ec-8482-1352ed8d2fa2&base_currency=IDR' //ini yang register dipake seperlunya
 // var urlapi = 'https://freecurrencyapi.net/api/v2/latest?apikey=YOUR-APIKEY&base_currency=IDR' // kalo udh abis jatahnya ganti ke register
@@ -28,11 +31,12 @@ const urlapi = '/api/getdetailcur';
 
 $(function(){
 
-    function getcurrency(datacur, matauang, namacoa, invoice, keterangan, kodeplusnamauang, jsntrxs){
+    function getcurrency(keydbt, datacur, matauang, namacoa, invoice, keterangan, kodeplusnamauang, jsntrxs){
         if (jsntrxs == "DBT") {
             if (matauang == "IDR") {
                 eqrupiahdbt = datacur;
                 datadr.push({
+                    KEYDBT: keydbt,
                     NO_COA_DBT: namacoa,
                     MATA_UANG_DBT: kodeplusnamauang,
                     INVOICE_DBT: invoice,
@@ -335,7 +339,7 @@ $(function(){
                 horizontalAlignment: 'center',
                 buttonOptions: {
                     text: 'Input Debet',
-                    type: 'success',
+                    type: 'default',
                     onClick: function() {
                         var NOPLUSNAMACOADBT = $("#formInsert").dxForm("instance").getEditor('NOPLUSNAMACOADBT').option('value');
                         var KODEPLUSNAMAUANGDBT = $("#formInsert").dxForm("instance").getEditor('KODEPLUSNAMAUANGDBT').option('value');
@@ -343,8 +347,11 @@ $(function(){
                         var NOMINALTRXDBTV = $("#formInsert").dxForm("instance").getEditor('NOMINALTRXDBT').option('value');
                         var KTRGNDBT = $("#formInsert").dxForm("instance").getEditor('KTRG_DBT').option('value');
                         var kodeuang = KODEPLUSNAMAUANGDBT.slice(6, 9);
-                        var jnstrx = "DBT"
-                        getcurrency(NOMINALTRXDBTV,
+                        var jnstrx = "DBT";
+                        keydbt ++
+                        getcurrency(
+                                    keydbt,
+                                    NOMINALTRXDBTV,
                                     kodeuang,
                                     NOPLUSNAMACOADBT,
                                     INVOICE_DBTV,
@@ -382,7 +389,7 @@ $(function(){
                 horizontalAlignment: 'center',
                 buttonOptions: {
                     text: 'Input Kredit',
-                    type: 'success',
+                    type: 'default',
                     onClick: function() {
                         var NOPLUSNAMACOAKDT = $("#formInsert").dxForm("instance").getEditor('NOPLUSNAMACOAKDT').option('value');
                         var KODEPLUSNAMAUANGKDT = $("#formInsert").dxForm("instance").getEditor('KODEPLUSNAMAUANGKDT').option('value');
@@ -391,7 +398,10 @@ $(function(){
                         var KTRGNKDT = $("#formInsert").dxForm("instance").getEditor('KTRG_KDT').option('value');
                         var jnstrx1 = "KDT";
                         var kodeuang = KODEPLUSNAMAUANGKDT.slice(6, 9);
-                        getcurrency(NOMINALTRXKDTV,
+                        keykdt ++
+                        getcurrency(
+                            keykdt,
+                            NOMINALTRXKDTV,
                             kodeuang,
                             NOPLUSNAMACOAKDT,
                             INVOICE_KDTV,
@@ -459,18 +469,43 @@ $(function(){
                 dataSource: datadr,
                 columnAutoWidth: true,
                 showBorders: true,
+                editing:{
+                    mode: 'row',
+                    allowDeleting: true
+                },
+                onRowRemoving(data){
+                       datadr.splice(data.data.KEYDBT - 1, 1),
+                       MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1),
+                       INVOICE_DBT.splice(data.data.KEYDBT - 1, 1),
+                       NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1),
+                       KTRG_DBT.splice(data.data.KEYDBT - 1, 1),
+                       NO_COA_DBT.splice(data.data.KEYDBT - 1, 1),
+                       arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1),
+                       sumeqdbt -= data.data.EQIVALRPDBT
+
+
+//                    delete data.data.NO_COA_DBT,
+//                    delete data.data.EQIVALRPDBT,
+//                    delete data.data.INVOICE_DBT,
+//                    delete data.data.KTRG_DBT,
+//                    delete data.data.MATA_UANG_DBT,
+//                    delete data.data.NOMINALTRXDBT
+                      debugger
+
+                },
                 columns: [
                     // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+                    {dataField:"KEYDBT",caption:"Nomor", alignment: "left"},
                     {dataField:"NO_COA_DBT",caption:"Nomor COA Debet", alignment: "center"},
                     {dataField:"MATA_UANG_DBT",caption:"Mata Uang", alignment: "center"},
                     {dataField:"INVOICE_DBT",caption:"Invoice Debit", alignment: "center"},
                     {dataField:"NOMINALTRXDBT",caption:"Nominal Debet", format:{
                             type:'fixedPoint',
-                            precision: 2}, alignment: "center"},
-                    {dataField:"KTRG_DBT",caption:"Keterangan", alignment: "center"},
+                            precision: 2}, alignment: "right"},
                     {dataField:"EQIVALRPDBT",caption:"Ekivalen Rupiah", format:{
                             type:'fixedPoint',
-                            precision: 2}, alignment: "center"}
+                            precision: 2}, alignment: "right"},
+                    {dataField:"KTRG_DBT",caption:"Keterangan", alignment: "center"}
                 ],
                 summary:{
                     totalItems:[
@@ -494,19 +529,34 @@ $(function(){
                 showBorders: true,
                 allowColumnResizing: true,
                 columnAutoWidth: true,
+                editing:{
+                                    mode: 'row',
+                                    allowDeleting: true
+                                },
                 showBorders: true,
+                onRowRemoving(data){
+                                    datadr.splice(data.data.KEYKDT - 1, 1),
+                                    MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1),
+                                    INVOICE_KDT.splice(data.data.KEYKDT - 1, 1),
+                                    NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1),
+                                    KTRG_KDT.splice(data.data.KEYKDT - 1, 1),
+                                    NO_COA_KDT.splice(data.data.KEYKDT - 1, 1),
+                                    arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1),
+                                    sumeqkdt -= data.data.EQIVALRPKDT
+
+                                },
                 columns: [
                     // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
                     {dataField:"NO_COA_KDT",caption:"Nomor COA Kredit", alignment: "center"},
-                    {dataField:"MATA_UANG_KDT",caption:"Mata Uang KDT", alignment: "center"},
+                    {dataField:"MATA_UANG_KDT",caption:"Mata Uang", alignment: "center"},
                     {dataField:"INVOICE_KDT",caption:"Invoice Kredit", alignment: "center"},
                     {dataField:"NOMINALTRXKDT",caption:"Nominal Kredit", format:{
                             type:'fixedPoint',
-                            precision: 2}, alignment: "center"},
-                    {dataField:"KTRG_KDT",caption:"Keterangan", alignment: "center"},
+                            precision: 2}, alignment: "right"},
                     {dataField:"EQIVALRPKDT",caption:"Ekivalen Rupiah", format:{
                             type:'fixedPoint',
-                            precision: 2}, alignment: "center"}
+                            precision: 2}, alignment: "right"},
+                    {dataField:"KTRG_KDT",caption:"Keterangan", alignment: "center"},
                 ],
                 summary:{
                     totalItems:[
@@ -527,7 +577,7 @@ $(function(){
             });
             $("#submitbutton").dxButton({
                 text:'Submit',
-                type:'success',
+                type:'default',
                 horizontalAlignment: 'center',
                 onClick:function() {
                     let dataraw = new FormData();

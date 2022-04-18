@@ -9,6 +9,7 @@ public class GetNeracaModel {
     public Double KREDIT;
     public Double SALDO;
     public String GROUP_COA;
+    public String HEADER_COA;
 
 
 
@@ -58,5 +59,13 @@ public class GetNeracaModel {
 
     public void setSALDO(Double SALDO) {
         this.SALDO = SALDO;
+    }
+
+    public String getHEADER_COA() {
+        return HEADER_COA;
+    }
+
+    public void setHEADER_COA(String HEADER_COA) {
+        this.HEADER_COA = HEADER_COA;
     }
 }

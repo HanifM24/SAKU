@@ -137,7 +137,7 @@ $(function(){
         columns:[
 //            {checkbox: true},
             {dataField:"NAMA_COA",caption:"Nama COA", alignment: "left"},
-            {dataField:"NO_COA",caption:"Nomor COA", alignment: "right"},
+            {dataField:"NO_COA",caption:"Nomor COA", alignment: "left"},
 
         ],
         masterDetail: {
@@ -161,19 +161,19 @@ $(function(){
                         {dataField:'NOMINALTRXDBT',caption:'Nominal Transaksi Debet',
                             format:{
                                 type:'fixedPoint',
-                                precision: 2}, alignment: "center"},
+                                precision: 2}, alignment: "right"},
                         {dataField:'NOMINALTRXKDT',caption:'Nominal Transaksi Kredit',
                             format:{
                                 type:'fixedPoint',
-                                precision: 2}, alignment: "center"},
+                                precision: 2}, alignment: "right"},
                         {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet',
                             format:{
                                 type:'fixedPoint',
-                                precision: 2}, alignment: "center"},
+                                precision: 2}, alignment: "right"},
                         {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit',
                             format:{
                                 type:'fixedPoint',
-                                precision: 2}, alignment: "center"},
+                                precision: 2}, alignment: "right"},
                     ],
                     summary:{
                         totalItems:[{

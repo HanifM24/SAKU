@@ -19,6 +19,7 @@ public class GetDataNeracaMapper implements RowMapper<GetNeracaModel> {
         dataneracamodel.setNAMACOA(rs.getString("NAMA_COA"));
         dataneracamodel.setSALDO(rs.getDouble("SALDO"));
         dataneracamodel.setGROUP_COA(rs.getString("GROUP_COA"));
+        dataneracamodel.setHEADER_COA(rs.getString("HEADER_COA"));
         return dataneracamodel;    }
 
 }

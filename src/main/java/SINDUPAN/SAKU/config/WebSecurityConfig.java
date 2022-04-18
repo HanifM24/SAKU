@@ -52,8 +52,11 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 "/neraca",
                 "/neraca_old,",
                 "/Currency",
-                "/profitloss"
-        ).access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+                "/profitloss",
+                "/register",
+                "fragments/navbarhead",
+                "mainlayout"
+        ).access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MAKER', 'ROLE_CHECKER', 'ROLE_APPROVAL' )");
 
         // For ADMIN only.
         http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
@@ -72,6 +75,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 .failureUrl("/Login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
+                .and().rememberMe().rememberMeParameter("remember-me")
                 // Config for Logout Page
                 .and().logout().logoutUrl("/Logout").logoutSuccessUrl("/Login");
 

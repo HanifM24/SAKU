@@ -1,15 +1,20 @@
 package SINDUPAN.SAKU;
 
+import com.google.gson.Gson;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.security.Principal;
 
 @Controller
 public class ViewController {
     @GetMapping("/")
     public String index(Model model)
     {
-        return "redirect:/Login";
+        return "redirect:Login";
     }
     @GetMapping("/Login")
     public String ViewLogin(Model model)
@@ -22,8 +27,17 @@ public class ViewController {
         return "redirect:Login";
     }
     @GetMapping("/Dashboard")
-    public String ViewDashboard()
+    public String ViewDashboard(Model model, Principal principal)
     {
+        String userName = principal.getName();
+
+//        System.out.println("User Name: " + userName);
+//
+//        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+//
+//        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userName", new Gson().toJson(userName));
+
         return "dashboard";
     }
     @GetMapping("/SAKU")
@@ -50,6 +64,9 @@ public class ViewController {
     public String ViewMenuNeraca(){return "neraca";}
     @GetMapping("/profitloss")
     public String ViewMenuprofloss(){return "profitloss";}
+    @GetMapping("/register")
+    public String ViewMenuRegister(){return "newuser";}
+
 
 
 

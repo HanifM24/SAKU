@@ -1,9 +1,8 @@
 package SINDUPAN.SAKU.DAO;
 
-import SINDUPAN.SAKU.Mapper.AppUserMapper;
-import SINDUPAN.SAKU.Model.AppUser;
+import SINDUPAN.SAKU.Mapper.AppRoleMapper;
+import SINDUPAN.SAKU.Model.AppRoleModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,4 +30,12 @@ public class AppRoleDAO extends JdbcDaoSupport {
 
         return roles;
     }
+    public List<AppRoleModel> getRoleNameApp() {
+        String sql = "Select r.Role_Name  \n" +
+                "from App_Role r";
+        List<AppRoleModel> roles = this.getJdbcTemplate().query(sql, new AppRoleMapper());
+
+        return roles;
+    }
+
 }

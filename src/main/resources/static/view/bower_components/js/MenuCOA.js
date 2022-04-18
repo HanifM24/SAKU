@@ -8,6 +8,7 @@
 var datagrup;
 var datag = new FormData();
 
+
 $(function(){
 
      function sendBatchRequest(url, changes) {
@@ -104,15 +105,6 @@ $(function(){
         contentTemplate: function()  {
             let content = $('<div />');
             content.append('<div id="formInsert" />');
-            // content.append('<div id="matauangdebet"');
-            // content.append('<div id="invoicedebet"');
-            // content.append('<div id="nominaltransaksidebet"');
-            // content.append('<div id="keterangantrxdebet"');
-            // content.append('<div id="nocoakredit"');
-            // content.append('<div id="matauangkredit"');
-            // content.append('<div id="invoicekredit"');
-            // content.append('<div id="nominaltransaksikredit"');
-            // content.append('<div id="keterangantrxkredit"');
             return content;
 
 
@@ -157,45 +149,7 @@ $(function(){
                             },
                         ]
                     },
-//                    {
-//                         itemType: "simple",
-//                         editorType: "dxCheckBox",
-//                         dataField: "isheader",
-//                         label: { text: "Apakah menjadi Header Kelompok? ", location: "top" },
-//                         onValueChanged(data) {
-//                                forminsert.option('value', data.value);
-//
-////                               forminsert.option("visible", false)
-//                             },
-////                         editorOptions: {placeholder:"Masukkan Keterangan COA.."}
-//                        },
-//                    {
-//                         itemType: "simple",
-//                                                 editorType: "dxSelectBox",
-//                                                 dataField: "idplusket",
-//                                                 label: { text: "Pilih Header COA", location: "top" },
-//                                                 editorOptions: {
-//                                                     dataSource: "/api/getposisi",
-//                                                     placeholder: "Pilih Posisi COA...",
-//                                                     showSelectionControls: true,
-//                                                     applyValueMode: "useButtons",
-//                                                     displayExpr: function (data) {
-//                                                         if (data) {
-//                                                             return `${data.idplusket}`;
-//                                                         }
-//                                                         return null;
-//                                                     },
-//
-//                                                     keyExpr: "idplusket",
-//                                                     valueExpr: "idplusket",
-//                                                     searchEnabled: true,
-//                                                 },
-//                                                 validationRules: [
-//                                                     {
-//                                                         type: "required",
-//                                                     },
-//                                                 ]
-//                    },
+
                     {
                                     itemType: "simple",
                                     editorType: "dxSelectBox",
@@ -276,6 +230,7 @@ $(function(){
                                 var slicegroup = group.slice(0, 6);
 
 
+
 //                                var formData = new FormData();
 //                                formData.append('NO_COA', nocoa);
 //                                formData.append('NAMA_COA', namacoa);
@@ -289,18 +244,25 @@ $(function(){
                                     processData: false,
 
 //
-                                    success: function () {
-                                        DevExpress.ui.notify("Data Berhasil di submit", "success", 10000);
-                                        location.reload();
-                                    },
+                                    success: function (data) {
+                                        if(data === "0")
+                                            DevExpress.ui.notify("Nomor COA Tidak Boleh Kosong", "error", 10000);
+                                        else if(data === "1"){
+                                            DevExpress.ui.notify("Data Berhasil ditambahkan", "success", 10000);
+                                            location.reload();
+                                        }
+                                        else
+                                        {
+                                            DevExpress.ui.notify("Data Nomor COA sudah ada", "error", 10000);
+                                        }
+                                        },
+
+
                                     error: function () {
-                                        DevExpress.ui.notify("Data tidak Berhasil di submit", "error", 10000);
+                                        DevExpress.ui.notify("Koneksi terputus/error", "error", 10000);
                                     }
 
                                 });
-
-
-
 
 
                             }
@@ -336,15 +298,6 @@ $(function(){
             contentTemplate: function()  {
                 let content = $('<div />');
                 content.append('<div id="formInsert3" />');
-                // content.append('<div id="matauangdebet"');
-                // content.append('<div id="invoicedebet"');
-                // content.append('<div id="nominaltransaksidebet"');
-                // content.append('<div id="keterangantrxdebet"');
-                // content.append('<div id="nocoakredit"');
-                // content.append('<div id="matauangkredit"');
-                // content.append('<div id="invoicekredit"');
-                // content.append('<div id="nominaltransaksikredit"');
-                // content.append('<div id="keterangantrxkredit"');
                 return content;
 
 
@@ -481,20 +434,29 @@ $(function(){
                                         processData: false,
 
     //
-                                        success: function () {
-                                            DevExpress.ui.notify("Data Berhasil di submit", "success", 10000);
-                                            location.reload();
-                                        },
+                                        success: function (data) {
+                                             if(data === "0"){
+                                                    DevExpress.ui.notify("Nomor COA Tidak Boleh Kosong", "error", 10000);}
+                                             else if(data === "1"){
+                                                    DevExpress.ui.notify("Data Berhasil ditambahkan", "success", 10000);
+                                                           location.reload();
+                                                    }
+                                             else
+                                                    {
+                                                           DevExpress.ui.notify("Data Nomor COA sudah ada", "error", 10000);
+                                                    }
+                                                    },
+
                                         error: function () {
-                                            DevExpress.ui.notify("Data tidak Berhasil di submit", "error", 10000);
-                                        }
+                                                    DevExpress.ui.notify("Koneksi terputus/error", "error", 10000);
+                                                     }
 
                                     });
 
 
 
 
-                                    cek.show();
+
                                 }
                                 // useSubmitBehavior: true,
                             },
@@ -687,7 +649,7 @@ $(function(){
 
 
 
-                                            cek.show();
+
                                         }
                                         // useSubmitBehavior: true,
                                     },
@@ -879,7 +841,7 @@ $(function(){
 
 
 
-                                                            cek.show();
+
                                                         }
                                                         // useSubmitBehavior: true,
                                                     },
@@ -895,7 +857,7 @@ $(function(){
     $('#AddButtonHeader').dxButton({
             stylingMode: 'contained',
             text: 'Tambah COA Header',
-            type: 'success',
+            type: 'default',
 //            width: 120,
             onClick() {
                 popup3.show();
@@ -905,7 +867,7 @@ $(function(){
     $('#AddButtonDetail').dxButton({
         stylingMode: 'contained',
         text: 'Tambah COA Detail',
-        type: 'success',
+        type: 'default',
 //        width: 120,
         onClick() {
             popup2.show();

@@ -54,6 +54,14 @@ public class GetListTRXController {
 
 
     }
+    @GetMapping("/getTRXjrnldtlwithparam/{datefrom}/{dateto}")
+    public List<GetListTRXModel> listjurnalaldetailwithparam(@PathVariable String datefrom, @PathVariable String dateto  )
+    {
+
+        return masterJDBCTemplate.listjurnalwithparam(datefrom, dateto);
+
+
+    }
 
     // no paarmeter
 //    @GetMapping("/getTRXledger")

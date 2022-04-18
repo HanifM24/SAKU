@@ -28,9 +28,23 @@ public class GetListCOAController {
     }
 
     @PostMapping("/postCOA")
-    public void postcoa(String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
+    public String postcoa(String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
     {
-        masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI, KET, GROUP_COA,  Identifier);
+
+        if(NO_COA.isBlank())
+        {
+            return "0";
+        }
+        else {
+            if(masterJDBCTemplate.getByNOCOA(NO_COA) !=null)
+            {
+                return "2";
+            }
+            masterJDBCTemplate.create(NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier);
+            return "1";
+
+        }
+
     }
 
     @PostMapping("/updateCOA")
@@ -117,7 +131,7 @@ public class GetListCOAController {
     }
 
     @GetMapping("/getCOAById/{nocoa}")
-    public GetListCOAModel getBynocoa(@PathVariable String nocoa)
+    public String getBynocoa(@PathVariable String nocoa)
     {
         return masterJDBCTemplate.getByNOCOA(nocoa);
     }

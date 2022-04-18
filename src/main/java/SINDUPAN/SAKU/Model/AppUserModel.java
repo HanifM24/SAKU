@@ -1,15 +1,15 @@
 package SINDUPAN.SAKU.Model;
 
-public class AppUser {
+public class AppUserModel {
     private Long userId;
     private String userName;
     private String encrytedPassword;
 
-    public AppUser() {
+    public AppUserModel() {
 
     }
 
-    public AppUser(Long userId, String userName, String encrytedPassword) {
+    public AppUserModel(Long userId, String userName, String encrytedPassword) {
         this.userId = userId;
         this.userName = userName;
         this.encrytedPassword = encrytedPassword;

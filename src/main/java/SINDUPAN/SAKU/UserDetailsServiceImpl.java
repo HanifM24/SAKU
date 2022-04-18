@@ -2,7 +2,7 @@ package SINDUPAN.SAKU;
 
 import SINDUPAN.SAKU.DAO.AppRoleDAO;
 import SINDUPAN.SAKU.DAO.AppUserDAO;
-import SINDUPAN.SAKU.Model.AppUser;
+import SINDUPAN.SAKU.Model.AppUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser appUser = this.appUserDAO.findUserAccount(userName);
+        AppUserModel appUser = this.appUserDAO.findUserAccount(userName);
 
         if (appUser == null) {
             System.out.println("User not found! " + userName);

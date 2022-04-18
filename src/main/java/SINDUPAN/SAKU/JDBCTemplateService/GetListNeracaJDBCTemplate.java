@@ -26,7 +26,7 @@ public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
     @Autowired
     public List<GetNeracaModel> listDataNeraca()
     {
-        String SQL = "select * from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('1', '2')  ";
+        String SQL = "select * from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('1', '2', '3')  ";
         List <GetNeracaModel> getNeracaModels = jdbcTemplateObject.query(SQL, new GetDataNeracaMapper());
         return getNeracaModels;
 
@@ -34,7 +34,7 @@ public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
     @Autowired
     public List<GetNeracaModel> listlabarugi()
     {
-        String SQL = "select NO_COA, \n" +
+        String SQL = "select HEADER_COA, NO_COA, \n" +
                 " NAMA_COA,\n" +
                 " case when substring(NO_COA, 1, 1) = '6'\n" +
                 " then -SALDO \n" +

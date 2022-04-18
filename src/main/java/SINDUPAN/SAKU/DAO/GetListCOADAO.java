@@ -12,7 +12,7 @@ public interface GetListCOADAO {
     public List<GetListCOAModel> listDataCOA();
 
      void create(String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier);
-     GetListCOAModel getByNOCOA(String nocoa);
+     String getByNOCOA(String nocoa);
     public void updatenama(String NAMA_COA, String NO_COA);
     public void updatedesc(String NAMA_COA, String NO_COA);
     public void updatenamadesc(String NAMA_COA, String DESC, String NO_COA);
