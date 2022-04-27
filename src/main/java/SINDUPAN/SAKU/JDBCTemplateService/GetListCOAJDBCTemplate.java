@@ -8,6 +8,8 @@ import SINDUPAN.SAKU.Model.GetListCOAModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.Optional;
 public class GetListCOAJDBCTemplate implements GetListCOADAO {
     @Autowired
     public JdbcTemplate jdbcTemplateObject;
-    @Autowired
+//    @Autowired
     public List<GetListCOAModel> listDataCOA()
     {
         String SQL =
@@ -30,6 +32,13 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
                         "rp.KET as 'POSISI',\n" +
                         "rh.KET, \n" +
                         "dc.STATUS, \n" +
+                        "dc.GROUP_COA, \n" +
+                        "dc.CREATED_BY, \n" +
+                        "dc.CREATED_DATE, \n" +
+                        "dc.CREATED_TIME, \n" +
+                        "dc.UPDATED_BY, \n" +
+                        "dc.UPDATED_DATE, \n" +
+                        "dc.UPDATED_TIME, \n" +
                         "dc.KET as 'DESC' \n" +
                         "from daftar_coa dc \n" +
                         "inner join ref_poscoa rp on dc.POSISI = rp.Id \n" +
@@ -41,26 +50,37 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
     }
     public void create( String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
     {
-            String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ? );";
-            jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String currentPrincipalName = authentication.getName();
+            String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ?, ?);";
+            jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier, currentPrincipalName);
 
     }
     public void updatenama(String NAMA_COA, String NO_COA)
     {
-        String SQL = "update daftar_coa set NAMA_COA = ?, TANGGAL = curdate() where NO_COA = ?;";
-        jdbcTemplateObject.update(SQL, NAMA_COA, NO_COA);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        String SQL = "update daftar_coa set NAMA_COA = ?, TANGGAL = curdate(), " +
+                "UPDATED_BY = ?, UPDATED_DATE = curdate(), UPDATED_TIME = curtime() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL, NAMA_COA, currentPrincipalName,  NO_COA);
 
     }
     public void updatedesc(String DESC, String NO_COA)
     {
-        String SQL = "update daftar_coa set KET = ?, TANGGAL = curdate() where NO_COA = ?;";
-        jdbcTemplateObject.update(SQL, DESC, NO_COA);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        String SQL = "update daftar_coa set KET = ?, TANGGAL = curdate()," +
+                "UPDATED_BY = ?, UPDATED_DATE = curdate(), UPDATED_TIME = curtime() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL, DESC, currentPrincipalName, NO_COA);
 
     }
     public void updatenamadesc(String NAMA_COA, String DESC, String NO_COA)
     {
-        String SQL = "update daftar_coa set NAMA_COA = ?, KET = ?, TANGGAL = curdate() where NO_COA = ?;";
-        jdbcTemplateObject.update(SQL,NAMA_COA, DESC, NO_COA);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        String SQL = "update daftar_coa set NAMA_COA = ?, KET = ?, TANGGAL = curdate()," +
+                " UPDATED_BY = ?, UPDATED_DATE = curdate(), UPDATED_TIME = curtime() where NO_COA = ?;";
+        jdbcTemplateObject.update(SQL,NAMA_COA, DESC, currentPrincipalName, NO_COA);
 
     }
     public  String getByNOCOA(String nocoa)

@@ -440,8 +440,8 @@ $(function(){
     $("#popup").dxPopup({
         title: "List data",
         showTitle: true,
-        width: 650,
-        // height: 450,
+        width: 900,
+//        height: 520,
         position: {
             my: 'center',
             at: 'center',
@@ -458,7 +458,10 @@ $(function(){
             content.append('<p>Kredit</p> ')
             content.append('<div id="datapreviewkdt" />');
             content.append('<div id="submitbutton" />')
-
+            content.dxScrollView({
+                    width: '100%',
+                    height: '100%',
+                  });
             return content;
 
 

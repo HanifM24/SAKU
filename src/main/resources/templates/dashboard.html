@@ -1,16 +1,18 @@
 
 
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{/mainlayout :: main-fragment(~{::#dashboard-content})}">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/mainlayout :: main-fragment(~{::#dashboard-content},
+                                               ~{::#dashboard-static-resource})}">
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
 
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
 <!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
 
 <!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
@@ -20,39 +22,27 @@
 <!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
 
 <!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+<!--    <script src="view/bower_components/js/dashboard.js"></script>-->
 
-    <title>Sistem Akutansi PAN</title>
+<!--    <title>Sistem Akutansi PAN</title>-->
 <!--&lt;!&ndash;    <script src="jsdevextreme/globalize/date.js"></script>&ndash;&gt;-->
 
+<!--    <th:block id="dashboard-static-resource">-->
+<!--       <script src="view/bower_components/js/dashboardisi.js"></script>-->
 
+<!--    </th:block>-->
 
 <!--    <script src="view/bower_components/js/dashboard.js"></script>-->
 
 </head>
-<body class="dx-viewport">
-<div class="demo-container">
-    <div class="container">
-<!--        <div th:replace="fragments/navbarhead.html"/>-->
-<!--        <div class="top-content">-->
-<!--            <div id="navbar"></div>-->
-<!--        </div>-->
-<!--        <div class="left-content">-->
-<!--            <div id="treeview"></div>-->
-<!--        </div>-->
-        <div id="dashboard-content" class="right-content">
-            <div class="title-container" style="text-align: center">
-                <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>
-                <p th:inline = "text">
-                           Selamat datang [[${userName}]]</p>
-                <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>
-                <div id="currencybutton"></div>
-
-            </div>
-
-        </div>
+<body><div id="dashboard-content" >
+    <div class="title-container" style="text-align: center">
+        <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>
+        <p th:inline = "text">
+            Selamat datang [[${userName}]]</p>
+        <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>
     </div>
+</div></body>
 
-</div>
-</body>
 
 </html>

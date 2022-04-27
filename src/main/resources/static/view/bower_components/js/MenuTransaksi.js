@@ -4,6 +4,8 @@
 
 
 $(function(){
+    var datefrom;
+    var dateto;
     var today = new Date();
     var arrobjdbt = [];
     window.jsPDF = window.jspdf.jsPDF;
@@ -147,17 +149,18 @@ $(function(){
                                           text: 'Cari',
                                           type: 'danger',
                                           onClick: function() {
-                                                 var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
-                                                 var dateto = $('#formsearch').find('input[name="dateto"]').val();
-                                                 debugger
-                                                 $.ajax({
-                                                    url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
-                                                    contentType: 'application/x-www-form-urlencoded',
-                                                    success: function(data){
-                                                            dataGrid.option("dataSource", {store:{type:"array", data: data}})
-                                                    }
-
-                                                 })
+                                                 datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                                 dateto = $('#formsearch').find('input[name="dateto"]').val();
+                                                 popup.show();
+//                                                 $.ajax({
+//                                                    url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
+//                                                    contentType: 'application/x-www-form-urlencoded',
+//                                                    success: function(data){
+//                                                                popup.show()
+////                                                            dataGrid.option("dataSource", {store:{type:"array", data: data}})
+//                                                    }
+//
+//                                                 })
 
 
                                                                                      }
@@ -189,80 +192,199 @@ $(function(){
 
                          ],
                      });
-    const dataGrid = $('#Datatrx').dxDataGrid({
-                dataSource: "/api/getTRXjrnldtl",
-                method: "GET",
-                columnAutoWidth: true,
-                searchPanel: { visible: true },
-                contentType: "application/json",
-                export: {
+//    const dataGrid = $('#Datatrx').dxDataGrid({
+//                dataSource: "/api/getTRXjrnldtl",
+//                method: "GET",
+//                columnAutoWidth: true,
+//                searchPanel: { visible: true },
+//                contentType: "application/json",
+//                export: {
+//
+//                                    enabled: true
+//                                },
+//                toolbar: {
+//                       items: [
+//                       'exportButton',
+////                         'groupPanel',
+//                         {
+//                           widget: 'dxButton',
+//                           location: 'after',
+//                           options: {
+//                             icon: 'exportpdf',
+//                             text: 'Export to PDF',
+//                             onClick() {
+//                               const doc = new jsPDF('l', 'mm', [297, 210]);
+//                               doc.setFontSize(6);
+//                               DevExpress.pdfExporter.exportDataGrid({
+//                                 jsPDFDocument: doc,
+//                                 component: dataGrid,
+//                               }).then(() => {
+//                                 doc.save('JurnalTRX.pdf');
+//                               });
+//                             },
+//                           },
+//                         },
+//                         'searchPanel',
+//                       ],
+//                     },
+//                // dataSource: {
+//                //     url: '/api/getTRX',
+//                //     method: 'GET',
+//                //     contentType: "application/json",
+//                //     dataType: 'text',
+//                //     align: 'center',
+//                //     // fitColumns: true
+//                // },
+//                columns:[
+//        //            {checkbox: true},
+//                    {dataField:"TGL_TRX",caption:"Tanggal Transaksi", dataType:"date", alignment: "left", format: "MMM dd, yyyy"},
+//                    {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "left", groupIndex:0},
+////                    {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "center"},
+//                    {dataField:'NAMA_COA',caption:'Nama COA', alignment: "left"},
+////                    {dataField:'NAMA_COA_KDT',caption:'Nama COA Kredit', alignment: "center"},
+//                    {dataField:'NO_COA',caption:'COA Ref', alignment: "left"},
+//                    {dataField:'MATA_UANG',caption:'Mata Uang', alignment: "left"},
+//                    {dataField:'NOMINALTRXDBT',caption:'Nominal Transaksi Debet',
+//                                                        format:{
+//                                                            type:'fixedPoint',
+//                                                            precision: 2}, alignment: "right"},
+//                    {dataField:'NOMINALTRXKDT',caption:'Nominal Transaksi Kredit',
+//                                                        format:{
+//                                                            type:'fixedPoint',
+//                                                            precision: 2}, alignment: "right"},
+//                    {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet',
+//                                                        format:{
+//                                                            type:'fixedPoint',
+//                                                            precision: 2}, alignment: "right"},
+//                    {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit',
+//                                                        format:{
+//                                                            type:'fixedPoint',
+//                                                            precision: 2}, alignment: "right"},
+//                    {dataField:'INVOICE',caption:'Nomor Invoice', alignment: "left"},
+//                    {dataField:'KTRG',caption:'Keterangan', alignment: "left"},
+//
+//                ],
+//
+//                }).dxDataGrid('instance');
+    const popup = $("#popup").dxPopup({
+                        title: "Jurnal Entri",
+                        showTitle: true,
+                        width: 1000,
+                        // height: 450,
+                        position: {
+                            my: 'center',
+                            at: 'center',
+                            of: window
+                        },
+                        showCloseButton: true,
+                        visible: false,
+                        dragEnabled: false,
+                        closeOnOutsideClick: true,
+                        contentTemplate: function()  {
+                            let content = $('<div  />');
+                            content.append('<div id="Datatrx"/>')
+//                            content.append('<p>Datatrx</p> ')
+                            content.dxScrollView({
+                                                width: '100%',
+                                                height: '100%',
+                                              });
+                            return content;
 
-                                    enabled: true
-                                },
-                toolbar: {
-                       items: [
-                       'exportButton',
-//                         'groupPanel',
-                         {
-                           widget: 'dxButton',
-                           location: 'after',
-                           options: {
-                             icon: 'exportpdf',
-                             text: 'Export to PDF',
-                             onClick() {
-                               const doc = new jsPDF('l', 'mm', [297, 210]);
-                               doc.setFontSize(6);
-                               DevExpress.pdfExporter.exportDataGrid({
-                                 jsPDFDocument: doc,
-                                 component: dataGrid,
-                               }).then(() => {
-                                 doc.save('JurnalTRX.pdf');
-                               });
-                             },
-                           },
-                         },
-                         'searchPanel',
-                       ],
-                     },
-                // dataSource: {
-                //     url: '/api/getTRX',
-                //     method: 'GET',
-                //     contentType: "application/json",
-                //     dataType: 'text',
-                //     align: 'center',
-                //     // fitColumns: true
-                // },
-                columns:[
-        //            {checkbox: true},
-                    {dataField:"TGL_TRX",caption:"Tanggal Transaksi", dataType:"date", alignment: "left", format: "MMM dd, yyyy"},
-                    {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "left", groupIndex:0},
-//                    {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "center"},
-                    {dataField:'NAMA_COA',caption:'Nama COA', alignment: "left"},
-//                    {dataField:'NAMA_COA_KDT',caption:'Nama COA Kredit', alignment: "center"},
-                    {dataField:'NO_COA',caption:'COA Ref', alignment: "left"},
-                    {dataField:'MATA_UANG',caption:'Mata Uang', alignment: "left"},
-                    {dataField:'NOMINALTRXDBT',caption:'Nominal Transaksi Debet',
-                                                        format:{
-                                                            type:'fixedPoint',
-                                                            precision: 2}, alignment: "right"},
-                    {dataField:'NOMINALTRXKDT',caption:'Nominal Transaksi Kredit',
-                                                        format:{
-                                                            type:'fixedPoint',
-                                                            precision: 2}, alignment: "right"},
-                    {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet',
-                                                        format:{
-                                                            type:'fixedPoint',
-                                                            precision: 2}, alignment: "right"},
-                    {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit',
-                                                        format:{
-                                                            type:'fixedPoint',
-                                                            precision: 2}, alignment: "right"},
-                    {dataField:'INVOICE',caption:'Nomor Invoice', alignment: "left"},
-                    {dataField:'KTRG',caption:'Keterangan', alignment: "left"},
 
-                ],
+                        },
+                        onShown: function ()
+                        {
+                                 const dataGrid = $('#Datatrx').dxDataGrid({
+                                                 dataSource: '/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,  // "/api/getTRXjrnldtl",
+                                                 method: "GET",
+                                                 columnAutoWidth: true,
+                                                 searchPanel: { visible: true },
+                                                 showBorders: true,
+                                                 contentType: "application/json",
+                                                  scrolling: {
+                                                       mode: 'infinite',
+                                                     },
+                                                 export: {
 
-                }).dxDataGrid('instance');
+                                                                     enabled: true
+                                                                 },
+                                                 toolbar: {
+                                                        items: [
+                                                        'exportButton',
+                                 //                         'groupPanel',
+                                                          {
+                                                            widget: 'dxButton',
+                                                            location: 'after',
+                                                            options: {
+                                                              icon: 'exportpdf',
+                                                              text: 'Export to PDF',
+                                                              onClick() {
+                                                                const doc = new jsPDF('l', 'mm', [297, 210]);
+                                                                doc.setFontSize(6);
+                                                                DevExpress.pdfExporter.exportDataGrid({
+                                                                  jsPDFDocument: doc,
+                                                                  component: dataGrid,
+                                                                }).then(() => {
+                                                                  doc.save('JurnalTRX.pdf');
+                                                                });
+                                                              },
+                                                            },
+                                                          },
+                                                          'searchPanel',
+                                                        ],
+                                                      },
+                                                 // dataSource: {
+                                                 //     url: '/api/getTRX',
+                                                 //     method: 'GET',
+                                                 //     contentType: "application/json",
+                                                 //     dataType: 'text',
+                                                 //     align: 'center',
+                                                 //     // fitColumns: true
+                                                 // },
+                                                 columns:[
+                                         //            {checkbox: true},
+                                                     {dataField:"TGL_TRX",caption:"Tanggal Transaksi", dataType:"date", alignment: "left", format: "MMM dd, yyyy"},
+                                                     {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "left", groupIndex:0},
+                                 //                    {dataField:"NO_TRX",caption:"Nomor Transaksi", alignment: "center"},
+                                                     {dataField:'NAMA_COA',caption:'Nama COA', alignment: "left"},
+                                 //                    {dataField:'NAMA_COA_KDT',caption:'Nama COA Kredit', alignment: "center"},
+                                                     {dataField:'NO_COA',caption:'COA Ref', alignment: "left"},
+                                                     {dataField:'MATA_UANG',caption:'Mata Uang', alignment: "left"},
+                                                     {dataField:'NOMINALTRXDBT',caption:'Nominal Transaksi Debet',
+                                                                                         format:{
+                                                                                             type:'fixedPoint',
+                                                                                             precision: 2}, alignment: "right"},
+                                                     {dataField:'NOMINALTRXKDT',caption:'Nominal Transaksi Kredit',
+                                                                                         format:{
+                                                                                             type:'fixedPoint',
+                                                                                             precision: 2}, alignment: "right"},
+                                                     {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet',
+                                                                                         format:{
+                                                                                             type:'fixedPoint',
+                                                                                             precision: 2}, alignment: "right"},
+                                                     {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit',
+                                                                                         format:{
+                                                                                             type:'fixedPoint',
+                                                                                             precision: 2}, alignment: "right"},
+                                                     {dataField:'INVOICE',caption:'Nomor Invoice', alignment: "left"},
+                                                     {dataField:'KTRG',caption:'Keterangan', alignment: "left"},
+
+                                                 ],
+
+                                                 }).dxDataGrid('instance');
+//                                $('#datefrom').dxDateBox({
+//                                                            type: 'date',
+//                                                            value: today,
+//                                                            width: 200,
+//                                                          });
+//                                $('#dateto').dxDateBox({
+//                                                               type: 'date',
+//                                                               value: today,
+//                                                               width: 200,
+//                                                             });
+
+                        }
+                    }).dxPopup("instance");
 
 
     // $("#modalbody2").on("show.bs.modal", function(e) {

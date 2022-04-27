@@ -20,8 +20,15 @@ public class GetListCOAMapper implements RowMapper<GetListCOAModel> {
         datadetailCOAModel.setPOSISI(rs.getString("POSISI"));
 //        datadetailCOAModel.setMATA_UANG(rs.getString("MATA_UANG"));
         datadetailCOAModel.setKET(rs.getString("KET"));
+        datadetailCOAModel.setCREATED_BY(rs.getString("CREATED_BY"));
+        datadetailCOAModel.setCREATED_DATE(rs.getDate("CREATED_DATE"));
+        datadetailCOAModel.setCREATED_TIME(rs.getTime("CREATED_TIME"));
+        datadetailCOAModel.setUPDATED_BY(rs.getString("UPDATED_BY"));
+        datadetailCOAModel.setUPDATED_DATE(rs.getDate("UPDATED_DATE"));
+        datadetailCOAModel.setUPDATED_TIME(rs.getTime("UPDATED_TIME"));
         datadetailCOAModel.setSTATUS(rs.getInt("STATUS"));
         datadetailCOAModel.setTANGGAL(rs.getString("TANGGAL"));
+        datadetailCOAModel.setGROUP_COA(rs.getString("GROUP_COA"));
         datadetailCOAModel.setDESC(rs.getString("DESC"));
 //        masterModel.TANGGAL(rs.getDate("TANGGAL"));
         return datadetailCOAModel;    }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 
+
 @Component
 public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
     @Autowired
@@ -23,15 +24,20 @@ public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
         return getNeracaModels;
 
     }
-    @Autowired
-    public List<GetNeracaModel> listDataNeraca()
+
+    public List<GetNeracaModel> listDataNeraca(String tgl_trx)
     {
-        String SQL = "select * from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('1', '2', '3')  ";
-        List <GetNeracaModel> getNeracaModels = jdbcTemplateObject.query(SQL, new GetDataNeracaMapper());
+        String SQL = "select NO_COA,\n" +
+                "NAMA_COA,\n" +
+                "SALDO,\n" +
+                "GROUP_COA,\n" +
+                "HEADER_COA\n" +
+                "from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('1', '2', '3') and TGL_TRX=?  \n";
+        List <GetNeracaModel> getNeracaModels = jdbcTemplateObject.query(SQL, new GetDataNeracaMapper(), new Object[]{tgl_trx});
         return getNeracaModels;
 
     }
-    @Autowired
+
     public List<GetNeracaModel> listlabarugi()
     {
         String SQL = "select HEADER_COA, NO_COA, \n" +

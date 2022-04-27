@@ -1,4 +1,11 @@
 $(() => {
+//    function()
+//    {
+//        var loc = window.location.href;
+//        if loc = menubar[]
+//
+//    }
+
 //    var username = JSON.parse('${userName}');
 //    function getusername(){
 //        $.ajax({
@@ -28,6 +35,7 @@ $(() => {
         searchMode: "startswith",
         selectionMode: 'single',
         selectByClick: true,
+        height: 536,
         onItemSelectionChanged(e) {
             const url = e.itemData.url;
             if(url) {
@@ -168,7 +176,8 @@ const menubar = [
     {
         id: '2',
         text: 'Daftar COA',
-        url: '/SAKU'
+        url: '/SAKU',
+        // selected: true
         // expanded: true
     },
     {

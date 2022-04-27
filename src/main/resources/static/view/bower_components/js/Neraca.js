@@ -1,6 +1,7 @@
 $(function()
 {
     var today = new Date();
+    var datefrom;
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
     $("#formsearch").dxForm({
@@ -35,9 +36,11 @@ $(function()
                                               text: 'Cari',
                                               type: 'danger',
                                               onClick: function() {
+                                                    datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                                    popup.show();
 //                                                     var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
 //                                                     var dateto = $('#formsearch').find('input[name="dateto"]').val();
-                                                     alert('Sedang dalam pengembangan, silahkan dicoba lagi nanti')
+
 //                                                     $.ajax({
 //                                                        url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
 //                                                        contentType: 'application/x-www-form-urlencoded',
@@ -77,73 +80,115 @@ $(function()
 
                              ],
                          });
-    var dataGrid = $('#DataNeraca').dxDataGrid({
-        dataSource: "/api/getNeraca",
-        method: "GET",
-        export: {
-                    enabled: true
-                },
-        toolbar: {
-                               items: [
-                               'exportButton',
-        //                         'groupPanel',
-                                 {
-                                   widget: 'dxButton',
-                                   location: 'after',
-                                   options: {
-                                     icon: 'exportpdf',
-                                     text: 'Export to PDF',
-                                     onClick() {
-                                       const doc = new jsPDF();
-                                       doc.setFontSize(6);
-                                       DevExpress.pdfExporter.exportDataGrid({
-                                         jsPDFDocument: doc,
-                                         component: dataGrid,
-                                       }).then(() => {
-                                         doc.save('Neraca.pdf');
-                                       });
-                                     },
-                                   },
-                                 },
-                                 'searchPanel'
-                               ],
-                             },
 
-        contentType: "application/json",
-
-        columns:[
-//            {checkbox: true},
-            {dataField:"GROUP_COA", caption:"Header", alignment: "center", groupIndex:0},
-            {dataField:"HEADER_COA", caption:"Group", alignment: "center", groupIndex:1, visible: false},
-            {dataField:"NOCOA",caption:"Nomor COA", alignment: "left"},
-            {dataField:"NAMACOA",caption:"Nama COA", alignment: "left"},
-            {dataField:'SALDO',caption:'Saldo', format:{
-                    type:'fixedPoint',
-                    precision: 2}, alignment: 'right'}
+    const popup = $("#popup").dxPopup({
+                            title: "Neraca",
+                            showTitle: true,
+                            width: 1000,
+                            // height: 450,
+                            position: {
+                                my: 'center',
+                                at: 'center',
+                                of: window
+                            },
+                            showCloseButton: true,
+                            visible: false,
+                            dragEnabled: false,
+                            closeOnOutsideClick: true,
+                            contentTemplate: function()  {
+                                let content = $('<div  />');
+                                content.append('<div id="DataNeraca"/>')
+    //                            content.append('<p>Datatrx</p> ')
+                                content.dxScrollView({
+                                                    width: '100%',
+                                                    height: '100%',
+                                                  });
+                                return content;
 
 
-        ],
-        summary:{groupItems:[
-            {
-                column:"SALDO",
-                summaryType: "sum",
-                valueFormat:"#,##0.##",
-                showInGroupFooter: true,
+                            },
+                            onShown: function ()
+                            {
+                                     var dataGrid = $('#DataNeraca').dxDataGrid({
+                                             dataSource: "/api/getNeraca/"+ datefrom,
+                                             method: "GET",
+                                             export: {
+                                                         enabled: true
+                                                     },
+                                             toolbar: {
+                                                                    items: [
+                                                                    'exportButton',
+                                             //                         'groupPanel',
+                                                                      {
+                                                                        widget: 'dxButton',
+                                                                        location: 'after',
+                                                                        options: {
+                                                                          icon: 'exportpdf',
+                                                                          text: 'Export to PDF',
+                                                                          onClick() {
+                                                                            const doc = new jsPDF();
+                                                                            doc.setFontSize(6);
+                                                                            DevExpress.pdfExporter.exportDataGrid({
+                                                                              jsPDFDocument: doc,
+                                                                              component: dataGrid,
+                                                                            }).then(() => {
+                                                                              doc.save('Neraca.pdf');
+                                                                            });
+                                                                          },
+                                                                        },
+                                                                      },
+                                                                      'searchPanel'
+                                                                    ],
+                                                                  },
+
+                                             contentType: "application/json",
+
+                                             columns:[
+                                     //            {checkbox: true},
+                                                 {dataField:"GROUP_COA", caption:"Header", alignment: "center", groupIndex:0},
+                                                 {dataField:"HEADER_COA", caption:"Group", alignment: "center", groupIndex:1},
+                                                 {dataField:"NOCOA",caption:"Nomor COA", alignment: "left"},
+                                                 {dataField:"NAMACOA",caption:"Nama COA", alignment: "left"},
+                                                 {dataField:'SALDO',caption:'Saldo', format:{
+                                                         type:'fixedPoint',
+                                                         precision: 2}, alignment: 'right'}
 
 
-            }]}
-//            totalItems:[
-//            {
-//                column:"SALDO",
-//                summaryType: "sum",
-//                valueFormat:"#,##0.##",
-////                customizeText(data) {
-////                          result = data.value.toFixed(2);
-////                          return `Total Saldo Keseluruhan: ` +result;
-////                        },
-//
-//            },
-//
-//            ]}
-    }).dxDataGrid('instance');
+                                             ],
+                                             summary:{groupItems:[
+                                                 {
+                                                     column:"SALDO",
+                                                     summaryType: "sum",
+                                                     valueFormat:"#,##0.##",
+                                                     showInGroupFooter: true,
+
+
+                                                 }]}
+                                     //            totalItems:[
+                                     //            {
+                                     //                column:"SALDO",
+                                     //                summaryType: "sum",
+                                     //                valueFormat:"#,##0.##",
+                                     ////                customizeText(data) {
+                                     ////                          result = data.value.toFixed(2);
+                                     ////                          return `Total Saldo Keseluruhan: ` +result;
+                                     ////                        },
+                                     //
+                                     //            },
+                                     //
+                                     //            ]}
+                                         }).dxDataGrid('instance');
+    //                                $('#datefrom').dxDateBox({
+    //                                                            type: 'date',
+    //                                                            value: today,
+    //                                                            width: 200,
+    //                                                          });
+    //                                $('#dateto').dxDateBox({
+    //                                                               type: 'date',
+    //                                                               value: today,
+    //                                                               width: 200,
+    //                                                             });
+
+                            }
+                        }).dxPopup("instance");
 })

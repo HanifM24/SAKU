@@ -115,7 +115,8 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
     }
     public void gnrttrxnmbr()
     {
-        String SQL = "insert into trx_master (TGL_TRX) values(curdate())";
+
+        String SQL = "insert into trx_master (TGL_TRX ) values(curdate())";
         jdbcTemplateObject.update(SQL);
     }
     public String gettrxnbr ()

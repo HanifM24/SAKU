@@ -6,11 +6,16 @@
 <!--<%@ include file="proses/conn.jsp" %>-->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
 
 <head>
-<!--    <meta http-equiv="Refresh" content="0; url='https://www.w3docs.com'" />-->
+<!--&lt;!&ndash;    <meta http-equiv="Refresh" content="0; url='https://www.w3docs.com'" />&ndash;&gt;-->
 
+<!--&lt;!&ndash;    <meta charset="utf-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta http-equiv="X-UA-Compatible" content="IE=edge">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="description" content="">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="author" content="">&ndash;&gt;-->
 <!--    <meta charset="utf-8">-->
 <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
@@ -23,11 +28,29 @@
 
 <!--    &lt;!&ndash; DevExtreme library &ndash;&gt;-->
 <!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
+    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>
+
+    <!-- DevExtreme theme -->
+    <link rel="stylesheet" href="cssdevextreme/dx.light.css">
+
+    <!-- DevExtreme library -->
+    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>
+
+    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
+
+<!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+<!--&lt;!&ndash;    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; DevExtreme theme &ndash;&gt;&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; DevExtreme library &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>&ndash;&gt;-->
 
 <!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
 
     <title>Sistem Akutansi PAN</title>
-<!--    <script src="jsdevextreme/globalize/date.js"></script>-->
+<!--&lt;!&ndash;    <script src="jsdevextreme/globalize/date.js"></script>&ndash;&gt;-->
 
 
 
@@ -35,25 +58,31 @@
 <!--    <script src="view/bower_components/js/currency.js"></script>-->
 
 </head>
-<div class="left-content">
-    <div id="treeview"></div>
-</div>
-<!--<body class="dx-viewport">-->
-<!--<div class="demo-container">-->
-<!--    <div class="container">-->
-<!--&lt;!&ndash;        <header class="top-content">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div id="navbar"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </header>&ndash;&gt;-->
+
+
+<body class="dx-viewport">
+<div class="demo-container">
+    <div class="container">
+        <div th:fragment="fragments/navbarhead.html"/>
+        <div th:insert="fragments/navbartree.html"/>
+
+
+        <div th:insert="${mainContent} ?: ~{}"/>
+
+
+<!--        <div class="top-content">-->
+<!--            <div id="navbar"></div>-->
+<!--        </div>-->
 <!--        <div class="left-content">-->
 <!--            <div id="treeview"></div>-->
 <!--        </div>-->
-<!--&lt;!&ndash;        <div class="right-content">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="title-container" style="text-align: center">&ndash;&gt;-->
-<!--&lt;!&ndash;                <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <div id="currencybutton"></div>&ndash;&gt;&ndash;&gt;-->
+<!--        <div class="right-content">-->
+<!--            <div class="title-container" style="text-align: center">-->
+<!--                <h2>Selamat Datang di Aplikasi Sistem Akutansi PAN</h2>-->
+<!--                <p>Untuk memulai, silahkan untuk memilih menu di samping kiri</p>-->
+<!--&lt;!&ndash;                <div id="currencybutton"></div>&ndash;&gt;-->
 
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            </div>-->
 
 <!--&lt;!&ndash;            <div class="stats">&ndash;&gt;-->
 <!--&lt;!&ndash;                <div>&ndash;&gt;-->
@@ -73,9 +102,9 @@
 <!--&lt;!&ndash;            <div class="sub-title">Largest cities</div>&ndash;&gt;-->
 <!--&lt;!&ndash;            <div id="tabpanel"></div>&ndash;&gt;-->
 <!--        </div>-->
-<!--    </div>-->
+    </div>
 
-<!--</div>-->
-<!--</body>-->
+</div>
+</body>
 
 </html>

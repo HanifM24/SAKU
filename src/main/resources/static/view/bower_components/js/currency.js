@@ -1,44 +1,6 @@
 $(function()
 {
-//        $('#buttoncurrency').dxForm({
-//            items: [{
-//                        itemType: "button",
-//                        horizontalAlignment:'left',
-//                        buttonOptions: {
-//                            text: "Tarik Data",
-//                            type: "default",
-//                            onClick: function () {
-//                                $.ajax({
-//                                    url: 'api/postcurtodb',
-//
-//
-//                                    processData: false,
-//
-//                                    //
-//                                    success: function (datag) {
-//                                           if(datag==1){
-//                                                DevExpress.ui.notify("Data berhasil ditarik", "success", 20000);
-//                                                 location.reload();
-//                                                }
-//                                           else
-//                                           {
-//                                                DevExpress.ui.notify("Data untuk hari ini sudah ditarik", "error", 20000);
-//                                           }
-//
-//
-//                                                               },
-//                                    error: function () {
-//                                           DevExpress.ui.notify("Tidak ada koneksi internet", "error", 20000);
-//                                            location.reload();
-//                                                                }
-//                                    })
-//                                // Implement your logic here
-//                            }
-//                        }
-//                    },
-//                    // ...
-//                    ]
-//        });
+
         $("#popup2").dxPopup({
                 title: "Input nilai Mata Uang",
                 showTitle: true,
@@ -263,6 +225,7 @@ $(function()
                 contentType: "application/json",
                 searchEnabled: true,
                 columnAutoWidth: true,
+                height:435,
                 searchPanel: { visible: true },
                 // dataType : 'text',
                 // align : 'center',

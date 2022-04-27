@@ -34,6 +34,8 @@ $(function(){
         contentType: "application/json",
         searchEnabled: true,
         columnAutoWidth: true,
+        columnChooser: true,
+        height:435,
         searchPanel: { visible: true },
         editing: {
             mode: 'batch',
@@ -68,8 +70,16 @@ $(function(){
             // {dataField:'MATA_UANG',caption:'Mata Uang', alignment:'center',},
             {dataField:'TANGGAL',caption:'Tanggal Diperbarui', alignment:'left', allowEditing: false,},
             {dataField:'KET',caption:'Header', alignment:'left', allowEditing: false,},
+            {dataField:'GROUP_COA',caption:'Nomor Grup COA', alignment:'left', allowEditing: false,},
+            {dataField:'CREATED_BY',caption:'Created By', alignment:'left', allowEditing: false,},
+            {dataField:'CREATED_DATE',caption:'Created Date', alignment:'left', allowEditing: false,},
+            {dataField:'CREATED_TIME',caption:'Created Time', alignment:'left', allowEditing: false,},
+            {dataField:'UPDATED_BY',caption:'Updated By', alignment:'left', allowEditing: false,},
+            {dataField:'UPDATED_DATE',caption:'Updated Date', alignment:'left', allowEditing: false,},
+            {dataField:'UPDATED_TIME',caption:'Updated Time', alignment:'left', allowEditing: false,},
 //            {dataField:'STATUS',caption:'STATUS', alignment:'center',},
             {dataField:'DESC',caption:'Deskripsi COA', alignment:'left',},
+
             // {field:'ACTION', title:'Action',
             //     formatter:function(value, row, index)
             //         {
@@ -858,7 +868,8 @@ $(function(){
             stylingMode: 'contained',
             text: 'Tambah COA Header',
             type: 'default',
-//            width: 120,
+//            height: 50,
+//            width: 300,
             onClick() {
                 popup3.show();
                 // DevExpress.ui.notify('The Contained button was clicked');
@@ -868,7 +879,8 @@ $(function(){
         stylingMode: 'contained',
         text: 'Tambah COA Detail',
         type: 'default',
-//        width: 120,
+//        height: 50,
+//        width: 300,
         onClick() {
             popup2.show();
             // DevExpress.ui.notify('The Contained button was clicked');

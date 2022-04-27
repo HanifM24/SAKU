@@ -1,50 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/mainlayout :: main-fragment(~{::#coa-content},
+                                                 ~{::#coa-static-resource})}">
 <head>
 
-    <meta charset="utf-8">
+    <th:block id="coa-static-resource">
+        <script src="view/bower_components/js/MenuCOA.js"></script>
+    </th:block>
 
-    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>
-
-    <!-- DevExtreme theme -->
-    <link rel="stylesheet" href="cssdevextreme/dx.light.css">
-
-    <!-- DevExtreme library -->
-    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>
-    <!--     <script type="text/javascript" src="jsdevextreme/dx.web.js"></script>-->
-    <!--     <script type="text/javascript" src="jsdevextreme/dx.viz.js"></script>-->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Sistem Akutansi PAN</title>
-    <script src="view/bower_components/js/MenuCOA.js"></script>
-    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
-    <script src="view/bower_components/js/dashboard.js"></script>
 </head>
-<body class="dx-viewport">
-<div class="demo-container">
-    <div class="container">
-        <div class="top-content">
-            <div id="navbar"></div>
-        </div>
-        <div class="left-content">
-            <div id="treeview"></div>
-        </div>
-        <div class="right-content">
-            <h3>COA (Chart Of Account)</h3>
-            <div id="AddButtonHeader"></div>
-            <div id="AddButtonDetail"></div>
-            <div id="EditButtonHeader"></div>
-            <div id="EditButtonDetail"></div>
-            <div id="DataCOA"> </div>
-            <div id="popup2"></div>
-            <div id="popup3"></div>
-            <div id="popup4"></div>
-            <div id="popup5"></div>
-        </div>
-    </div>
-</div>
+<body>
+<div id="coa-content"><h3>COA (Chart Of Account)</h3>
+    <div id="AddButtonHeader"></div>
+    <div id="AddButtonDetail"></div>
+    <div id="EditButtonHeader"></div>
+    <div id="EditButtonDetail"></div>
+    <div id="DataCOA"> </div>
+    <div id="popup2"></div>
+    <div id="popup3"></div>
+    <div id="popup4"></div>
+    <div id="popup5"></div></div>
 
 </body>
 

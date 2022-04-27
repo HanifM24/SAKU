@@ -6,6 +6,7 @@ import SINDUPAN.SAKU.Model.GetListCOAModel;
 import SINDUPAN.SAKU.Model.GetNeracaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.lang.String;
 
 import java.util.List;
 
@@ -21,10 +22,10 @@ public class GetListNeracaController {
     {
         return masterJDBCTemplate.listDataNeracaold();
     }
-    @GetMapping("/getNeraca")
-    public List<GetNeracaModel> listDataNeraca()
+    @GetMapping("/getNeraca/{tgl_trx}")
+    public List<GetNeracaModel> listDataNeracaVar(@PathVariable String tgl_trx)
     {
-        return masterJDBCTemplate.listDataNeraca();
+        return masterJDBCTemplate.listDataNeraca(tgl_trx);
     }
     @GetMapping("/getLabaRugi")
     public List<GetNeracaModel> listDatalbrg()

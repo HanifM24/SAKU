@@ -1,49 +1,67 @@
 <!DOCTYPE html>
-<!--<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/mainlayout :: main-fragment(~{::#inptransaksi-content},
+                                                 ~{::#inpttrx-static-resource})}">
 <head>
-    <meta charset="utf-8">
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>
+<!--    <meta charset="utf-8">-->
+<!--&lt;!&ndash;    <meta http-equiv="X-UA-Compatible" content="IE=edge">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1">&ndash;&gt;-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
 
-    <!-- DevExtreme theme -->
-    <link rel="stylesheet" href="cssdevextreme/dx.light.css">
+<!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
 
-    <!-- DevExtreme library -->
-    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>
-<!--     <script type="text/javascript" src="jsdevextreme/dx.web.js"></script>-->
-<!--     <script type="text/javascript" src="jsdevextreme/dx.viz.js"></script>-->
-    <title>Sistem Akutansi PAN</title>
-<!--    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
-    <script type="text/javascript" src ="view/bower_components/js/MenuInputTransaksi.js"></script>
-    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
-    <script src="view/bower_components/js/dashboard.js"></script>
+<!--    &lt;!&ndash; DevExtreme library &ndash;&gt;-->
+<!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
+<!--&lt;!&ndash;     <script type="text/javascript" src="jsdevextreme/dx.web.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;     <script type="text/javascript" src="jsdevextreme/dx.viz.js"></script>&ndash;&gt;-->
+<!--    <title>Sistem Akutansi PAN</title>-->
+<!--&lt;!&ndash;    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">&ndash;&gt;-->
+<!--    <script type="text/javascript" src ="view/bower_components/js/MenuInputTransaksi.js"></script>-->
+<!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+<!--    <script src="view/bower_components/js/dashboard.js"></script>-->
+        <th:block id="inpttrx-static-resource">
+                <script src="view/bower_components/js/MenuInputTransaksi.js"></script>
+        </th:block>
+
 </head>
-<body class="dx-viewport">
-<div class="demo-container">
-    <div class="container">
-        <div class="top-content">
-            <div id="navbar"></div>
-        </div>
-        <div class="left-content">
-            <div id="treeview"></div>
-        </div>
-        <div class="right-content">
-            <div class="row">
-                <h3 style="padding: 0px 0px 0px 340px;">Input Transaksi</h3>
-                <div id="texthrfhisotritrx"></div>
-                <div id="formInsert"></div>
-                <div id="buttondebet"></div>
-                <div id="buttonkredit"></div>
-                <!--                <table id="Datatrx" class="tableCOA" style="width:100%"></table>-->
-            </div>
-            <div id="buttonadd"></div>
-            <div id="popup"></div>
-            <div id="popup2"></div>
-        </div>
+<body><div id="inptransaksi-content">
+        <h3>Input Transaksi</h3>
+        <div id="texthrfhisotritrx"></div>
+        <div id="formInsert"></div>
+        <div id="buttondebet"></div>
+        <div id="buttonkredit"></div>
+        <!--                <table id="Datatrx" class="tableCOA" style="width:100%"></table>-->
+
+        <div id="buttonadd"></div>
+        <div id="popup"></div>
+        <div id="popup2"></div>
     </div>
+<!--<div class="demo-container">-->
+<!--    <div class="container">-->
+<!--        <div class="top-content">-->
+<!--            <div id="navbar"></div>-->
+<!--        </div>-->
+<!--        <div class="left-content">-->
+<!--            <div id="treeview"></div>-->
+<!--        </div>-->
+<!--        <div class="right-content">-->
+<!--            <div class="row">-->
+<!--                <h3 style="padding: 0px 0px 0px 340px;">Input Transaksi</h3>-->
+<!--                <div id="texthrfhisotritrx"></div>-->
+<!--                <div id="formInsert"></div>-->
+<!--                <div id="buttondebet"></div>-->
+<!--                <div id="buttonkredit"></div>-->
+<!--                &lt;!&ndash;                <table id="Datatrx" class="tableCOA" style="width:100%"></table>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div id="buttonadd"></div>-->
+<!--            <div id="popup"></div>-->
+<!--            <div id="popup2"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </div>
 </body>
 </html>
