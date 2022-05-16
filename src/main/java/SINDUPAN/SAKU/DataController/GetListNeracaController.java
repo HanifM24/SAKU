@@ -27,10 +27,10 @@ public class GetListNeracaController {
     {
         return masterJDBCTemplate.listDataNeraca(tgl_trx);
     }
-    @GetMapping("/getLabaRugi")
-    public List<GetNeracaModel> listDatalbrg()
+    @GetMapping("/getLabaRugi/{tgl_trx}")
+    public List<GetNeracaModel> listDatalbrg(@PathVariable String tgl_trx)
     {
-        return masterJDBCTemplate.listlabarugi();
+        return masterJDBCTemplate.listlabarugi(tgl_trx);
     }
 
 

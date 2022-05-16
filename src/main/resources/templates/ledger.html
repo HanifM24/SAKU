@@ -1,55 +1,81 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
+
+<!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
+
+<!--    &lt;!&ndash; DevExtreme library &ndash;&gt;-->
+<!--    <script type="text/javascript" src="jsdevextreme/jszip.js"></script>-->
+<!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.0/polyfill.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.1.1/exceljs.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>-->
+<!--&lt;!&ndash;     <script type="text/javascript" src="jsdevextreme/dx.web.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;     <script type="text/javascript" src="jsdevextreme/dx.viz.js"></script>&ndash;&gt;-->
+
+<!--    <title>Sistem Akutansi PAN</title>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/globalize/1.3.0/globalize.min.js"></script>-->
+<!--    <script src="jsdevextreme/globalize/date.js"></script>-->
+<!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+<!--    <script src="view/bower_components/js/dashboard.js"></script>-->
+<!--    <script src="view/bower_components/js/MenuLedger.js"></script>-->
+<!--</head>-->
+<!--<body class="dx-viewport">-->
+<!--<div class="demo-container">-->
+<!--    <div class="container">-->
+<!--        <div class="top-content">-->
+<!--            <div id="navbar"></div>-->
+<!--        </div>-->
+<!--        <div class="left-content">-->
+<!--            <div id="treeview"></div>-->
+<!--        </div>-->
+<!--        <div class="right-content"><div id="wrapper">-->
+<!--        </div>-->
+<!--            <div class="demo-container">-->
+
+<!--                <div class="row">-->
+<!--                    <h3>Buku Besar (Ledger)</h3>-->
+<!--                    <table id="DataLedger" class="tableCOA" style="width:100%"></table>-->
+<!--                </div>-->
+<!--                <div id="buttonadd">-->
+<!--                </div>-->
+<!--                <div id="popup"></div>-->
+<!--                <div id="popup2"></div>-->
+<!--            </div></div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+
+<!--</html>-->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{mainlayout :: main-fragment(~{::#ledger-content},
+                                                 ~{::#ledger-static-resource})}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>
 
-    <!-- DevExtreme theme -->
-    <link rel="stylesheet" href="cssdevextreme/dx.light.css">
+    <th:block id="ledger-static-resource">
+        <script src="view/bower_components/js/MenuLedger.js"></script>
+    </th:block>
 
-    <!-- DevExtreme library -->
-    <script type="text/javascript" src="jsdevextreme/jszip.js"></script>
-    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.0/polyfill.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.1.1/exceljs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
-<!--     <script type="text/javascript" src="jsdevextreme/dx.web.js"></script>-->
-<!--     <script type="text/javascript" src="jsdevextreme/dx.viz.js"></script>-->
-
-    <title>Sistem Akutansi PAN</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/globalize/1.3.0/globalize.min.js"></script>
-    <script src="jsdevextreme/globalize/date.js"></script>
-    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
-    <script src="view/bower_components/js/dashboard.js"></script>
-    <script src="view/bower_components/js/MenuLedger.js"></script>
 </head>
-<body class="dx-viewport">
-<div class="demo-container">
-    <div class="container">
-        <div class="top-content">
-            <div id="navbar"></div>
-        </div>
-        <div class="left-content">
-            <div id="treeview"></div>
-        </div>
-        <div class="right-content"><div id="wrapper">
-        </div>
-            <div class="demo-container">
-
-                <div class="row">
-                    <h3>Buku Besar (Ledger)</h3>
-                    <table id="DataLedger" class="tableCOA" style="width:100%"></table>
-                </div>
-                <div id="buttonadd">
-                </div>
-                <div id="popup"></div>
-                <div id="popup2"></div>
-            </div></div>
-    </div>
+<body>
+<div id="ledger-content"><h3>Buku Besar (Ledger)</h3>
+    <div id="DataLedger"></div>
+<!--    <div id="AddButtonDetail"></div>-->
+<!--    <div id="EditButtonHeader"></div>-->
+<!--    <div id="EditButtonDetail"></div>-->
+<!--    <div id="DataCOA"> </div>-->
+<!--    <div id="popup2"></div>-->
+<!--    <div id="popup3"></div>-->
+<!--    <div id="popup4"></div>-->
+<!--    <div id="popup5"></div></div>-->
 </div>
 </body>
 

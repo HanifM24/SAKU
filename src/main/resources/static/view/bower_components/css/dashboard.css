@@ -14,12 +14,18 @@ html, body {
 }*/
 
 .left-content {
+    position: absolute;
     display: inline-block;
     width: 180px;
     padding: 10px 10px 10px;
     background-color: rgba(191, 191, 191, 0.15);
     box-shadow: -5px 0 14px -8px rgba(0, 0, 0, 0.25) inset;
 }
+/*.top-content{
+    position: fixed;
+    left: 220px;
+
+}*/
 
 
 .right-content {

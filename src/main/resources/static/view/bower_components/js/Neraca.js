@@ -1,7 +1,11 @@
+var datefrom;
+var choicedate = new Date(datefrom)
+var today = new Date();
 $(function()
 {
-    var today = new Date();
-    var datefrom;
+
+    var titttle = "Neraca pada tanggal " +choicedate;
+
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
     $("#formsearch").dxForm({
@@ -16,7 +20,7 @@ $(function()
 
                                                                                  editorType: "dxDateBox",
                                                                                  dataField: "datefrom",
-                                                                                 label: { text: "Hari", location: "left" },
+                                                                                 label: { text: "Tanggal", location: "left" },
                                                                                  editorOptions: {
                                                                                      value: today
                                                                                  },
@@ -79,10 +83,10 @@ $(function()
 
 
                              ],
-                         });
+                         }).dxForm("instance");
 
     const popup = $("#popup").dxPopup({
-                            title: "Neraca",
+                            title: titttle,
                             showTitle: true,
                             width: 1000,
                             // height: 450,
@@ -137,7 +141,15 @@ $(function()
                                                                           },
                                                                         },
                                                                       },
-                                                                      'searchPanel'
+                                                                      'searchPanel',
+                                                                      {
+                                                                      location: 'center',
+                                                                            locateInMenu: 'never',
+                                                                            template() {
+//                                                                              return $("<div class='toolbar-label'><b>Tom's Club</b> Products</div>");
+                                                                              return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
+                                                                            },
+                                                                      }
                                                                     ],
                                                                   },
 

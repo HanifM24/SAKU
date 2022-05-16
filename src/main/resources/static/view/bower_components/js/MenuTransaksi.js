@@ -299,11 +299,11 @@ $(function(){
                                                  method: "GET",
                                                  columnAutoWidth: true,
                                                  searchPanel: { visible: true },
-                                                 showBorders: true,
+//                                                 showBorders: true,
                                                  contentType: "application/json",
-                                                  scrolling: {
-                                                       mode: 'infinite',
-                                                     },
+//                                                  scrolling: {
+//                                                       mode: 'virtual',
+//                                                     },
                                                  export: {
 
                                                                      enabled: true

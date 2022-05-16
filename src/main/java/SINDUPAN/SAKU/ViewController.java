@@ -31,11 +31,6 @@ public class ViewController {
     {
         String userName = principal.getName();
 
-//        System.out.println("User Name: " + userName);
-//
-//        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-//
-//        String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userName", new Gson().toJson(userName));
 
         return "dashboard";
@@ -51,7 +46,7 @@ public class ViewController {
         return "main_transaksi";
     }
     @GetMapping("/Currency")
-    public String ViewMenuCurrency(){return "Currency_Menu";}
+    public String ViewMenuCurrency(){return "currency_menu";}
     @GetMapping("/InputTransaksi")
     public String ViewMenuInputTransaksi(){return "input_transaksi";}
     @GetMapping("/ledger")
@@ -66,6 +61,24 @@ public class ViewController {
     public String ViewMenuprofloss(){return "profitloss";}
     @GetMapping("/register")
     public String ViewMenuRegister(){return "newuser";}
+    @GetMapping("/403")
+    public String accessDenied(Model model, Principal principal) {
+
+        if (principal != null) {
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+            String userInfo = WebUtils.toString(loginedUser);
+
+            model.addAttribute("userInfo", userInfo);
+
+            String message = "Hi " + principal.getName() //
+                    + "<br> You do not have permission to access this page!";
+            model.addAttribute("message", message);
+
+        }
+
+        return "403Page";
+    }
 
 
 

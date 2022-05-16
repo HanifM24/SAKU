@@ -1,4 +1,18 @@
 $(() => {
+    var cuurl = window.location.href;
+
+    function tst(par)
+    {
+        if(cuurl==par)
+        {
+            return true;
+        }
+    };
+    var cadd = (window.location.pathname === '/SAKU') ? true:false
+
+
+
+
 //    function()
 //    {
 //        var loc = window.location.href;
@@ -36,10 +50,20 @@ $(() => {
         selectionMode: 'single',
         selectByClick: true,
         height: 536,
+//        onItemRendered(e)
+//        {
+//            debugger;
+//            if(e.itemData.url == window.location.pathname)
+//            {e.node.selected = true}},
         onItemSelectionChanged(e) {
             const url = e.itemData.url;
-            if(url) {
-                window.location.href = url;
+
+
+            if(url != null) {
+
+                window.location = e.itemData.url;
+//                window.history.replaceState({}, '', url);
+//                itemData.selected = true;
                 // window.location.href = e.itemData;
                 // showCountryData(e.itemData);
             }
@@ -50,7 +74,7 @@ $(() => {
         selectedIndex: 0,
         onItemClick(e) {
             const url = e.itemData.url;
-            if(url) {
+            if(url != null) {
                 window.location.href = url;
                 // window.location.href = e.itemData;
                 // showCountryData(e.itemData);
@@ -60,6 +84,7 @@ $(() => {
         //     list.option('dataSource', listData[e.itemIndex].data);
         // },
     });
+    var selectedItem = $("#treeview").dxTreeView('instance').selectedItem;
 //    $('#currencybutton').dxForm({
 //        items: [{
 //                    itemType: "button",
@@ -130,7 +155,7 @@ const navData = [{
 }, {
     text: 'Sistem Inventori PAN',
     icon: 'product',
-    // badge: 3,
+     badge: 3,
 }, {
     text: 'Logout',
     icon: 'user',
@@ -167,23 +192,34 @@ const menubar = [
     {
         id: '1',
         text:'Pengaturan Admin',
+        expanded: (window.location.pathname === '/register') ? true:false,
         items:[{
             id : '1_1',
             text : 'Pendaftaran User Baru',
-            url :'/register'
+            url :'/register',
+            selected: (window.location.pathname === '/register') ? true:false
+        },
+        {
+            id : '1_2',
+            text : 'Audit Trails',
+//            url :'/register',
+//            selected: (window.location.pathname === '/register') ? true:false
         }]
     },
     {
         id: '2',
         text: 'Daftar COA',
         url: '/SAKU',
-        // selected: true
+        selected: (window.location.pathname === '/SAKU') ? true:false
+
+
         // expanded: true
     },
     {
         id: '3',
         text: 'Menarik atau menginput nilai mata uang asing',
-         url: '/Currency'
+        url: '/Currency',
+        selected: (window.location.pathname === '/Currency') ? true:false
 //        items:[{
 //            id:'3_1',
 //            text: 'Tarik data currency',
@@ -196,41 +232,52 @@ const menubar = [
     {
         id: '4',
         text: 'Transaksi',
-        // expanded: true,
+        expanded: (window.location.pathname === '/InputTransaksi') ? true:false,
         items: [{
             id:'4_1',
             text: 'Input Transaksi',
-            url:'/InputTransaksi'
+            url:'/InputTransaksi',
+            selected: (window.location.pathname === '/InputTransaksi') ? true:false
         }, ]
     },
     {
         id: '5',
         text: 'Laporan',
+        expanded:(window.location.pathname === '/SAKU_TRANSAKSI' ||
+                  window.location.pathname === '/ledger' ||
+                  window.location.pathname === '/neraca' ||
+                  window.location.pathname === '/neraca_old' ||
+                  window.location.pathname === '/profitloss') ? true:false,
         items:[
         {
              id:'5_1',
              text: 'Jurnal Transaksi',
-             url:'/SAKU_TRANSAKSI'
+             url:'/SAKU_TRANSAKSI',
+             selected:  (window.location.pathname === '/SAKU_TRANSAKSI') ? true:false
         },{
             id:'5_2',
             text:'Rekap Jurnal Transaksi'
         },{
             id:'5_3',
             text:'Buku Besar (Ledger)',
-            url:'/ledger'
+            url:'/ledger',
+            selected: (window.location.pathname === '/ledger') ? true:false
 
         },{
             id:'5_4',
             text:'Neraca',
-            url:'/neraca'
+            url:'/neraca',
+            selected: (window.location.pathname === '/neraca') ? true:false
         },{
             id:'5_5',
             text:'Neraca (Old)',
-            url:'/neraca_old'
+            url:'/neraca_old',
+            selected: (window.location.pathname === '/neraca_old') ? true:false
         },{
             id:'5_6',
             text:'Laba Rugi',
-            url:'/profitloss'
+            url:'/profitloss',
+            selected: (window.location.pathname === '/profitloss') ? true:false
         }]
 
     }

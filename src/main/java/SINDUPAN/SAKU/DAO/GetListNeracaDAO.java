@@ -14,7 +14,7 @@ public interface GetListNeracaDAO {
     @Autowired
     List<GetNeracaModel> listDataNeracaold();
     List<GetNeracaModel> listDataNeraca(String tgl_trx);
-    List<GetNeracaModel> listlabarugi();
+    List<GetNeracaModel> listlabarugi(String tgl_trx);
 
 
 }

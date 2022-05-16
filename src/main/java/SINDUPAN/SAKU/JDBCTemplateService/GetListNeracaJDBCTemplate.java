@@ -38,7 +38,7 @@ public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
 
     }
 
-    public List<GetNeracaModel> listlabarugi()
+    public List<GetNeracaModel> listlabarugi(String tgl_trx)
     {
         String SQL = "select HEADER_COA, NO_COA, \n" +
                 " NAMA_COA,\n" +
@@ -46,9 +46,9 @@ public class GetListNeracaJDBCTemplate implements GetListNeracaDAO {
                 " then -SALDO \n" +
                 " ELSE\n" +
                 " SALDO end as SALDO ,\n" +
-                " GROUP_COA from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('4', '6', '8', '9')  " +
+                " GROUP_COA from vw_neraca2 vn where substring(NO_COA, 1, 1) in ('4', '6', '8', '9') and TGL_TRX=? \n" +
                 "order by NO_COA ";
-        List <GetNeracaModel> getNeracaModels = jdbcTemplateObject.query(SQL, new GetDataNeracaMapper());
+        List <GetNeracaModel> getNeracaModels = jdbcTemplateObject.query(SQL, new GetDataNeracaMapper(), new Object[]{tgl_trx});
         return getNeracaModels;
 
     }
