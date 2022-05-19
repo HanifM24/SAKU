@@ -538,7 +538,7 @@ $(function(){
                                 },
                 showBorders: true,
                 onRowRemoving(data){
-                                    datadr.splice(data.data.KEYKDT - 1, 1),
+                                    datacr.splice(data.data.KEYKDT - 1, 1),
                                     MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1),
                                     INVOICE_KDT.splice(data.data.KEYKDT - 1, 1),
                                     NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1),
@@ -546,6 +546,7 @@ $(function(){
                                     NO_COA_KDT.splice(data.data.KEYKDT - 1, 1),
                                     arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1),
                                     sumeqkdt -= data.data.EQIVALRPKDT
+                                    debugger
 
                                 },
                 columns: [
