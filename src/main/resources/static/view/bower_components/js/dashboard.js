@@ -191,24 +191,25 @@ const products = [
 const menubar = [
     {
         id: '1',
-        text:'Pengaturan Admin',
+        text:'Admin Setting',
         expanded: (window.location.pathname === '/register') ? true:false,
         items:[{
             id : '1_1',
-            text : 'Pendaftaran User Baru',
+            text : 'Register',
             url :'/register',
             selected: (window.location.pathname === '/register') ? true:false
         },
         {
             id : '1_2',
-            text : 'Audit Trails',
+            text : 'Audit Trails'
+
 //            url :'/register',
 //            selected: (window.location.pathname === '/register') ? true:false
         }]
     },
     {
         id: '2',
-        text: 'Daftar COA',
+        text: 'COA List',
         url: '/SAKU',
         selected: (window.location.pathname === '/SAKU') ? true:false
 
@@ -217,7 +218,7 @@ const menubar = [
     },
     {
         id: '3',
-        text: 'Menarik atau menginput nilai mata uang asing',
+        text: 'Foreign Currency Input',
         url: '/Currency',
         selected: (window.location.pathname === '/Currency') ? true:false
 //        items:[{
@@ -231,18 +232,18 @@ const menubar = [
     },
     {
         id: '4',
-        text: 'Transaksi',
+        text: 'Transaction Menu',
         expanded: (window.location.pathname === '/InputTransaksi') ? true:false,
         items: [{
             id:'4_1',
-            text: 'Input Transaksi',
+            text: 'Posting',
             url:'/InputTransaksi',
             selected: (window.location.pathname === '/InputTransaksi') ? true:false
         }, ]
     },
     {
         id: '5',
-        text: 'Laporan',
+        text: 'Reporting',
         expanded:(window.location.pathname === '/SAKU_TRANSAKSI' ||
                   window.location.pathname === '/ledger' ||
                   window.location.pathname === '/neraca' ||
@@ -251,21 +252,22 @@ const menubar = [
         items:[
         {
              id:'5_1',
-             text: 'Jurnal Transaksi',
+             text: 'Journal',
              url:'/SAKU_TRANSAKSI',
              selected:  (window.location.pathname === '/SAKU_TRANSAKSI') ? true:false
         },{
             id:'5_2',
-            text:'Rekap Jurnal Transaksi'
+            text:'Cash flow',
+
         },{
             id:'5_3',
-            text:'Buku Besar (Ledger)',
+            text:'Ledger',
             url:'/ledger',
             selected: (window.location.pathname === '/ledger') ? true:false
 
         },{
             id:'5_4',
-            text:'Neraca',
+            text:'Balance Sheet',
             url:'/neraca',
             selected: (window.location.pathname === '/neraca') ? true:false
         },{
@@ -275,7 +277,7 @@ const menubar = [
             selected: (window.location.pathname === '/neraca_old') ? true:false
         },{
             id:'5_6',
-            text:'Laba Rugi',
+            text:'Profit Loss',
             url:'/profitloss',
             selected: (window.location.pathname === '/profitloss') ? true:false
         }]

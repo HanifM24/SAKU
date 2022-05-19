@@ -145,6 +145,10 @@ $(function(){
             template: function(container, info) {
                 var currentledgerdata = info.data.NO_COA
                 var currentledgername = info.data.NAMA_COA
+                $('<div>')
+                          .addClass('master-detail-caption')
+                          .text(`GL Number : ${currentledgerdata}`)
+                          .appendTo(container);
                 var griddata = $('<div id="test">').dxDataGrid
                 ({
                     dataSource:"/api/getTRXledger/"+currentledgerdata,
@@ -158,6 +162,7 @@ $(function(){
                         {dataField:'TGL_TRX',caption:'Tanggal Transaksi', dataType:"date", alignment: "center", format: "MMM dd, yyyy"},
                         {dataField:'KTRG',caption:'Keterangan', alignment: "center"},
                         {dataField:'INVOICE',caption:'Invoice', alignment: "center"},
+                        {dataField:'MATA_UANG',caption:'Mata Uang', alignment: "center"},
                         {dataField:'NOMINALTRXDBT',caption:'Nominal Transaksi Debet',
                             format:{
                                 type:'fixedPoint',
@@ -176,15 +181,17 @@ $(function(){
                                 precision: 2}, alignment: "right"},
                     ],
                     summary:{
-                        totalItems:[{
-                            column: "NOMINALTRXDBT",
-                            summaryType: "sum",
-                            valueFormat: "#,##0.##"
-                        },{
-                            column: "NOMINALTRXKDT",
-                            summaryType: "sum",
-                            valueFormat: "#,##0.##"
-                        },{
+                        totalItems:[
+//                        {
+//                            column: "NOMINALTRXDBT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        },{
+//                            column: "NOMINALTRXKDT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        },
+                        {
                             column: "EKIVRP_DBT",
                             summaryType: "sum",
                             valueFormat: "#,##0.##"

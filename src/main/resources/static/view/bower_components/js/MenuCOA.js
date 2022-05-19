@@ -66,7 +66,7 @@ $(function(){
 //            {checkbox: true},
             {dataField:'NO_COA',caption:'Nomor COA', alignment:'left', allowEditing: false},
             {dataField:'NAMA_COA',caption:'Nama COA', alignment:'left',},
-            {dataField:'POSISI',caption:'Posisi', alignment:'left', allowEditing: false,},
+            {dataField:'POSISI',caption:'Posisi Normal', alignment:'left', allowEditing: false,},
             // {dataField:'MATA_UANG',caption:'Mata Uang', alignment:'center',},
             {dataField:'TANGGAL',caption:'Tanggal Diperbarui', alignment:'left', allowEditing: false,},
             {dataField:'KET',caption:'Header', alignment:'left', allowEditing: false,},
