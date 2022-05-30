@@ -47,6 +47,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 "/SAKU",
                 "/SAKU_TRANSAKSI",
                 "/InputTransaksi",
+                "/InputTransaksidouble",
                 "/ledger",
                 "/recapledger",
                 "/neraca",
@@ -54,6 +55,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 "/Currency",
                 "/profitloss",
                 "/register",
+                "/cflow",
                 "fragments/navbarhead",
                 "mainlayout"
         ).access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MAKER', 'ROLE_CHECKER', 'ROLE_APPROVAL' )");

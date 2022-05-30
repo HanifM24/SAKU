@@ -49,6 +49,8 @@ public class ViewController {
     public String ViewMenuCurrency(){return "currency_menu";}
     @GetMapping("/InputTransaksi")
     public String ViewMenuInputTransaksi(){return "input_transaksi";}
+    @GetMapping("/InputTransaksidouble")
+    public String ViewMenuInputTransaksidouble(){return "input_transaksidouble";}
     @GetMapping("/ledger")
     public String ViewMenuLedger(){return "ledger";}
     @GetMapping("/recapledger")
@@ -57,6 +59,8 @@ public class ViewController {
     public String ViewMenuNeracaOld(){return "neraca_old";}
     @GetMapping("/neraca")
     public String ViewMenuNeraca(){return "neraca";}
+    @GetMapping("/cflow")
+    public String ViewMenuCashflow(){return "cashflow";}
     @GetMapping("/profitloss")
     public String ViewMenuprofloss(){return "profitloss";}
     @GetMapping("/register")

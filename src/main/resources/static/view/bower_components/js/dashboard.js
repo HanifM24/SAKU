@@ -233,13 +233,21 @@ const menubar = [
     {
         id: '4',
         text: 'Transaction Menu',
-        expanded: (window.location.pathname === '/InputTransaksi') ? true:false,
+        expanded: (window.location.pathname === '/InputTransaksi' ||
+                   window.location.pathname === '/InputTransaksidouble'
+        ) ? true:false,
         items: [{
             id:'4_1',
-            text: 'Posting',
+            text: 'Posting Single Entry',
             url:'/InputTransaksi',
             selected: (window.location.pathname === '/InputTransaksi') ? true:false
-        }, ]
+        },{
+            id:'4_2',
+            text: 'Posting Double Entry',
+            url:'/InputTransaksidouble',
+            selected: (window.location.pathname === '/InputTransaksidouble') ? true:false
+
+        }]
     },
     {
         id: '5',
@@ -248,6 +256,7 @@ const menubar = [
                   window.location.pathname === '/ledger' ||
                   window.location.pathname === '/neraca' ||
                   window.location.pathname === '/neraca_old' ||
+                  window.location.pathname === '/cflow' ||
                   window.location.pathname === '/profitloss') ? true:false,
         items:[
         {
@@ -258,6 +267,8 @@ const menubar = [
         },{
             id:'5_2',
             text:'Cash flow',
+            url: '/cflow',
+            selected: (window.location.pathname === '/cflow') ? true:false
 
         },{
             id:'5_3',

@@ -171,11 +171,11 @@ $(function(){
                             format:{
                                 type:'fixedPoint',
                                 precision: 2}, alignment: "right"},
-                        {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet',
+                        {dataField:'EKIVRP_DBT',caption:'Nominal Ekivalen Transaksi Debet in Rupiah',
                             format:{
                                 type:'fixedPoint',
                                 precision: 2}, alignment: "right"},
-                        {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit',
+                        {dataField:'EKIVRP_KDT',caption:'Nominal Ekivalen Transaksi Kredit in Rupiah',
                             format:{
                                 type:'fixedPoint',
                                 precision: 2}, alignment: "right"},

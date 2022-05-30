@@ -173,10 +173,6 @@ $(function()
                                                      summaryType: "sum",
                                                      valueFormat:"#,##0.##",
                                                      showInGroupFooter: true,
-//                                                     customizeText(data) {
-//                                                     debugger
-//                                                               return `Total ${GROUP_COA}:` + data.value;
-//                                                             }
 
 
                                                  }]}

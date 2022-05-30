@@ -438,7 +438,7 @@ $(function(){
 
 
     $("#popup").dxPopup({
-        title: "List data",
+        title: "Preview Data",
         showTitle: true,
         width: 900,
 //        height: 520,
@@ -580,8 +580,8 @@ $(function(){
 
             });
             $("#submitbutton").dxButton({
-                text:'Submit',
-                type:'default',
+                text:'OK',
+                type:'danger',
                 horizontalAlignment: 'center',
                 onClick:function() {
                     let dataraw = new FormData();

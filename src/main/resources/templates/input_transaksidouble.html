@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{mainlayout :: main-fragment(~{::#inptransaksidouble-content},
+                                                 ~{::#inpttrxdouble-static-resource})}">
+<head>
+
+        <th:block id="inpttrxdouble-static-resource">
+                <script src="view/bower_components/js/MenuInputTransaksiDouble.js"></script>
+        </th:block>
+
+</head>
+<body class="dx-viewport"><div id="inptransaksidouble-content">
+        <h3 style="padding: 0px 0px 0px 250px;" >Post Transaction Double Entry</h3>
+        <div id="texthrfhisotritrx"></div>
+        <div id="formInsert"></div>
+        <div id="buttondebet"></div>
+        <div id="buttonkredit"></div>
+        <!--                <table id="Datatrx" class="tableCOA" style="width:100%"></table>-->
+
+        <div id="buttonadd"></div>
+        <div id="popup"></div>
+        <div id="popup2"></div>
+    </div>
+<!--<div class="demo-container">-->
+<!--    <div class="container">-->
+<!--        <div class="top-content">-->
+<!--            <div id="navbar"></div>-->
+<!--        </div>-->
+<!--        <div class="left-content">-->
+<!--            <div id="treeview"></div>-->
+<!--        </div>-->
+<!--        <div class="right-content">-->
+<!--            <div class="row">-->
+<!--                <h3 style="padding: 0px 0px 0px 340px;">Input Transaksi</h3>-->
+<!--                <div id="texthrfhisotritrx"></div>-->
+<!--                <div id="formInsert"></div>-->
+<!--                <div id="buttondebet"></div>-->
+<!--                <div id="buttonkredit"></div>-->
+<!--                &lt;!&ndash;                <table id="Datatrx" class="tableCOA" style="width:100%"></table>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div id="buttonadd"></div>-->
+<!--            <div id="popup"></div>-->
+<!--            <div id="popup2"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+</div>
+</body>
+</html>

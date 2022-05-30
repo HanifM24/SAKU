@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{mainlayout :: main-fragment(~{::#cashflow-content},
+                                                 ~{::#cashflow-static-resource})}">
+<head>
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
+
+<!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
+
+    <!-- DevExtreme library -->
+<!--    <script type="text/javascript" src="jsdevextreme/jszip.js"></script>-->
+<!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.9/jspdf.plugin.autotable.min.js"></script>-->
+
+
+
+
+<!--    <title>Sistem Akutansi PAN</title>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/globalize/1.3.0/globalize.min.js"></script>-->
+<!--    <script src="jsdevextreme/globalize/date.js"></script>-->
+<!--    <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">-->
+<!--    <script src="view/bower_components/js/dashboard.js"></script>-->
+    <th:block id="cashflow-static-resource">
+        <script src="view/bower_components/js/cshflow.js"></script>
+    </th:block>
+</head>
+<body><div id="cashflow-content">
+    <div>
+        <h3>Cash Flow</h3>
+        <!--        <p style="padding-bottom: 10px ">Catatan: Semua data ditamplikan pada default awal</p>-->
+        <p>Pilih periode data: </p>
+        <div id="formsearch"></div>
+        <div id="popup"></div>
+
+        <!--        <div id="Datatrx"></div>-->
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
