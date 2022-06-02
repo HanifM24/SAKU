@@ -1,17 +1,11 @@
-//function openForm() {
-//      document.getElementById("myForm").style.display = "block";
-//    }
-//
-//function closeForm() {
-//      dcllocument.getElementById("myForm").style.display = "none";
-//    }
+
 var datagrup;
 var datag = new FormData();
 
 
 $(function(){
 
-     function sendBatchRequest(url, changes) {
+    function sendBatchRequest(url, changes) {
         const d = $.Deferred();
         debugger
 
@@ -28,6 +22,80 @@ $(function(){
         return d.promise();
 
       }
+    $("#formbutton").dxForm({
+        colCount: 1,
+        width: '300px',
+        position:'center',
+        labelLocation: "left",
+        alignItemLabels: true,
+        alignItemLabelsInAllGroups: true,
+        items: [
+                                                                  {
+
+                                                                                                                      editorType: "dxDateBox",
+                                                                                                                      dataField: "datefrom",
+                                                                                                                      label: { text: "Tanggal", location: "left" },
+                                                                                                                      editorOptions: {
+                                                                                                                          value: today
+                                                                                                                      },
+                                                                                                                      validationRules: [
+                                                                                                                          {
+                                                                                                                              type: "required",
+                                                                                                                          },
+                                                                                                                      ]
+                                                                                                                  },
+
+                                                                  {
+                                                                          itemType: "button",
+                                                                          editorType: "dxTextBox",
+                                                                          itemType: 'button',
+                                                                          horizontalAlignment: 'center',
+                                                                          buttonOptions: {
+                                                                                   text: 'Cari',
+                                                                                   type: 'danger',
+                                                                                   onClick: function() {
+                                                                                         datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                                                                         popup.show();
+                                     //                                                     var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                     //                                                     var dateto = $('#formsearch').find('input[name="dateto"]').val();
+
+                                     //                                                     $.ajax({
+                                     //                                                        url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
+                                     //                                                        contentType: 'application/x-www-form-urlencoded',
+                                     //                                                        success: function(data){
+                                     //                                                                dataGrid.option("dataSource", {store:{type:"array", data: data}})
+                                     //                                                        }
+                                     //
+                                     //                                                     })
+
+
+                                                                                                                              }
+
+                                                                                                                          },
+                                                                                              },
+                                                                  {
+                                                                                                   itemType: "button",
+                                                                                                   editorType: "dxTextBox",
+                                                                                                   itemType: 'button',
+                                                                                                   horizontalAlignment: 'center',
+                                                                                                   buttonOptions: {
+                                                                                                            text: 'Reset tanggal',
+                                                                                                            type: 'default',
+                                                                                                            onClick: function() {
+                                                                                                                           $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
+                                                                                                                                }
+
+                                                                                                                                                   },
+                                                                                                                       },
+
+
+
+
+
+
+
+                                                                  ],
+    })
     $('#DataCOA').dxDataGrid({
         dataSource: '/api/getCOA',
         method:'GET',
@@ -886,29 +954,17 @@ $(function(){
             // DevExpress.ui.notify('The Contained button was clicked');
         },
     });
-//    $('#EditButtonHeader').dxButton({
-//                stylingMode: 'contained',
-//                text: 'Edit atau hapus COA Header',
-//                type: 'success',
-//    //            width: 120,
-//                onClick() {
-//                    popup4.show();
-//                    // DevExpress.ui.notify('The Contained button was clicked');
-//                },
-//            });
-//    $('#EditButtonDetail').dxButton({
-//            stylingMode: 'contained',
-//            text: 'Edit atau hapus COA Detail',
-//            type: 'success',
-//    //        width: 120,
-//            onClick() {
-//                popup5.show();
-//                // DevExpress.ui.notify('The Contained button was clicked');
-//            },
-//        });
-
-
-
+    $('#AddByExcel').dxButton({
+            stylingMode: 'contained',
+            text: 'Tambah COA Detail',
+            type: 'default',
+    //        height: 50,
+    //        width: 300,
+            onClick() {
+                popup2.show();
+                // DevExpress.ui.notify('The Contained button was clicked');
+            },
+        });
     const popup2 = $("#popup2").dxPopup("instance");
     const popup3 = $("#popup3").dxPopup("instance");
     const popup4 = $("#popup4").dxPopup("instance");

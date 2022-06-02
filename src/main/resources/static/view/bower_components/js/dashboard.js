@@ -192,7 +192,8 @@ const menubar = [
     {
         id: '1',
         text:'Admin Setting',
-        expanded: (window.location.pathname === '/register') ? true:false,
+        expanded: (window.location.pathname === '/register' ||
+                   window.location.pathname === '/audittrails') ? true:false,
         items:[{
             id : '1_1',
             text : 'Register',
@@ -201,7 +202,9 @@ const menubar = [
         },
         {
             id : '1_2',
-            text : 'Audit Trails'
+            text : 'Audit Trails',
+            url :'/audittrails',
+            selected: (window.location.pathname === '/audittrails') ? true:false
 
 //            url :'/register',
 //            selected: (window.location.pathname === '/register') ? true:false
@@ -238,12 +241,12 @@ const menubar = [
         ) ? true:false,
         items: [{
             id:'4_1',
-            text: 'Posting Single Entry',
+            text: 'Posting',
             url:'/InputTransaksi',
             selected: (window.location.pathname === '/InputTransaksi') ? true:false
         },{
             id:'4_2',
-            text: 'Posting Double Entry',
+            text: 'Posting Bulk',
             url:'/InputTransaksidouble',
             selected: (window.location.pathname === '/InputTransaksidouble') ? true:false
 

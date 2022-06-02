@@ -1,7 +1,6 @@
 package SINDUPAN.SAKU.JDBCTemplateService;
 
 import SINDUPAN.SAKU.DAO.GetListCOADAO;
-import SINDUPAN.SAKU.Mapper.GetDataCOAMapper;
 import SINDUPAN.SAKU.Mapper.GetDataCOAplusnMapper;
 import SINDUPAN.SAKU.Mapper.GetListCOAMapper;
 import SINDUPAN.SAKU.Model.GetListCOAModel;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 
 
 @Component
@@ -44,17 +43,19 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
                         "inner join ref_poscoa rp on dc.POSISI = rp.Id \n" +
                         "inner join ref_headerdetail rh on dc.DETAIL = rh.Id \n" +
                         "order by NO_COA \n";
-        List <GetListCOAModel> DatadetailsCOAModels = jdbcTemplateObject.query(SQL, new GetListCOAMapper());
-        return DatadetailsCOAModels;
+        return jdbcTemplateObject.query(SQL, new GetListCOAMapper());
 
     }
     public void create( String NO_COA, String NAMA_COA, String POSISI, String KET, String GROUP_COA, String Identifier)
     {
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
             String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ?, ?);";
             jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier, currentPrincipalName);
-
+            String keterangan = currentPrincipalName + " " + "Adding COA" + " " + NO_COA + " with COA Name: " + NAMA_COA;
+            String SQLaudit = "insert into audit_trail (DESKRIPSI, Tanggal, Jam ) values(?, curdate(), curtime())";
+            jdbcTemplateObject.update(SQLaudit, keterangan);
     }
     public void updatenama(String NAMA_COA, String NO_COA)
     {
@@ -87,7 +88,7 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
     {
         String SQL = "select NO_COA from daftar_coa where NO_COA= ?";
         try {
-            return jdbcTemplateObject.queryForObject(SQL, String.class, new Object[]{nocoa});
+            return jdbcTemplateObject.queryForObject(SQL, String.class, nocoa);
         }
         catch (EmptyResultDataAccessException e)
         {
@@ -96,54 +97,29 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
     }
     public List<GetListCOAModel> datanomorcoaplusname(String Id)
     {
+        String SQL;
         if (Objects.equals(Id, "0")) {
-            String SQL = " select \n" +
+            SQL =   "select \n" +
                     "NO_COA,\n" +
                     "NAMA_COA, \n" +
                     "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOADBT,\n" +
                     "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOAKDT\n" +
                     "from daftar_coa dc\n" +
                     "where dc.DETAIL != 1;";
-            List<GetListCOAModel> datacoaplusname = jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
-            return datacoaplusname;
         }
         else
         {
-            String SQL = " select \n" +
+            SQL =   "select \n" +
                     "NO_COA,\n" +
                     "NAMA_COA, \n" +
                     "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOADBT,\n" +
                     "concat(NO_COA, ' - ', NAMA_COA) as NOPLUSNAMACOAKDT\n" +
                     "from daftar_coa dc\n" +
                     "where dc.DETAIL = 1;";
-            List<GetListCOAModel> datacoaplusname = jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
-            return datacoaplusname;
         }
+        return jdbcTemplateObject.query(SQL, new GetDataCOAplusnMapper());
 
     }
-
-//    @Autowired
-//    public DataSource dataSource;
-//    @Autowired
-//    public void setDataSource(DataSource ds) {
-//        dataSource = ds;
-//        jdbcTemplateObject = new JdbcTemplate(dataSource);
-//
-//    }
-
-//    buat test
-//    @Autowired
-//    public List<MasterModel> listMaster()
-//    {
-//        String SQL = "select NO_COA as 'NO_COA1', NAMA_COA, TANGGAL, KET from master_akutansi";
-//        List <MasterModel> MasterModels = jdbcTemplateObject.query(SQL, new MasterMapper());
-//        return MasterModels;
-//
-//    }
-
-
-
-
 
 
 

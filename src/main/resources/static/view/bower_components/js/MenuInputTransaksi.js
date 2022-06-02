@@ -31,7 +31,7 @@ const urlapi = '/api/getdetailcur';
 
 $(function(){
 
-    function getcurrency(keydbt, datacur, matauang, namacoa, invoice, keterangan, kodeplusnamauang, jsntrxs){
+    function getcurrency(key, datacur, matauang, namacoa, invoice, keterangan, kodeplusnamauang, jsntrxs){
         if (jsntrxs == "DBT") {
             if (matauang == "IDR") {
                 eqrupiahdbt = datacur;
@@ -97,6 +97,7 @@ $(function(){
             if (matauang == "IDR") {
                 eqrupiahkdt = datacur;
                 datacr.push({
+                    KEYKDT: key,
                     NO_COA_KDT: namacoa,
                     MATA_UANG_KDT: kodeplusnamauang,
                     INVOICE_KDT: invoice,

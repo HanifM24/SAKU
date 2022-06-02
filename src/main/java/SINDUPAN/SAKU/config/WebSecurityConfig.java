@@ -57,7 +57,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter  {
                 "/register",
                 "/cflow",
                 "fragments/navbarhead",
-                "mainlayout"
+                "mainlayout",
+                "audittrails"
         ).access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MAKER', 'ROLE_CHECKER', 'ROLE_APPROVAL' )");
 
         // For ADMIN only.

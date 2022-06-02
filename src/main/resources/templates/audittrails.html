@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{mainlayout :: main-fragment(~{::#audittrails-content},
+                                                 ~{::#audittrails-static-resource})}">
+<head>
+
+    <th:block id="audittrails-static-resource">
+        <script src="view/bower_components/js/Audittrails.js"></script>
+    </th:block>
+
+</head>
+<body>
+<div id="audittrails-content"><h3>Audit Trails</h3>
+    <div id="DataAudit"></div>
+<!--    <div id="AddButtonDetail"></div>-->
+<!--    <div id="EditButtonHeader"></div>-->
+<!--    <div id="EditButtonDetail"></div>-->
+<!--    <div id="DataCOA"> </div>-->
+<!--    <div id="popup2"></div>-->
+<!--    <div id="popup3"></div>-->
+<!--    <div id="popup4"></div>-->
+<!--    <div id="popup5"></div></div>-->
+</div>
+</body>
+
+</html>

@@ -65,6 +65,8 @@ public class ViewController {
     public String ViewMenuprofloss(){return "profitloss";}
     @GetMapping("/register")
     public String ViewMenuRegister(){return "newuser";}
+    @GetMapping("/audittrails")
+    public String ViewMenuAuditTrails(){return "audittrails";}
     @GetMapping("/403")
     public String accessDenied(Model model, Principal principal) {
 

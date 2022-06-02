@@ -7,6 +7,8 @@ import SINDUPAN.SAKU.Model.GetListTransaksiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,8 +22,7 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
     public List<GetListTransaksiModel> listDataTRX()
     {
         String SQL = "SELECT * FROM trx_master";
-        List <GetListTransaksiModel> DatadetailsTRXModels = jdbcTemplateObject.query(SQL, new GetListTrxMapper());
-        return DatadetailsTRXModels;
+        return jdbcTemplateObject.query(SQL, new GetListTrxMapper());
 
     }
 //    public List<GetListTRXModel>listjurnal(String id_trx) // with parameter
@@ -37,7 +38,7 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
     public List<GetListTRXModel>listjurnalwithparam(String datefrom, String dateto) // no parameter
     {
         String SQL = "select * from vw_jurnal where TGL_TRX  between ? and ?";
-        return jdbcTemplateObject.query(SQL, new GetListDtlJurnalMapper(), new Object[]{datefrom, dateto});
+        return jdbcTemplateObject.query(SQL, new GetListDtlJurnalMapper(), datefrom, dateto);
     }
 //    public List<GetListTRXModel>listledger() //no parameter
 //    {
@@ -84,8 +85,7 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
                 "join ref_mata_uang rmu on td.MATA_UANG_DBT = rmu.Id  \n" +
                 "where NO_TRXDBT = ?";
         try {
-            List<GetListTRXModel> datadetailstrx = jdbcTemplateObject.query(SQL, new GetListTrxDetailDBTMapper(), new Object[]{id_trx});
-            return datadetailstrx;
+            return jdbcTemplateObject.query(SQL, new GetListTrxDetailDBTMapper(), new Object[]{id_trx});
         }
         catch  (EmptyResultDataAccessException e) {
             return null;
@@ -116,8 +116,20 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
     public void gnrttrxnmbr()
     {
 
-        String SQL = "insert into trx_master (TGL_TRX ) values(curdate())";
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        String SQL = "insert into trx_master (TGL_TRX, INPUT_BY, INPUT_DATE, INPUT_TIME ) values(curdate(), " +
+                "?, curdate(), curtime())";
         jdbcTemplateObject.update(SQL);
+        String findnmrtrxmax = gettrxnbr();
+        String KET = username + " " + "Posting Transaction with number" + " " + findnmrtrxmax;
+        String SQLaudit = "insert into audit_trail (DESKRIPSI, Tanggal, Jam ) values(?, curdate(), curtime())";
+        jdbcTemplateObject.update(SQLaudit, KET);
     }
     public String gettrxnbr ()
     {

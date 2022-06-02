@@ -8,6 +8,7 @@ $(function()
 
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
+
     $("#formsearch").dxForm({
                              colCount: 1,
                              width: '300px',
@@ -68,10 +69,8 @@ $(function()
                                                                        text: 'Reset tanggal',
                                                                        type: 'default',
                                                                        onClick: function() {
-                                                                                $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
-//                                                                                $("#formsearch").dxForm('instance').getEditor("dateto").option("value", today);
-
-                                                                                                                  }
+                                                                                      $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
+                                                                                           }
 
                                                                                                               },
                                                                                   },
@@ -194,16 +193,7 @@ $(function()
                                      //
                                      //            ]}
                                          }).dxDataGrid('instance');
-    //                                $('#datefrom').dxDateBox({
-    //                                                            type: 'date',
-    //                                                            value: today,
-    //                                                            width: 200,
-    //                                                          });
-    //                                $('#dateto').dxDateBox({
-    //                                                               type: 'date',
-    //                                                               value: today,
-    //                                                               width: 200,
-    //                                                             });
+
 
                             }
                         }).dxPopup("instance");

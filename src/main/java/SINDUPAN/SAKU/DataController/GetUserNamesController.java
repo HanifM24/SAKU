@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class GetUserNamesController {
     AppUserDAO getNameUser;
 
     @GetMapping("/getuserappnames")
-    public String getroleappnames()
+    public String getusernames()
     {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -31,9 +32,22 @@ public class GetUserNamesController {
             username = principal.toString();
         }
         return username;
-
-
-
     }
+
+//    @PostMapping("/insaudittrails")
+//    void audittrails()
+//    {
+//        String username;
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof UserDetails) {
+//            username = ((UserDetails)principal).getUsername();
+//        } else {
+//            username = principal.toString();
+//        }
+//
+//    }
+
+
+
 
 }
