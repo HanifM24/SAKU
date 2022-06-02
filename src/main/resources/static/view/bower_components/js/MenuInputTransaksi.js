@@ -36,7 +36,7 @@ $(function(){
             if (matauang == "IDR") {
                 eqrupiahdbt = datacur;
                 datadr.push({
-                    KEYDBT: keydbt,
+                    KEYDBT: key,
                     NO_COA_DBT: namacoa,
                     MATA_UANG_DBT: kodeplusnamauang,
                     INVOICE_DBT: invoice,
