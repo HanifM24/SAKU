@@ -11,6 +11,7 @@ $(function(){
     $('#DataAudit').dxDataGrid({
             dataSource: "/api/getaudittrails",
             method: "GET",
+            allowColumnResizing: true,
             export: {
                                 enabled: true
                             },

@@ -51,8 +51,17 @@ public class GetListCOAJDBCTemplate implements GetListCOADAO {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
-            String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ?, ?);";
-            jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier, currentPrincipalName);
+            if(GROUP_COA != null)
+            {
+                String SQL = "call sp_addcoa(?, ?, ?, ?, ?, ?, ?);";
+                jdbcTemplateObject.update(SQL, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier, currentPrincipalName);
+            }
+            else
+            {
+                String SQL1 = "call sp_addcoamaster(?, ?, ?, ?, ?, ?, ?)";
+                jdbcTemplateObject.update(SQL1, NO_COA, NAMA_COA, POSISI, KET, GROUP_COA, Identifier, currentPrincipalName );
+            }
+
             String keterangan = currentPrincipalName + " " + "Adding COA" + " " + NO_COA + " with COA Name: " + NAMA_COA;
             String SQLaudit = "insert into audit_trail (DESKRIPSI, Tanggal, Jam ) values(?, curdate(), curtime())";
             jdbcTemplateObject.update(SQLaudit, keterangan);

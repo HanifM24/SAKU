@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-<!--    local-->
+<!--&lt;!&ndash;    local&ndash;&gt;-->
 <!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
 
 <!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
@@ -18,13 +18,13 @@
 <!--    online lebih cepat karena disimpan di cache-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <!-- DevExtreme theme -->
+<!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
     <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.light.css">
 
     <!-- DevExtreme library -->
 <!--    <script type="text/javascript" src="jsdevextreme/dx.all.js"></script>-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.9.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
 <!--    local-->
 <!--    <script type="text/javascript" src="jsdevextreme/jszip.js"></script>-->
@@ -34,7 +34,7 @@
     <link href="view/bower_components/css/dashboard.css" rel="stylesheet" type="text/css">
 <!--    <script type="text/javascript" src="jsdevextreme/jquery.min.js"></script>-->
 
-<!--    &lt;!&ndash; DevExtreme theme &ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; DevExtreme theme &ndash;&gt;&ndash;&gt;-->
 <!--    <link rel="stylesheet" href="cssdevextreme/dx.light.css">-->
 
 <!--    &lt;!&ndash; DevExtreme library &ndash;&gt;-->
@@ -60,7 +60,7 @@
         <header class="top-content">
             <div id="navbar"></div>
         </header>
-        <div class="left-content">
+        <div class="left-content" >
             <div id="treeview"></div>
         </div>
         <div th:insert="${mainContent} ?: ~{}" class="right-content"/>

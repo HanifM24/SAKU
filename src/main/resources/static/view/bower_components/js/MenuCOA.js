@@ -1,10 +1,29 @@
 
 var datagrup;
 var datag = new FormData();
-
+var formData = new FormData();
+var json1;
+var json_object;
 
 $(function(){
 
+    function uploadexcel(dataj){
+    $.ajax({
+                  data: dataj,
+                 contentType: false,
+                 processData: false,
+                  method: 'POST',
+                  enctype: 'multipart/form-data',
+//                                     datatype: 'json',
+                     url:'/api/postCOAexcel',
+
+                                         success: function(data){alert('Data berhasil di upload');
+                                                  location.reload();
+                                         }
+
+
+                                     });
+    };
     function sendBatchRequest(url, changes) {
         const d = $.Deferred();
         debugger
@@ -23,79 +42,103 @@ $(function(){
 
       }
     $("#formbutton").dxForm({
-        colCount: 1,
-        width: '300px',
+        colCount: 2,
+        width: '800px',
         position:'center',
         labelLocation: "left",
         alignItemLabels: true,
         alignItemLabelsInAllGroups: true,
-        items: [
-                                                                  {
+        items: [{
+                     itemType: 'button',
+                     horizontalAlignment: 'left',
+                     buttonOptions:{
+                            text: 'Add COA Header',
+                            type: 'normal',
+                            stylingMode: 'outlined',
+                            onClick: function()
+                            {
+                                popup3.show();
+                            }
+                     }
+                 },
+                {
+                     itemType: 'button',
+                     horizontalAlignment: 'left',
+                     buttonOptions:{
+                            text: 'Add COA Detail',
+                            type: 'normal',
+                            stylingMode: 'outlined',
+                            onClick: function()
+                            {
+                                popup2.show();
+                            }
+                     }
+                },
+                {
+                     name: 'Add COA Bulk By excel',
+                     template: function(data, itemElement) {
+                                itemElement.append($("<div>").attr("id", "dxfu1").dxFileUploader());
+                     },
 
-                                                                                                                      editorType: "dxDateBox",
-                                                                                                                      dataField: "datefrom",
-                                                                                                                      label: { text: "Tanggal", location: "left" },
-                                                                                                                      editorOptions: {
-                                                                                                                          value: today
-                                                                                                                      },
-                                                                                                                      validationRules: [
-                                                                                                                          {
-                                                                                                                              type: "required",
-                                                                                                                          },
-                                                                                                                      ]
-                                                                                                                  },
+                },
+                {
+                     itemType: 'button',
+                     horizontalAlignment: 'left',
+                     buttonOptions:{
+                            text: 'Download template for excel COA',
+                            type: 'normal',
+                            stylingMode: 'outlined',
+                            onClick: function()
+                            {
+                                window.location.href = '/view/DOC/excelcoa.xlsx'
+                            }
+                     }
+                },
+               ],
+    });
+    $('#dxfu1').dxFileUploader({
+        selectButtonText: 'Select Excel',
+        labelText: 'Upload COA in bulk file',
+        accept: '.xls, .xlsx',
+        uploadMode: 'useForm',
+//        uploadUrl:'/api/getCOAexcel',
+        onValueChanged(e)
+        {
+            debugger
 
-                                                                  {
-                                                                          itemType: "button",
-                                                                          editorType: "dxTextBox",
-                                                                          itemType: 'button',
-                                                                          horizontalAlignment: 'center',
-                                                                          buttonOptions: {
-                                                                                   text: 'Cari',
-                                                                                   type: 'danger',
-                                                                                   onClick: function() {
-                                                                                         datefrom = $('#formsearch').find('input[name="datefrom"]').val();
-                                                                                         popup.show();
-                                     //                                                     var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
-                                     //                                                     var dateto = $('#formsearch').find('input[name="dateto"]').val();
+            const reader = new FileReader();
 
-                                     //                                                     $.ajax({
-                                     //                                                        url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
-                                     //                                                        contentType: 'application/x-www-form-urlencoded',
-                                     //                                                        success: function(data){
-                                     //                                                                dataGrid.option("dataSource", {store:{type:"array", data: data}})
-                                     //                                                        }
-                                     //
-                                     //                                                     })
+            var jsData = {};
+            const file = e.value[0];
+            debugger
+            reader.readAsBinaryString(file);
+            reader.onloadend = function(f) {
+                    debugger
+                     var workbook = XLSX.read(f.target.result, {
+                                type: 'binary'
+                                        });
+                     workbook.SheetNames.forEach(function(sheetName){
+                     var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                  json_object = JSON.stringify(XL_row_object);
+                  json1 = json_object;
 
-
-                                                                                                                              }
-
-                                                                                                                          },
-                                                                                              },
-                                                                  {
-                                                                                                   itemType: "button",
-                                                                                                   editorType: "dxTextBox",
-                                                                                                   itemType: 'button',
-                                                                                                   horizontalAlignment: 'center',
-                                                                                                   buttonOptions: {
-                                                                                                            text: 'Reset tanggal',
-                                                                                                            type: 'default',
-                                                                                                            onClick: function() {
-                                                                                                                           $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
-                                                                                                                                }
-
-                                                                                                                                                   },
-                                                                                                                       },
+                  formData.append('datas', json_object);
+                  console.log(json_object);
+                  });
+                     uploadexcel(formData);
 
 
 
 
+                    debugger
+                    };
 
 
 
-                                                                  ],
-    })
+            debugger
+        }
+
+    });
     $('#DataCOA').dxDataGrid({
         dataSource: '/api/getCOA',
         method:'GET',
@@ -761,15 +804,6 @@ $(function(){
                                     contentTemplate: function()  {
                                         let content = $('<div />');
                                         content.append('<div id="formInsert5" />');
-                                        // content.append('<div id="matauangdebet"');
-                                        // content.append('<div id="invoicedebet"');
-                                        // content.append('<div id="nominaltransaksidebet"');
-                                        // content.append('<div id="keterangantrxdebet"');
-                                        // content.append('<div id="nocoakredit"');
-                                        // content.append('<div id="matauangkredit"');
-                                        // content.append('<div id="invoicekredit"');
-                                        // content.append('<div id="nominaltransaksikredit"');
-                                        // content.append('<div id="keterangantrxkredit"');
                                         return content;
 
 
@@ -825,31 +859,31 @@ $(function(){
                 //                                     editorOptions: {placeholder:"Masukkan Keterangan COA.."}
                 //                                },
                                                 {
-                                                                                    itemType: "simple",
-                                                                                    editorType: "dxSelectBox",
-                                                                                    dataField: "NOPLUSNAMACOADBT",
-                                                                                    label: { text: "Pilih group COA", location: "top" },
-                                                                                    editorOptions: {
-                                                                                        dataSource: "/api/getnocoaplusname/1",
-                                                                                        placeholder: "Pilih Nomor COA disini...",
-                                                                                        showSelectionControls: true,
-                                                                                        applyValueMode: "useButtons",
-                                                                                        displayExpr: function (data) {
-                                                                                            if (data) {
-                                                                                                return `${data.NOPLUSNAMACOADBT}`;
-                                                                                            }
-                                                                                            return null;
-                                                                                        },
-                                                                                        keyExpr: "NOPLUSNAMACOADBT",
-                                                                                        valueExpr: "NOPLUSNAMACOADBT",
-                                                                                        searchEnabled: true,
-                                                                                    },
-                                                                                    validationRules: [
-                                                                                        {
-                                                                                            type: "required",
-                                                                                        },
-                                                                                    ]
-                                                                                },
+                                                    itemType: "simple",
+                                                    editorType: "dxSelectBox",
+                                                    dataField: "NOPLUSNAMACOADBT",
+                                                    label: { text: "Pilih group COA", location: "top" },
+                                                    editorOptions: {
+                                                        dataSource: "/api/getnocoaplusname/1",
+                                                        placeholder: "Pilih Nomor COA disini...",
+                                                        showSelectionControls: true,
+                                                        applyValueMode: "useButtons",
+                                                        displayExpr: function (data) {
+                                                            if (data) {
+                                                                return `${data.NOPLUSNAMACOADBT}`;
+                                                            }
+                                                            return null;
+                                                        },
+                                                        keyExpr: "NOPLUSNAMACOADBT",
+                                                        valueExpr: "NOPLUSNAMACOADBT",
+                                                        searchEnabled: true,
+                                                    },
+                                                    validationRules: [
+                                                        {
+                                                            type: "required",
+                                                        },
+                                                    ]
+                                                },
                                                 {
                                                     itemType: "simple",
                                                     editorType: "dxSelectBox",
@@ -932,39 +966,39 @@ $(function(){
                                     }
 
                                 });
-    $('#AddButtonHeader').dxButton({
-            stylingMode: 'contained',
-            text: 'Tambah COA Header',
-            type: 'default',
-//            height: 50,
-//            width: 300,
-            onClick() {
-                popup3.show();
-                // DevExpress.ui.notify('The Contained button was clicked');
-            },
-        });
-    $('#AddButtonDetail').dxButton({
-        stylingMode: 'contained',
-        text: 'Tambah COA Detail',
-        type: 'default',
-//        height: 50,
-//        width: 300,
-        onClick() {
-            popup2.show();
-            // DevExpress.ui.notify('The Contained button was clicked');
-        },
-    });
-    $('#AddByExcel').dxButton({
-            stylingMode: 'contained',
-            text: 'Tambah COA Detail',
-            type: 'default',
-    //        height: 50,
-    //        width: 300,
-            onClick() {
-                popup2.show();
-                // DevExpress.ui.notify('The Contained button was clicked');
-            },
-        });
+//    $('#AddButtonHeader').dxButton({
+//            stylingMode: 'contained',
+//            text: 'Tambah COA Header',
+//            type: 'default',
+////            height: 50,
+////            width: 300,
+//            onClick() {
+//                popup3.show();
+//                // DevExpress.ui.notify('The Contained button was clicked');
+//            },
+//        });
+//    $('#AddButtonDetail').dxButton({
+//        stylingMode: 'contained',
+//        text: 'Tambah COA Detail',
+//        type: 'default',
+////        height: 50,
+////        width: 300,
+//        onClick() {
+//            popup2.show();
+//            // DevExpress.ui.notify('The Contained button was clicked');
+//        },
+//    });
+//    $('#AddByExcel').dxButton({
+//            stylingMode: 'contained',
+//            text: 'Tambah COA Bulk By excel',
+//            type: 'default',
+//    //        height: 50,
+//    //        width: 300,
+//            onClick() {
+//                popup2.show();
+//                // DevExpress.ui.notify('The Contained button was clicked');
+//            },
+//        });
     const popup2 = $("#popup2").dxPopup("instance");
     const popup3 = $("#popup3").dxPopup("instance");
     const popup4 = $("#popup4").dxPopup("instance");

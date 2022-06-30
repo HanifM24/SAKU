@@ -72,6 +72,8 @@ $(() => {
     $('#navbar').dxTabs({
         dataSource: navData,
         selectedIndex: 0,
+        height:60,
+        width:'100%',
         onItemClick(e) {
             const url = e.itemData.url;
             if(url != null) {
@@ -145,11 +147,17 @@ $(() => {
     }
 });
 const navData = [{
-    text: 'Sistem Akutansi Home',
-    icon: 'doc',
-    url:'/Dashboard'
+    text: 'PT. PLANA NETWORKS INDONESIA',
+//    icon: 'doc',
+    url:'/Dashboard',
+    icon:'/img/PANNetwork.png'
 
-}, {
+},{
+      text: 'Sistem Akutansi Home',
+      icon: 'doc',
+      url:'/Dashboard'
+
+  }, {
     text: 'Sistem Kepegawaian PAN',
     icon: 'user',
 }, {
@@ -244,13 +252,15 @@ const menubar = [
             text: 'Posting',
             url:'/InputTransaksi',
             selected: (window.location.pathname === '/InputTransaksi') ? true:false
-        },{
-            id:'4_2',
-            text: 'Posting Bulk',
-            url:'/InputTransaksidouble',
-            selected: (window.location.pathname === '/InputTransaksidouble') ? true:false
-
-        }]
+        },
+//        {
+//            id:'4_2',
+//            text: 'Posting Bulk',
+//            url:'/InputTransaksidouble',
+//            selected: (window.location.pathname === '/InputTransaksidouble') ? true:false
+//
+//        }
+        ]
     },
     {
         id: '5',

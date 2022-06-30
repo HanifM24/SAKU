@@ -436,6 +436,124 @@ $(function(){
 
         ],
     });
+    $("#datapreviewdbt").dxDataGrid({
+                    dataSource: datadr,
+                    columnAutoWidth: true,
+                    showBorders: true,
+                    editing:{
+                        mode: 'row',
+                        allowDeleting: true
+                    },
+                    onRowRemoving(data){
+                           datadr.splice(data.data.KEYDBT - 1, 1);
+                           MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1);
+                           INVOICE_DBT.splice(data.data.KEYDBT - 1, 1);
+                           NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1);
+                           KTRG_DBT.splice(data.data.KEYDBT - 1, 1);
+                           NO_COA_DBT.splice(data.data.KEYDBT - 1, 1);
+                           arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1);
+                           sumeqdbt -= data.data.EQIVALRPDBT;
+
+                    },
+                    onRowRemoved(){
+                                        for(var i=0; i<NO_COA_DBT.length; i++)
+                                             {
+                                                    datadr[i].KEYDBT = i+1
+                                             };
+                                    },
+                    columns: [
+                        // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+                        {dataField:"KEYDBT",caption:"Nomor", alignment: "left"},
+                        {dataField:"NO_COA_DBT",caption:"Nomor COA Debet", alignment: "center"},
+                        {dataField:"MATA_UANG_DBT",caption:"Mata Uang", alignment: "center"},
+                        {dataField:"INVOICE_DBT",caption:"Invoice Debit", alignment: "center"},
+                        {dataField:"NOMINALTRXDBT",caption:"Nominal Debet", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"EQIVALRPDBT",caption:"Ekivalen Rupiah", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"KTRG_DBT",caption:"Keterangan", alignment: "center"}
+                    ],
+                    summary:{
+                        totalItems:[
+                            {
+                                column: "NOMINALTRXDBT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            },
+                            {
+                                column: "EQIVALRPDBT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            }
+                        ]
+                    }
+
+
+                });
+    $("#datapreviewkdt").dxDataGrid({
+                    dataSource: datacr,
+                    showBorders: true,
+                    allowColumnResizing: true,
+                    columnAutoWidth: true,
+                    editing:{
+                                        mode: 'row',
+                                        allowDeleting: true
+                                    },
+                    showBorders: true,
+                    onRowRemoving(data){
+
+                                        datacr.splice(data.data.KEYKDT - 1, 1);
+                                        MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        INVOICE_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1);
+                                        KTRG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        NO_COA_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1);
+                                        sumeqkdt -= data.data.EQIVALRPKDT;
+
+
+
+
+
+                                    },
+                    onRowRemoved(){
+                        for(var i=0; i<NO_COA_KDT.length; i++)
+                             {
+                                    datacr[i].KEYKDT = i+1
+                             };
+                    },
+                    columns: [
+                        // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+                        {dataField:"NO_COA_KDT",caption:"Nomor COA Kredit", alignment: "center"},
+                        {dataField:"MATA_UANG_KDT",caption:"Mata Uang", alignment: "center"},
+                        {dataField:"INVOICE_KDT",caption:"Invoice Kredit", alignment: "center"},
+                        {dataField:"NOMINALTRXKDT",caption:"Nominal Kredit", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"EQIVALRPKDT",caption:"Ekivalen Rupiah", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"KTRG_KDT",caption:"Keterangan", alignment: "center"},
+                    ],
+                    summary:{
+                        totalItems:[
+                            {
+                                column: "NOMINALTRXKDT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            },
+                            {
+                                column: "EQIVALRPKDT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            }
+                        ]
+                    }
+
+
+                });
 
 
     $("#popup").dxPopup({
@@ -478,25 +596,22 @@ $(function(){
                     allowDeleting: true
                 },
                 onRowRemoving(data){
-                       datadr.splice(data.data.KEYDBT - 1, 1),
-                       MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1),
-                       INVOICE_DBT.splice(data.data.KEYDBT - 1, 1),
-                       NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1),
-                       KTRG_DBT.splice(data.data.KEYDBT - 1, 1),
-                       NO_COA_DBT.splice(data.data.KEYDBT - 1, 1),
-                       arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1),
-                       sumeqdbt -= data.data.EQIVALRPDBT
-
-
-//                    delete data.data.NO_COA_DBT,
-//                    delete data.data.EQIVALRPDBT,
-//                    delete data.data.INVOICE_DBT,
-//                    delete data.data.KTRG_DBT,
-//                    delete data.data.MATA_UANG_DBT,
-//                    delete data.data.NOMINALTRXDBT
-                      debugger
+                       datadr.splice(data.data.KEYDBT - 1, 1);
+                       MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1);
+                       INVOICE_DBT.splice(data.data.KEYDBT - 1, 1);
+                       NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1);
+                       KTRG_DBT.splice(data.data.KEYDBT - 1, 1);
+                       NO_COA_DBT.splice(data.data.KEYDBT - 1, 1);
+                       arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1);
+                       sumeqdbt -= data.data.EQIVALRPDBT;
 
                 },
+                onRowRemoved(){
+                                    for(var i=0; i<NO_COA_DBT.length; i++)
+                                         {
+                                                datadr[i].KEYDBT = i+1
+                                         };
+                                },
                 columns: [
                     // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
                     {dataField:"KEYDBT",caption:"Nomor", alignment: "left"},
@@ -539,17 +654,27 @@ $(function(){
                                 },
                 showBorders: true,
                 onRowRemoving(data){
-                                    datacr.splice(data.data.KEYKDT - 1, 1),
-                                    MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1),
-                                    INVOICE_KDT.splice(data.data.KEYKDT - 1, 1),
-                                    NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1),
-                                    KTRG_KDT.splice(data.data.KEYKDT - 1, 1),
-                                    NO_COA_KDT.splice(data.data.KEYKDT - 1, 1),
-                                    arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1),
-                                    sumeqkdt -= data.data.EQIVALRPKDT
-                                    debugger
+
+                                    datacr.splice(data.data.KEYKDT - 1, 1);
+                                    MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                    INVOICE_KDT.splice(data.data.KEYKDT - 1, 1);
+                                    NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1);
+                                    KTRG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                    NO_COA_KDT.splice(data.data.KEYKDT - 1, 1);
+                                    arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1);
+                                    sumeqkdt -= data.data.EQIVALRPKDT;
+
+
+
+
 
                                 },
+                onRowRemoved(){
+                    for(var i=0; i<NO_COA_KDT.length; i++)
+                         {
+                                datacr[i].KEYKDT = i+1
+                         };
+                },
                 columns: [
                     // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
                     {dataField:"NO_COA_KDT",caption:"Nomor COA Kredit", alignment: "center"},
@@ -585,6 +710,7 @@ $(function(){
                 type:'danger',
                 horizontalAlignment: 'center',
                 onClick:function() {
+                    if(NO_COA_DBT.length != 0 && NO_COA_KDT.length != 0){
                     let dataraw = new FormData();
                     // dataraw.append('data', datat);
                     // dataraw.append('data', JSON.stringify(datadr));
@@ -628,6 +754,12 @@ $(function(){
                         DevExpress.ui.notify("Jumlah transaksi debit dan kredit harus sama", "error", 10000);
                     }
                     // DevExpress.ui.notify('The Outlined button was clicked');
+                }
+                    else
+                         {
+                                DevExpress.ui.notify("Data transaction must be inputted", "error", 10000);
+                         }
+
                 }
             })
 

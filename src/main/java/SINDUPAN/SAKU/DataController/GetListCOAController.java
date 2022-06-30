@@ -1,20 +1,21 @@
 package SINDUPAN.SAKU.DataController;
 
 import SINDUPAN.SAKU.JDBCTemplateService.GetListCOAJDBCTemplate;
+import SINDUPAN.SAKU.Model.ExcelCOAModel;
 import SINDUPAN.SAKU.Model.GetListCOAModel;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import java.io.*;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +23,7 @@ public class GetListCOAController {
 
     @Autowired
     public GetListCOAJDBCTemplate masterJDBCTemplate;
+
 
     @GetMapping("/getCOA")
     public Iterable <GetListCOAModel> findallmaster()
@@ -46,6 +48,60 @@ public class GetListCOAController {
             return "1";
 
         }
+
+    }
+    @PostMapping("/postCOAexcel")
+    public void process(HttpServletRequest request) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ExcelCOAModel> excelCOAModel = Arrays.asList(objectMapper.readValue(request.getParameter("datas"), ExcelCOAModel[].class));
+        String ed ="da";
+        excelCOAModel.size();
+        String test = new ExcelCOAModel().getCODE_GL();
+
+//
+
+//        for(ExcelCOAModel excelcoa:excelCOAModel)
+//        {
+//            masterJDBCTemplate.create(excelcoa.getCODE_GL(),excelcoa.getNAME_OF_GL());
+//        }
+        excelCOAModel.listIterator();
+        for(int i = 0; i < excelCOAModel.size(); i++)
+        {
+            excelCOAModel.get(i).getNAME_OF_GL();
+        }
+
+        Set<ExcelCOAModel> filteredlist = excelCOAModel.stream().collect(Collectors.toSet());
+        System.out.println(excelCOAModel.contains("CODE_GL"));
+        List<String>codegroupglfilter = excelCOAModel.stream().map(ExcelCOAModel::getGROUP_COA).collect(Collectors.toList());
+        for(ExcelCOAModel excelCOA:excelCOAModel)
+        {
+            String Detail;
+            boolean condition = new HashSet<>(codegroupglfilter).contains(excelCOA.getCODE_GL());
+//            masterJDBCTemplate.create(excelCOA.getCODE_GL(), excelCOA.getNAME_OF_GL(), excelCOA.getPOSISI(), excelCOA.getGROUP_COA(), );
+            if(condition)
+            {
+                Detail = "0";
+
+            }
+            else
+            {
+                Detail = "1";
+            }
+            masterJDBCTemplate.create(excelCOA.getCODE_GL(),
+                    excelCOA.getNAME_OF_GL(),
+                    excelCOA.getPOSISI(),
+                    excelCOA.getKETERANGAN(),
+                    excelCOA.getGROUP_COA(),
+                    Detail);
+//            System.out.println(Detail);
+//            System.out.println(groupcoa);
+//            System.out.println(excelCOA.getCODE_GL());
+
+
+
+        }
+
 
     }
 

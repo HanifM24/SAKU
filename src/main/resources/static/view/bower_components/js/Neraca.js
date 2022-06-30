@@ -19,18 +19,18 @@ $(function()
                              items: [
                              {
 
-                                                                                 editorType: "dxDateBox",
-                                                                                 dataField: "datefrom",
-                                                                                 label: { text: "Tanggal", location: "left" },
-                                                                                 editorOptions: {
-                                                                                     value: today
-                                                                                 },
-                                                                                 validationRules: [
-                                                                                     {
-                                                                                         type: "required",
-                                                                                     },
-                                                                                 ]
-                                                                             },
+                                         editorType: "dxDateBox",
+                                         dataField: "datefrom",
+                                         label: { text: "Tanggal", location: "left" },
+                                         editorOptions: {
+                                             value: today
+                                         },
+                                         validationRules: [
+                                             {
+                                                 type: "required",
+                                             },
+                                         ]
+                             },
 
                              {
                                      itemType: "button",
