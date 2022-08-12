@@ -125,7 +125,7 @@ public class GetListTRXJDBCTemplate implements GetListTRXDAO {
         }
         String SQL = "insert into trx_master (TGL_TRX, INPUT_BY, INPUT_DATE, INPUT_TIME ) values(curdate(), " +
                 "?, curdate(), curtime())";
-        jdbcTemplateObject.update(SQL);
+        jdbcTemplateObject.update(SQL, username);
         String findnmrtrxmax = gettrxnbr();
         String KET = username + " " + "Posting Transaction with number" + " " + findnmrtrxmax;
         String SQLaudit = "insert into audit_trail (DESKRIPSI, Tanggal, Jam ) values(?, curdate(), curtime())";

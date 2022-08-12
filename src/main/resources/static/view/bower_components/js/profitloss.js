@@ -14,18 +14,18 @@ $(function()
                                          items: [
                                          {
 
-                                                                                             editorType: "dxDateBox",
-                                                                                             dataField: "datefrom",
-                                                                                             label: { text: "Hari", location: "left" },
-                                                                                             editorOptions: {
-                                                                                                 value: today
-                                                                                             },
-                                                                                             validationRules: [
-                                                                                                 {
-                                                                                                     type: "required",
-                                                                                                 },
-                                                                                             ]
-                                                                                         },
+                                                 editorType: "dxDateBox",
+                                                 dataField: "datefrom",
+                                                 label: { text: "Hari", location: "left" },
+                                                 editorOptions: {
+                                                     value: today
+                                                 },
+                                                 validationRules: [
+                                                     {
+                                                         type: "required",
+                                                     },
+                                                 ]
+                                         },
 
                                          {
                                                  itemType: "button",
@@ -33,22 +33,12 @@ $(function()
                                                  itemType: 'button',
                                                  horizontalAlignment: 'center',
                                                  buttonOptions: {
-                                                          text: 'Cari',
+                                                          text: 'Search',
                                                           type: 'danger',
                                                           onClick: function() {
                                                                  datefrom = $('#formsearch').find('input[name="datefrom"]').val();
             //                                                     var dateto = $('#formsearch').find('input[name="dateto"]').val();
                                                                  popup.show();
-            //                                                     $.ajax({
-            //                                                        url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
-            //                                                        contentType: 'application/x-www-form-urlencoded',
-            //                                                        success: function(data){
-            //                                                                dataGrid.option("dataSource", {store:{type:"array", data: data}})
-            //                                                        }
-            //
-            //                                                     })
-
-
                                                                                                      }
 
                                                                                                  },
@@ -59,7 +49,7 @@ $(function()
                                                                           itemType: 'button',
                                                                           horizontalAlignment: 'center',
                                                                           buttonOptions: {
-                                                                                   text: 'Reset tanggal',
+                                                                                   text: 'Reset Date',
                                                                                    type: 'default',
                                                                                    onClick: function() {
                                                                                             $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
