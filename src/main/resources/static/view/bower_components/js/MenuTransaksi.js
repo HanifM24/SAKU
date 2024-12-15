@@ -114,18 +114,18 @@ $(function(){
                          items: [
                          {
 
-                                                                             editorType: "dxDateBox",
-                                                                             dataField: "datefrom",
-                                                                             label: { text: "Dari", location: "left" },
-                                                                             editorOptions: {
-                                                                                 value: today
-                                                                             },
-                                                                             validationRules: [
-                                                                                 {
-                                                                                     type: "required",
-                                                                                 },
-                                                                             ]
-                                                                         },
+                                 editorType: "dxDateBox",
+                                 dataField: "datefrom",
+                                 label: { text: "Dari", location: "left" },
+                                 editorOptions: {
+                                     value: today
+                                 },
+                                 validationRules: [
+                                     {
+                                         type: "required",
+                                     },
+                                 ]
+                             },
                          {
 
                                  editorType: "dxDateBox",
@@ -309,30 +309,89 @@ $(function(){
                                                                      enabled: true
                                                                  },
                                                  toolbar: {
-                                                        items: [
-                                                        'exportButton',
-                                 //                         'groupPanel',
-                                                          {
-                                                            widget: 'dxButton',
-                                                            location: 'after',
-                                                            options: {
-                                                              icon: 'exportpdf',
-                                                              text: 'Export to PDF',
-                                                              onClick() {
-                                                                const doc = new jsPDF('l', 'mm', [297, 210]);
-                                                                doc.setFontSize(6);
-                                                                DevExpress.pdfExporter.exportDataGrid({
-                                                                  jsPDFDocument: doc,
-                                                                  component: dataGrid,
-                                                                }).then(() => {
-                                                                  doc.save('JurnalTRX.pdf');
-                                                                });
-                                                              },
-                                                            },
-                                                          },
-                                                          'searchPanel',
-                                                        ],
-                                                      },
+                                                                                                     items: [
+                                                                                                     {
+                                                                                                         widget: 'dxButton',
+                                                                                                         location: 'after',
+                                                                                                         options:{
+                                                                                                             icon: 'xlsxfile',
+                                                                                                             onClick(){
+                                                                                                                 location.href = "/api/getNeracaExcel/"+ datefrom
+                                                 //                                                                $.ajax({
+                                                 //                                                                url:"/api/getNeracaExcel/"+ datefrom,
+                                                 //                                                                method:'GET',
+                                                 ////                                                                contentType: false,
+                                                 ////                                                                processData: false,
+                                                 //                                                                success: function(e)
+                                                 //                                                                {
+                                                 //                                                                    debugger
+                                                 //                                                                    alert('success');
+                                                 ////                                                                    const byteCharacters = atob(e);
+                                                 ////                                                                    for (let i = 0; i < byteCharacters.length; i++) {
+                                                 ////                                                                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                                 ////                                                                    }
+                                                 ////                                                                    debugger
+                                                 ////                                                                    var arr = data.file;
+                                                 ////                                                                    var byteArray = new Uint8Array(arr);
+                                                 ////                                                                    var a = window.document.createElement('a');
+                                                 ////
+                                                 ////                                                                    a.href = window.URL.createObjectURL(new Blob([e], { type: 'application/octet-stream' }));
+                                                 ////                                                                    a.download = data.filename;
+                                                 ////
+                                                 ////                                                                    // Append anchor to body.
+                                                 ////                                                                    document.body.appendChild(a)
+                                                 ////                                                                    a.click();
+                                                 ////
+                                                 ////
+                                                 ////                                                                    // Remove anchor from body
+                                                 ////                                                                    document.body.removeChild(a)
+                                                 //
+                                                 //
+                                                 ////                                                                    const strFile = e.substring(10,48)
+                                                 ////                                                                    const element = document.createElement("a");
+                                                 ////                                                                    element.setAttribute('href', "view/");
+                                                 ////                                                                    element.setAttribute('download', strFile);
+                                                 ////                                                                    debugger
+                                                 ////                                                                    element.style.display = "none";
+                                                 ////                                                                    document.body.appendChild(element);
+                                                 ////                                                                    element.click();
+                                                 ////                                                                    document.body.removeChild(element);
+                                                 //
+                                                 //                                                                }
+                                                 //                                                                })
+                                                                                                             }
+                                                                                                         }
+                                                                              //                         'groupPanel',
+                                                                                                         },
+                                                                                                       {
+                                                                                                         widget: 'dxButton',
+                                                                                                         location: 'after',
+                                                                                                         options: {
+                                                                                                           icon: 'exportpdf',
+                                                                                                           text: 'Export to PDF',
+                                                                                                           onClick() {
+                                                                                                             const doc = new jsPDF();
+                                                                                                             doc.setFontSize(6);
+                                                                                                             DevExpress.pdfExporter.exportDataGrid({
+                                                                                                               jsPDFDocument: doc,
+                                                                                                               component: dataGrid,
+                                                                                                             }).then(() => {
+                                                                                                               doc.save('Neraca.pdf');
+                                                                                                             });
+                                                                                                           },
+                                                                                                         },
+                                                                                                       },
+                                                                                                       'searchPanel',
+                                                                                                       {
+                                                                                                       location: 'center',
+                                                                                                             locateInMenu: 'never',
+                                                                                                             template() {
+                                                 //                                                                              return $("<div class='toolbar-label'><b>Tom's Club</b> Products</div>");
+                                                                                                               return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
+                                                                                                             },
+                                                                                                       }
+                                                                                                     ],
+                                                                                                       },
                                                  // dataSource: {
                                                  //     url: '/api/getTRX',
                                                  //     method: 'GET',

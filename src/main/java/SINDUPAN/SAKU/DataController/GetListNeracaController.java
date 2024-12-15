@@ -12,6 +12,14 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import SINDUPAN.SAKU.Utilies.MediaTypeUtils;
+import SINDUPAN.SAKU.Utilies.MyFileNotFoundException;
+import SINDUPAN.SAKU.WordProcessingController;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties;
 import org.springframework.core.io.*;
@@ -20,7 +28,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties;
+import org.springframework.core.io.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.ServletContext;
@@ -53,6 +75,18 @@ public class GetListNeracaController {
 
     @Autowired
     public GetListNeracaJDBCTemplate masterJDBCTemplate;
+    public WordProcessingController jdbctemplateforexcel;
+    public JdbcTemplate jdbcTemplateObject;
+    @Autowired
+    public ResourceLoader resourceLoader;
+    @Autowired
+    public ServletContext servletContext;
+
+//    @GetMapping("/getNeraca_old")
+//    public List<GetNeracaModel> listDataNeracaold()
+//    {
+//        return masterJDBCTemplate.listDataNeracaold();
+//    }
     public WordProcessingController jdbctemplateforexcel;
     public JdbcTemplate jdbcTemplateObject;
     @Autowired

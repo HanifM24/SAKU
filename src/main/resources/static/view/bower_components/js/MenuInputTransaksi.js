@@ -64,6 +64,36 @@ $(function(){
 
 
                 }
+                if(namacoa == null)
+                {
+                    DevExpress.ui.notify("COA number/name must be inputted", "error", 10000);
+                }
+                else if(datacur <= 0)
+                {
+                    DevExpress.ui.notify("Nominal value must be greater than zero", "error", 10000);
+                }
+                else{
+                    eqrupiahdbt = datacur;
+                    datadr.push({
+                        KEYDBT: key,
+                        NO_COA_DBT: namacoa,
+                        MATA_UANG_DBT: kodeplusnamauang,
+                        INVOICE_DBT: invoice,
+                        NOMINALTRXDBT: datacur,
+                        KTRG_DBT: keterangan,
+                        EQIVALRPDBT: eqrupiahdbt
+                    });
+                    NO_COA_DBT.push(namacoa.slice(0, 6));
+                    MATA_UANG_DBT.push(matauang.slice(0, 3));
+                    INVOICE_DBT.push(invoice);
+                    NOMINALTRXDBT.push(datacur.toFixed(2));
+                    KTRG_DBT.push(keterangan);
+                    arreqrupiahdbt.push(eqrupiahdbt)
+                    sumeqdbt += parseFloat(eqrupiahdbt)
+
+
+
+                }
             } else {
                 $.ajax({
                     method: 'GET',
@@ -103,6 +133,9 @@ $(function(){
 
                 });
             }
+
+
+
 
 
 
@@ -166,11 +199,197 @@ $(function(){
                 });
             }
 //            cek.show();
+//            cek.show();
         }
 
 
     }
 
+
+
+
+    const datapreviewdbt = $("#datapreviewdbt").dxDataGrid({
+                    dataSource: datadr,
+                    allowColumnResizing: true,
+                    columnAutoWidth: true,
+//                    scrolling: {
+//                      mode: 'standard',
+//                    },
+//                    showBorders: true,
+                    editing:{
+                        mode: 'row',
+                        allowDeleting: true,
+                    },
+                    onRowRemoving(data){
+                           datadr.splice(data.data.KEYDBT - 1, 1);
+                           MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1);
+                           INVOICE_DBT.splice(data.data.KEYDBT - 1, 1);
+                           NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1);
+                           KTRG_DBT.splice(data.data.KEYDBT - 1, 1);
+                           NO_COA_DBT.splice(data.data.KEYDBT - 1, 1);
+                           arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1);
+                           sumeqdbt -= data.data.EQIVALRPDBT;
+
+                    },
+                    onRowRemoved(){
+                                        for(var i=0; i<NO_COA_DBT.length; i++)
+                                             {
+                                                    datadr[i].KEYDBT = i+1
+                                             };
+                                    },
+                    columns: [
+                        // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+                        {dataField:"KEYDBT",caption:"No.", alignment: "left"},
+                        {dataField:"NO_COA_DBT",caption:"COA debit number", alignment: "left"},
+                        {dataField:"MATA_UANG_DBT",caption:"Currency", alignment: "left"},
+                        {dataField:"INVOICE_DBT",caption:"Debit Invoice", alignment: "left"},
+                        {dataField:"NOMINALTRXDBT",caption:"Debit Nominal", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"EQIVALRPDBT",caption:"Equivalent Rupiahs", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"KTRG_DBT",caption:"Des", alignment: "left"}
+                    ],
+                    summary:{
+                        totalItems:[
+                            {
+                                column: "NOMINALTRXDBT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            },
+                            {
+                                column: "EQIVALRPDBT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            }
+                        ]
+                    }
+
+
+                }).dxDataGrid("instance");
+    const datapreviewkdt = $("#datapreviewkdt").dxDataGrid({
+                    dataSource: datacr,
+//                    showBorders: true,
+                    allowColumnResizing: true,
+                    columnAutoWidth: true,
+                    editing:{
+                                        mode: 'row',
+                                        allowDeleting: true
+                                    },
+//                    showBorders: true,
+                    onRowRemoving(data){
+
+                                        datacr.splice(data.data.KEYKDT - 1, 1);
+                                        MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        INVOICE_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1);
+                                        KTRG_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        NO_COA_KDT.splice(data.data.KEYKDT - 1, 1);
+                                        arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1);
+                                        sumeqkdt -= data.data.EQIVALRPKDT;
+
+
+
+
+
+                                    },
+                    onRowRemoved(){
+                        for(var i=0; i<NO_COA_KDT.length; i++)
+                             {
+                                    datacr[i].KEYKDT = i+1
+                             };
+                    },
+                    columns: [
+                        {dataField:"KEYKDT",caption:"No.", alignment: "left"},
+                        {dataField:"NO_COA_KDT",caption:"COA credit number", alignment: "left"},
+                        {dataField:"MATA_UANG_KDT",caption:"Currency", alignment: "left"},
+                        {dataField:"INVOICE_KDT",caption:"Credit invoice", alignment: "left"},
+                        {dataField:"NOMINALTRXKDT",caption:"Credit Nominal", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"EQIVALRPKDT",caption:"Equivalent Rupiahs", format:{
+                                type:'fixedPoint',
+                                precision: 2}, alignment: "right"},
+                        {dataField:"KTRG_KDT",caption:"Des", alignment: "left"},
+                    ],
+                    summary:{
+                        totalItems:[
+                            {
+                                column: "NOMINALTRXKDT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            },
+                            {
+                                column: "EQIVALRPKDT",
+                                summaryType: "sum",
+                                valueFormat: "#,##0.##"
+                            }
+                        ]
+                    }
+
+
+                }).dxDataGrid("instance");
+    $("#buttondebet").dxButton({
+        stylingMode: 'outlined',
+        text:'Click to add debit data',
+        type:'normal',
+        onClick()
+        {
+            modaldebit.show();
+        }
+    });
+    $("#buttonkredit").dxButton({
+        stylingMode: 'outlined',
+        text:'Click to add credit data',
+        type:'normal',
+        onClick()
+        {
+            modalcredit.show();
+//            cek.show();
+        }
+    });
+
+
+    $("#popup").dxPopup({
+        title: "Add debit",
+        showTitle: true,
+        width: 500,
+//        height: 520,
+        position: {
+            my: 'center',
+            at: 'center',
+            of: window
+        },
+        showCloseButton: true,
+        visible: false,
+        dragEnabled: false,
+        closeOnOutsideClick: true,
+        contentTemplate: function()  {
+            let content = $('<div />');
+            content.append('<div id="formInsertdebit" />');
+//            content.append('<p>Kredit</p> ')
+//            content.append('<div id="datapreviewkdt" />');
+//            content.append('<div id="submitbutton" />')
+//            content.dxScrollView({
+//                    width: '100%',
+//                    height: '100%',
+//                  });
+            return content;
+
+
+        },
+
+        onShown: function(){
+
+            $("#formInsertdebit").dxForm({
+                    colCount: 1,
+//                    width: '75%',
+                    position:'center',
+                    labelLocation: "top",
+                    alignItemLabels: true,
+                    alignItemLabelsInAllGroups: true,
+                    items: [
 
 
 
@@ -423,7 +642,87 @@ $(function(){
                             label: { text: "Enter debet nominal", location: "top" },
                             editorOptions: {placeholder:"Enter Here..",
                                 format: '#,##0.00',
+                        {
+                            itemType: "simple",
+                            editorType: "dxSelectBox",
+                            dataField: "NOPLUSNAMACOADBT",
+                            label: { text: "Select COA debit", location: "top" },
+                            editorOptions: {
+                                dataSource: "/api/getnocoaplusname/1",
+                                placeholder: "Enter here...",
+                                showSelectionControls: true,
+                                applyValueMode: "useButtons",
+                                displayExpr: function (data) {
+                                    if (data) {
+                                        return `${data.NOPLUSNAMACOADBT}`;
+                                    }
+                                    return null;
+                                },
+                                keyExpr: "NOPLUSNAMACOADBT",
+                                valueExpr: "NOPLUSNAMACOADBT",
+                                searchEnabled: true,
+                            },
+                            validationRules: [
+                                {
+                                    type: "required",
+                                },
+                            ]
+                        },
+                        {
+                            itemType: "simple",
+                            editorType: "dxSelectBox",
+                            dataField: "KODEPLUSNAMAUANGDBT",
+                            label: { text: "Select debit currency", location: "top" },
+                            editorOptions: {
+                                dataSource: "/api/getmatauang",
+                                placeholder: "Enter currency...",
+                                showSelectionControls: true,
+                                applyValueMode: "useButtons",
+                                displayExpr: function (data) {
+                                    if (data) {
+                                        return `${data.KODEPLUSNAMAUANGDBT}`;
+                                    }
+                                    return '360 - IDR';
+                                },
+                                keyExpr: "KODEPLUSNAMAUANGDBT",
+                                valueExpr: "KODEPLUSNAMAUANGDBT",
+                                searchEnabled: true,
+                            },
+                            validationRules: [
+                                {
+                                    type: "required",
+                                },
+                            ]
+                        },
+                        {
+                            itemType: "simple",
+                            editorType: "dxTextBox",
+                            dataField: "INVOICE_DBT",
+                            label: { text: "Input invoice debit if exist", location: "top" },
+                            editorOptions: {placeholder:"Enter Here.."}
+                        },
+                        {
+                            itemType: "simple",
+                            editorType: "dxNumberBox",
+                            dataField: "NOMINALTRXDBT",
+                            label: { text: "Enter debet nominal", location: "top" },
+                            editorOptions: {placeholder:"Enter Here..",
+                                format: '#,##0.00',
 
+                            },
+                            validationRules: [
+                                {
+                                    type: "required",
+                                },
+                            ]
+                        },
+                        {
+                            itemType: "simple",
+                            editorType: "dxTextBox",
+                            dataField: "KTRG_DBT",
+                            label: { text: "Enter debet description (Optional)", location: "top" },
+                            editorOptions: {
+                                placeholder:"Enter Here .."
                             },
                             validationRules: [
                                 {
@@ -485,8 +784,17 @@ $(function(){
                                     //             NOMINALTRXDBT: NOMINALTRXDBTV,
                                     //             KTRG_DBT:KTRGNDBT,
                                     //             EQIVALRP:eqrupiah} );
+                                    // datadr.push({NO_COA_DBT: NOPLUSNAMACOADBT,
+                                    //             MATA_UANG_DBT: KODEPLUSNAMAUANGDBT,
+                                    //             INVOICE_DBT: INVOICE_DBTV,
+                                    //             NOMINALTRXDBT: NOMINALTRXDBTV,
+                                    //             KTRG_DBT:KTRGNDBT,
+                                    //             EQIVALRP:eqrupiah} );
 
 
+                                    // sumeqdbt += parseFloat(eqrupiahdbt)
+                                    // JSON.stringify(datadr);
+                                    // datat.push(datadr);
                                     // sumeqdbt += parseFloat(eqrupiahdbt)
                                     // JSON.stringify(datadr);
                                     // datat.push(datadr);
@@ -500,7 +808,11 @@ $(function(){
                                     // cek.show();
                                 }
                                 // useSubmitBehavior: true,
+                                    // cek.show();
+                                }
+                                // useSubmitBehavior: true,
 
+                            },
                             },
 
                         },
@@ -631,8 +943,138 @@ $(function(){
 //
 //
 //            });
+                        },
 
 
+                    ],
+                });
+
+        }
+
+//        onShown: function ()
+//        {
+//            $("#datapreviewdbt").dxDataGrid({
+//                dataSource: datadr,
+//                columnAutoWidth: true,
+//                showBorders: true,
+//                editing:{
+//                    mode: 'row',
+//                    allowDeleting: true
+//                },
+//                onRowRemoving(data){
+//                       datadr.splice(data.data.KEYDBT - 1, 1);
+//                       MATA_UANG_DBT.splice(data.data.KEYDBT - 1, 1);
+//                       INVOICE_DBT.splice(data.data.KEYDBT - 1, 1);
+//                       NOMINALTRXDBT.splice(data.data.KEYDBT - 1, 1);
+//                       KTRG_DBT.splice(data.data.KEYDBT - 1, 1);
+//                       NO_COA_DBT.splice(data.data.KEYDBT - 1, 1);
+//                       arreqrupiahdbt.splice(data.data.KEYDBT - 1, 1);
+//                       sumeqdbt -= data.data.EQIVALRPDBT;
+//
+//                },
+//                onRowRemoved(){
+//                                    for(var i=0; i<NO_COA_DBT.length; i++)
+//                                         {
+//                                                datadr[i].KEYDBT = i+1
+//                                         };
+//                                },
+//                columns: [
+//                    // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+//                    {dataField:"KEYDBT",caption:"Nomor", alignment: "left"},
+//                    {dataField:"NO_COA_DBT",caption:"Nomor COA Debet", alignment: "center"},
+//                    {dataField:"MATA_UANG_DBT",caption:"Mata Uang", alignment: "center"},
+//                    {dataField:"INVOICE_DBT",caption:"Invoice Debit", alignment: "center"},
+//                    {dataField:"NOMINALTRXDBT",caption:"Nominal Debet", format:{
+//                            type:'fixedPoint',
+//                            precision: 2}, alignment: "right"},
+//                    {dataField:"EQIVALRPDBT",caption:"Ekivalen Rupiah", format:{
+//                            type:'fixedPoint',
+//                            precision: 2}, alignment: "right"},
+//                    {dataField:"KTRG_DBT",caption:"Keterangan", alignment: "center"}
+//                ],
+//                summary:{
+//                    totalItems:[
+//                        {
+//                            column: "NOMINALTRXDBT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        },
+//                        {
+//                            column: "EQIVALRPDBT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        }
+//                    ]
+//                }
+//
+//
+//            });
+//            $("#datapreviewkdt").dxDataGrid({
+//                dataSource: datacr,
+//                showBorders: true,
+//                allowColumnResizing: true,
+//                columnAutoWidth: true,
+//                editing:{
+//                                    mode: 'row',
+//                                    allowDeleting: true
+//                                },
+//                showBorders: true,
+//                onRowRemoving(data){
+//
+//                                    datacr.splice(data.data.KEYKDT - 1, 1);
+//                                    MATA_UANG_KDT.splice(data.data.KEYKDT - 1, 1);
+//                                    INVOICE_KDT.splice(data.data.KEYKDT - 1, 1);
+//                                    NOMINALTRXKDT.splice(data.data.KEYKDT - 1, 1);
+//                                    KTRG_KDT.splice(data.data.KEYKDT - 1, 1);
+//                                    NO_COA_KDT.splice(data.data.KEYKDT - 1, 1);
+//                                    arreqrupiahkdt.splice(data.data.KEYKDT - 1, 1);
+//                                    sumeqkdt -= data.data.EQIVALRPKDT;
+//
+//
+//
+//
+//
+//                                },
+//                onRowRemoved(){
+//                    for(var i=0; i<NO_COA_KDT.length; i++)
+//                         {
+//                                datacr[i].KEYKDT = i+1
+//                         };
+//                },
+//                columns: [
+//                    // 'NO_COA_DBT','MATA_UANG_DBT', 'INVOICE_DBT', 'NOMINALTRXDBT'
+//                    {dataField:"NO_COA_KDT",caption:"Nomor COA Kredit", alignment: "center"},
+//                    {dataField:"MATA_UANG_KDT",caption:"Mata Uang", alignment: "center"},
+//                    {dataField:"INVOICE_KDT",caption:"Invoice Kredit", alignment: "center"},
+//                    {dataField:"NOMINALTRXKDT",caption:"Nominal Kredit", format:{
+//                            type:'fixedPoint',
+//                            precision: 2}, alignment: "right"},
+//                    {dataField:"EQIVALRPKDT",caption:"Ekivalen Rupiah", format:{
+//                            type:'fixedPoint',
+//                            precision: 2}, alignment: "right"},
+//                    {dataField:"KTRG_KDT",caption:"Keterangan", alignment: "center"},
+//                ],
+//                summary:{
+//                    totalItems:[
+//                        {
+//                            column: "NOMINALTRXKDT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        },
+//                        {
+//                            column: "EQIVALRPKDT",
+//                            summaryType: "sum",
+//                            valueFormat: "#,##0.##"
+//                        }
+//                    ]
+//                }
+//
+//
+//            });
+
+
+//        }
+    });
 //        }
     });
 
@@ -890,6 +1332,17 @@ $(function(){
                         // dataraw.append('data', datat);
                         // dataraw.append('data', JSON.stringify(datadr));
                         // dataraw.append('datacr', JSON.stringify(datacr));
+        });
+    $("#submitbutton").dxButton({
+                    text:'OK',
+                    type:'danger',
+                    horizontalAlignment: 'center',
+                    onClick:function() {
+                        if(NO_COA_DBT.length != 0 && NO_COA_KDT.length != 0){
+                        let dataraw = new FormData();
+                        // dataraw.append('data', datat);
+                        // dataraw.append('data', JSON.stringify(datadr));
+                        // dataraw.append('datacr', JSON.stringify(datacr));
 
                         dataraw.append('NO_COA_DBT', NO_COA_DBT);
                         dataraw.append("MATA_UANG_DBT",MATA_UANG_DBT);
@@ -934,7 +1387,34 @@ $(function(){
                              {
                                     DevExpress.ui.notify("Data transaction must be inputted", "error", 10000);
                              }
+                            });
+                        }
+                        else
+                        {
+                            DevExpress.ui.notify("Jumlah transaksi debit dan kredit harus sama", "error", 10000);
+                        }
+                        // DevExpress.ui.notify('The Outlined button was clicked');
+                    }
+                        else
+                             {
+                                    DevExpress.ui.notify("Data transaction must be inputted", "error", 10000);
+                             }
 
+                    }
+                })
+//    $("#texthrfhisotritrx").dxButton({
+//        stylingMode: 'text',
+//        text: 'Click to view inputted data',
+//        hint: 'Click to view inputted data',
+//        type: 'default',
+//        // width: 120,
+//        onClick : ()=> {
+//            cek.show();
+//            // window.location ="http://localhost:8080/SAKU_TRANSAKSI"  // for open same tab
+//            // window.open('http://localhost:8080/SAKU_TRANS//SI') -- for open new tab
+//            // DevExpress.ui.notify('The Outlined button was clicked');
+//        },
+//    });
                     }
                 })
 //    $("#texthrfhisotritrx").dxButton({
@@ -952,6 +1432,8 @@ $(function(){
 //    });
 
     // $("#button").dxButton
+    const modaldebit = $("#popup").dxPopup("instance");
+    const modalcredit = $("#popup2").dxPopup("instance");
     const modaldebit = $("#popup").dxPopup("instance");
     const modalcredit = $("#popup2").dxPopup("instance");
 

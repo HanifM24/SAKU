@@ -5,11 +5,32 @@ $(function()
 {
 
     var titttle = "Neraca pada tanggal " +today;
+    var titttle = "Neraca pada tanggal " +today;
 
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
 
     $("#formsearch").dxForm({
+                 colCount: 1,
+                 width: '300px',
+                 position:'center',
+                 labelLocation: "left",
+                 alignItemLabels: true,
+                 alignItemLabelsInAllGroups: true,
+                 items: [
+                 {
+                         editorType: "dxDateBox",
+                         dataField: "datefrom",
+                         label: { text: "Tanggal", location: "left" },
+                         editorOptions: {
+                             value: today
+                         },
+                         validationRules: [
+                             {
+                                 type: "required",
+                             },
+                         ]
+                 },
                  colCount: 1,
                  width: '300px',
                  position:'center',
@@ -43,7 +64,32 @@ $(function()
                                         datefrom = $('#formsearch').find('input[name="datefrom"]').val();
                                         popup.show();
                                         }
+                 {
+                         itemType: "button",
+                         editorType: "dxTextBox",
+                         itemType: 'button',
+                         horizontalAlignment: 'center',
+                         buttonOptions: {
+                                  text: 'Search',
+                                  type: 'danger',
+                                  onClick: function() {
+                                        datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                        popup.show();
+                                        }
 
+                                        },
+                 },
+                 {
+                          itemType: "button",
+                          editorType: "dxTextBox",
+                          itemType: 'button',
+                          horizontalAlignment: 'center',
+                          buttonOptions: {
+                                   text: 'Reset Date',
+                                   type: 'default',
+                                   onClick: function() {
+                                                  $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
+                                                       }
                                         },
                  },
                  {
@@ -60,7 +106,11 @@ $(function()
 
                                          },
                  },
+                                         },
+                 },
 
+                 ]
+             }).dxForm("instance");
                  ]
              }).dxForm("instance");
 
@@ -96,6 +146,7 @@ $(function()
                                              dataSource: "/api/getNeraca/"+ datefrom,
                                              method: "GET",
                                              export: {
+                                                     enabled: true
                                                      enabled: true
                                                      },
                                              toolbar: {
@@ -176,6 +227,11 @@ $(function()
                                                             locateInMenu: 'never',
                                                             template() {
 //                                                                              return $("<div class='toolbar-label'><b>Tom's Club</b> Products</div>");
+                                                              return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
+                                                            },
+                                                      }
+                                                    ],
+                                                      },
                                                               return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
                                                             },
                                                       }
