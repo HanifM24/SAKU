@@ -4,85 +4,65 @@ var today = new Date();
 $(function()
 {
 
-    var titttle = "Neraca pada tanggal " +choicedate;
+    var titttle = "Neraca pada tanggal " +today;
 
     window.jsPDF = window.jspdf.jsPDF;
     applyPlugin(window.jsPDF);
 
     $("#formsearch").dxForm({
-                             colCount: 1,
-                             width: '300px',
-                             position:'center',
-                             labelLocation: "left",
-                             alignItemLabels: true,
-                             alignItemLabelsInAllGroups: true,
-                             items: [
+                 colCount: 1,
+                 width: '300px',
+                 position:'center',
+                 labelLocation: "left",
+                 alignItemLabels: true,
+                 alignItemLabelsInAllGroups: true,
+                 items: [
+                 {
+                         editorType: "dxDateBox",
+                         dataField: "datefrom",
+                         label: { text: "Tanggal", location: "left" },
+                         editorOptions: {
+                             value: today
+                         },
+                         validationRules: [
                              {
-
-                                         editorType: "dxDateBox",
-                                         dataField: "datefrom",
-                                         label: { text: "Tanggal", location: "left" },
-                                         editorOptions: {
-                                             value: today
-                                         },
-                                         validationRules: [
-                                             {
-                                                 type: "required",
-                                             },
-                                         ]
+                                 type: "required",
                              },
+                         ]
+                 },
 
-                             {
-                                     itemType: "button",
-                                     editorType: "dxTextBox",
-                                     itemType: 'button',
-                                     horizontalAlignment: 'center',
-                                     buttonOptions: {
-                                              text: 'Cari',
-                                              type: 'danger',
-                                              onClick: function() {
-                                                    datefrom = $('#formsearch').find('input[name="datefrom"]').val();
-                                                    popup.show();
-//                                                     var datefrom = $('#formsearch').find('input[name="datefrom"]').val();
-//                                                     var dateto = $('#formsearch').find('input[name="dateto"]').val();
+                 {
+                         itemType: "button",
+                         editorType: "dxTextBox",
+                         itemType: 'button',
+                         horizontalAlignment: 'center',
+                         buttonOptions: {
+                                  text: 'Search',
+                                  type: 'danger',
+                                  onClick: function() {
+                                        datefrom = $('#formsearch').find('input[name="datefrom"]').val();
+                                        popup.show();
+                                        }
 
-//                                                     $.ajax({
-//                                                        url:'/api/getTRXjrnldtlwithparam'+'/'+datefrom+'/'+dateto,
-//                                                        contentType: 'application/x-www-form-urlencoded',
-//                                                        success: function(data){
-//                                                                dataGrid.option("dataSource", {store:{type:"array", data: data}})
-//                                                        }
-//
-//                                                     })
+                                        },
+                 },
+                 {
+                          itemType: "button",
+                          editorType: "dxTextBox",
+                          itemType: 'button',
+                          horizontalAlignment: 'center',
+                          buttonOptions: {
+                                   text: 'Reset Date',
+                                   type: 'default',
+                                   onClick: function() {
+                                                  $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
+                                                       }
 
+                                         },
+                 },
 
-                                                                                         }
-
-                                                                                     },
-                                                         },
-                             {
-                                                              itemType: "button",
-                                                              editorType: "dxTextBox",
-                                                              itemType: 'button',
-                                                              horizontalAlignment: 'center',
-                                                              buttonOptions: {
-                                                                       text: 'Reset tanggal',
-                                                                       type: 'default',
-                                                                       onClick: function() {
-                                                                                      $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);
-                                                                                           }
-
-                                                                                                              },
-                                                                                  },
-
-
-
-
-
-
-
-                             ],
-                         }).dxForm("instance");
+                 ]
+             }).dxForm("instance");
 
     const popup = $("#popup").dxPopup({
                             title: titttle,
@@ -116,41 +96,91 @@ $(function()
                                              dataSource: "/api/getNeraca/"+ datefrom,
                                              method: "GET",
                                              export: {
-                                                         enabled: true
+                                                     enabled: true
                                                      },
                                              toolbar: {
-                                                                    items: [
-                                                                    'exportButton',
-                                             //                         'groupPanel',
-                                                                      {
-                                                                        widget: 'dxButton',
-                                                                        location: 'after',
-                                                                        options: {
-                                                                          icon: 'exportpdf',
-                                                                          text: 'Export to PDF',
-                                                                          onClick() {
-                                                                            const doc = new jsPDF();
-                                                                            doc.setFontSize(6);
-                                                                            DevExpress.pdfExporter.exportDataGrid({
-                                                                              jsPDFDocument: doc,
-                                                                              component: dataGrid,
-                                                                            }).then(() => {
-                                                                              doc.save('Neraca.pdf');
-                                                                            });
-                                                                          },
-                                                                        },
-                                                                      },
-                                                                      'searchPanel',
-                                                                      {
-                                                                      location: 'center',
-                                                                            locateInMenu: 'never',
-                                                                            template() {
+                                                    items: [
+                                                    {
+                                                        widget: 'dxButton',
+                                                        location: 'after',
+                                                        options:{
+                                                            icon: 'xlsxfile',
+                                                            onClick(){
+                                                                $.ajax({
+                                                                url:"/api/getNeracaExcel/"+ datefrom,
+                                                                method:'post',
+                                                                contentType: false,
+                                                                processData: false,
+                                                                success: function(e)
+                                                                {
+                                                                    debugger
+                                                                    alert('success');
+                                                                    const byteCharacters = atob(e);
+                                                                    for (let i = 0; i < byteCharacters.length; i++) {
+                                                                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                                                    }
+                                                                    debugger
+//                                                                    var arr = data.file;
+//                                                                    var byteArray = new Uint8Array(arr);
+//                                                                    var a = window.document.createElement('a');
+//
+//                                                                    a.href = window.URL.createObjectURL(new Blob([e], { type: 'application/octet-stream' }));
+//                                                                    a.download = data.filename;
+//
+//                                                                    // Append anchor to body.
+//                                                                    document.body.appendChild(a)
+//                                                                    a.click();
+//
+//
+//                                                                    // Remove anchor from body
+//                                                                    document.body.removeChild(a)
+
+
+//                                                                    const strFile = e.substring(10,48)
+//                                                                    const element = document.createElement("a");
+//                                                                    element.setAttribute('href', "view/");
+//                                                                    element.setAttribute('download', strFile);
+//                                                                    debugger
+//                                                                    element.style.display = "none";
+//                                                                    document.body.appendChild(element);
+//                                                                    element.click();
+//                                                                    document.body.removeChild(element);
+
+                                                                }
+                                                                })
+                                                            }
+                                                        }
+                             //                         'groupPanel',
+                                                        },
+                                                      {
+                                                        widget: 'dxButton',
+                                                        location: 'after',
+                                                        options: {
+                                                          icon: 'exportpdf',
+                                                          text: 'Export to PDF',
+                                                          onClick() {
+                                                            const doc = new jsPDF();
+                                                            doc.setFontSize(6);
+                                                            DevExpress.pdfExporter.exportDataGrid({
+                                                              jsPDFDocument: doc,
+                                                              component: dataGrid,
+                                                            }).then(() => {
+                                                              doc.save('Neraca.pdf');
+                                                            });
+                                                          },
+                                                        },
+                                                      },
+                                                      'searchPanel',
+                                                      {
+                                                      location: 'center',
+                                                            locateInMenu: 'never',
+                                                            template() {
 //                                                                              return $("<div class='toolbar-label'><b>Tom's Club</b> Products</div>");
-                                                                              return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
-                                                                            },
-                                                                      }
-                                                                    ],
-                                                                  },
+                                                              return $("<div class='toolbar-label'>Laporan Neraca Pada Tanggal ${`datefrom`}</div>");
+                                                            },
+                                                      }
+                                                    ],
+                                                      },
 
                                              contentType: "application/json",
 

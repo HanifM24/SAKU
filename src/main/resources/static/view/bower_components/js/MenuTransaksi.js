@@ -146,7 +146,7 @@ $(function(){
                                  itemType: 'button',
                                  horizontalAlignment: 'center',
                                  buttonOptions: {
-                                          text: 'Cari',
+                                          text: 'Search',
                                           type: 'danger',
                                           onClick: function() {
                                                  datefrom = $('#formsearch').find('input[name="datefrom"]').val();
@@ -173,7 +173,7 @@ $(function(){
                                                           itemType: 'button',
                                                           horizontalAlignment: 'center',
                                                           buttonOptions: {
-                                                                   text: 'Reset tanggal',
+                                                                   text: 'Reset Date',
                                                                    type: 'default',
                                                                    onClick: function() {
                                                                             $("#formsearch").dxForm('instance').getEditor("datefrom").option("value", today);

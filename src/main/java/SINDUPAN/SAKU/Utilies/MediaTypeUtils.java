@@ -3,7 +3,7 @@ import org.springframework.http.MediaType;
 
 import javax.servlet.ServletContext;
 
-public class getMediaTypeForFileName {
+public class MediaTypeUtils {
     public static MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName)
     {
         String mineType = servletContext.getMimeType(fileName);

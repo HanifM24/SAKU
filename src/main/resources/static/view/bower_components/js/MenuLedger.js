@@ -147,14 +147,23 @@ $(function(){
                 var currentledgername = info.data.NAMA_COA
                 $('<div>')
                           .addClass('master-detail-caption')
+                          .text(`GL Name :${currentledgername}`)
+                          .appendTo(container);
+                 $('<div>')
+                          .addClass('master-detail-caption')
                           .text(`GL Number : ${currentledgerdata}`)
                           .appendTo(container);
                 var griddata = $('<div id="test">').dxDataGrid
                 ({
                     dataSource:"/api/getTRXledger/"+currentledgerdata,
                     columnAutoWidth: true,
+                    export: {
+                                        enabled: true
+                                    },
                     onContentReady: function (e) {
+
                         dataf = e.component.getDataSource().items();
+                        debugger
 
                     },
                     columns: [
